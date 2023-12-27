@@ -75,7 +75,7 @@ const LoginRegister = () => {
                   <button className='text-white backdrop-blur-sm bg-[#ffffff2c] px-20 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg mb-2 btn'>Register</button>
                 </Box>
               </form>
-              <p className='text-white text-sm'>Already have an account? pepape<span><button className='underline underline-offset-4 font-semibold' onClick={()=> setPage("login")}>Login</button></span></p>
+              <p className='text-white text-sm'>Already have an account? <span><button className='underline underline-offset-4 font-semibold' onClick={()=> setPage("login")}>Login</button></span></p>
             </Box>
           </Box>
         </Box>
