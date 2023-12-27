@@ -12,7 +12,7 @@ const router = createBrowserRouter([
     children : [
       {
         path:'/',
-        element:<Home/>
+        element: <Home/>
       }
     ]
   }
@@ -28,10 +28,8 @@ function App() {
     return (
       <div>
         <div>
-        {/*
-        welcome 
-        logout button
-        */}
+          <h1>Welcome {user}!</h1>
+        {/*logout button*/}
         </div>
         <RouterProvider router ={router} />
       </div>
