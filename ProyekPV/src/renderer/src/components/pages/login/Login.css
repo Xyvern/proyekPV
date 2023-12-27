@@ -1,0 +1,14 @@
+.gmbr {
+  background-image: url(purple.jpg);
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+.btn {
+  transition: all 0.2s ease;
+}
+
+.btn:active {
+  transform: scale(0.90);
+}
