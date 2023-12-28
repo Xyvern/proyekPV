@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
@@ -7,6 +7,7 @@ const Layout = () => {
       <nav>
         <li><NavLink to="/">Home</NavLink></li>
       </nav>
+      <Outlet/>
     </Box>
   );
 }

@@ -58,6 +58,11 @@ app.whenReady().then(() => {
   ipcMain.handle("login",function (evt){
     return pool.query(`select * from users`)
   })
+
+  ipcMain.handle('register', function(evt,nama,email,notelp,pass){
+    return pool.query(`INSERT INTO users('user_username','user_fullname','user_pfp','user_phone','user_password','user_email')
+    VALUES('${nama}',"...","...","${notelp}","${pass}","${email}");`)
+  })
   createWindow()
 
   app.on('activate', function () {
