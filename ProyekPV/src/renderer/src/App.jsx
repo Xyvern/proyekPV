@@ -5,15 +5,18 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import LoginRegister from './components/pages/login/Login'
 import Layout from './components/Layout'
 import Home from './components/pages/home/home'
+import Filter from './components/pages/filter/filter'
+import MyFavourites from './components/pages/myfavourites/myfavourites'
+import Profile from './components/pages/profile/Profile'
 
 const router = createBrowserRouter([
   {
     element:<Layout/>,
     children : [
-      {
-        path:'/',
-        element: <Home/>
-      }
+      { path:'/',element: <Home/> },
+      { path:'/filter',element: <Filter/> },
+      { path:'/myfav',element: <MyFavourites/> },
+      { path:'/profile',element: <Profile/> }
     ]
   }
 ])
@@ -37,7 +40,7 @@ function App() {
       }
       else{
         setUser(nama)
-        // localStorage.setItem('user',nama)
+        localStorage.setItem('user',nama)
       }
     })
   }
@@ -80,11 +83,11 @@ function App() {
   } else {
     return (
       <div>
+        <RouterProvider router ={router} />
         <div>
-          <h1>Welcome {user}!</h1>
+          {/* <h1>Welcome {user}!</h1> */}
         {/*logout button*/}
         </div>
-        <RouterProvider router ={router} />
       </div>
     )
   }

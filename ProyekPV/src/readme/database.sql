@@ -84,6 +84,7 @@ insert  into `users`(`user_username`,`user_pfp`,`user_phone`,`user_password`,`us
 ('tenonenot','...','081234567890','ANITAMAXWYN','valentinotan@gmail.com'),
 ('xyvern','...','081234567890','sipenexe','darrencahya@gmail.com'),
 ('yinko','...','081234567890','sayajagoreact','merryfebyanti@gmail.com');
+('tes','...','081234567890','tes','tes@gmail.com');
 
 /*Table structure for table `videos` */
 

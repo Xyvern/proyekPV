@@ -8,4 +8,15 @@
   font-family: 'Inter', sans-serif;
   /* font-family: 'Helvetica', sans-serif; */
   /* font-family: 'Poppins', sans-serif; */
+  
+}
+
+:root {
+  background-color:hsla(0,0%,8%,1);
+  background-image:
+  radial-gradient(at 24% 5%, hsla(321,100%,46%,0.8) 0px, transparent 50%),
+  radial-gradient(at 23% 33%, hsla(266,39%,26%,1) 0px, transparent 50%),
+  radial-gradient(at 58% 59%, hsla(252,100%,17%,1) 0px, transparent 50%),
+  radial-gradient(at 81% 96%, hsla(252,47%,43%,1) 0px, transparent 50%),
+  radial-gradient(at 9% 32%, hsla(240,89%,32%,1) 0px, transparent 50%);
 }
