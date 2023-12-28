@@ -45,28 +45,47 @@ function App() {
   
   function handleregister(nama,email,notelp,pass){
     let temp = []
-    const cekemail = email.includes("@gmail.com")
     window.api.login().then(function(res){
       temp = res[0]
-      if(nama!='' || email != '' || notelp!= '' || pass != ''){
-        const found = temp.find((x) => x.user_username === nama)
-        if(found){
-          alert("Username sudah ada")
-        }
-        else if(!cekemail){
-          alert("Format email salah")
-        }
-        else if(notelp.length<10 || notelp.length >12){
-          alert("Panjang nomor telepon harus 10-12 angka")
-        }
-        else if(!found && cekemail && notelp.length>=10 && notelp.length <=12){
-          alert("Register berhasil")
-          window.api.register(nama,email,notelp,pass).then(function(){})
-        }
+      const found = temp.find((x) => x.user_username === nama)
+      const error = []
+      if (nama===""||nama===" "){
+        error.push("Username tidak boleh kosong!")
       }
-      else{
-        alert("Jangan dikosongi")
+      if (found){
+        error.push("Username sudah ada!")
       }
+      if (email===""||email===" "||!email.includes("@")){
+        error.push("Format email salah!")
+      }
+      if (notelp===""||notelp===" "||notelp.length<10||notelp.length>12){
+        error.push("Panjang nomor telepon harus 10-12 angka")
+      }
+      if (error.length===0){
+        console.log("register berhasil");
+        window.api.register(nama,email,notelp,pass).then(function(){})
+      }else{
+        error.map((e)=>console.log(e))
+      }
+      // if(nama!='' || email != '' || notelp!= '' || pass != ''){
+      //   const found = temp.find((x) => x.user_username === nama)
+      //   if(found){
+      //     alert("Username sudah ada")
+      //   }
+      //   else if(!cekemail){
+      //     alert("Format email salah")
+      //   }
+      //   else if(notelp.length<10 || notelp.length >12){
+      //     alert("Panjang nomor telepon harus 10-12 angka")
+      //   }
+      //   else if(!found && cekemail && notelp.length>=10 && notelp.length <=12){
+      //     alert("Register berhasil")
+      //     window.api.register(nama,email,notelp,pass).then(function(){})
+      //   }
+      // }
+      // else{
+      //   alert("Jangan dikosongi")
+      // }
     })
   }
 
