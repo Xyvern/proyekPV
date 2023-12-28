@@ -86,28 +86,28 @@ const LoginRegister = ({handlelogin,handleregister}) => {
                 <Box className='mb-2'>
                   <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                     <PersonIcon sx={{ color: 'white', mr: 1, my: 0.5 }} />
-                    <TextField id="input-with-sx" label="Username" type='text' variant="standard" sx={{ input: { color: 'white' } }} ref={registerUnameTxt}/>
+                    <TextField id="input-with-sx" label="Username" type='text' variant="standard" sx={{ input: { color: 'white' } }} inputRef={registerUnameTxt}/>
                   </Box>
                 </Box>
                 {/* Texfield Email */}
                 <Box className='mb-2'>
                   <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                     <EmailIcon sx={{ color: 'white', mr: 1, my: 0.5 }} />
-                    <TextField id="input-with-sx" label="Email Address" type='text' variant="standard" sx={{ input: { color: 'white' } }} ref={registerEmailTxt}/>
+                    <TextField id="input-with-sx" label="Email Address" type='text' variant="standard" sx={{ input: { color: 'white' } }} inputRef={registerEmailTxt}/>
                   </Box>
                 </Box>
                 {/* Texfield Phone Number */}
                 <Box className='mb-2'>
                   <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                     <PhoneAndroidIcon sx={{ color: 'white', mr: 1, my: 0.5 }} />
-                    <TextField id="input-with-sx" label="Phone Number" type='text' variant="standard" sx={{ input: { color: 'white' } }} ref={registerPnumberTxt}/>
+                    <TextField id="input-with-sx" label="Phone Number" type='text' variant="standard" sx={{ input: { color: 'white' } }} inputRef={registerPnumberTxt}/>
                   </Box>
                 </Box>
                 {/* Texfield Password */}
                 <Box className='mb-10'>
                   <Box sx={{ display: 'flex', alignItems: 'flex-end' }} >
                     <LockIcon sx={{ color: 'white', mr: 1, my: 0.5 }} />
-                    <TextField id="input-with-sx" label="Password" type='password' variant="standard" ref={registerPassTxt}  sx={{ input: { color: 'white' } }}/>
+                    <TextField id="input-with-sx" label="Password" type='password' variant="standard" inputRef={registerPassTxt}  sx={{ input: { color: 'white' } }}/>
                   </Box>
                 </Box>
                 {/* Button Register */}

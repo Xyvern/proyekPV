@@ -37,7 +37,7 @@ function App() {
       }
       else{
         setUser(nama)
-        localStorage.setItem('user',nama)
+        // localStorage.setItem('user',nama)
       }
     })
   }
@@ -45,20 +45,33 @@ function App() {
   
   function handleregister(nama,email,notelp,pass){
     let temp = []
+    const cekemail = email.includes("@gmail.com")
     window.api.login().then(function(res){
       temp = res[0]
-      const found = temp.find((x) => x.user_username === nama)
-      if(found){
-        alert("Username sudah ada")
+      if(nama!='' || email != '' || notelp!= '' || pass != ''){
+        const found = temp.find((x) => x.user_username === nama)
+        if(found){
+          alert("Username sudah ada")
+        }
+        else if(!cekemail){
+          alert("Format email salah")
+        }
+        else if(notelp.length<10 || notelp.length >12){
+          alert("Panjang nomor telepon harus 10-12 angka")
+        }
+        else if(!found && cekemail && notelp.length>=10 && notelp.length <=12){
+          alert("Register berhasil")
+          window.api.register(nama,email,notelp,pass).then(function(){})
+        }
       }
       else{
-        window.api.register(nama,email,notelp,pass).then(function(){})
+        alert("Jangan dikosongi")
       }
     })
   }
 
   useEffect(() => {
-    const user = localStorage.getItem('user')
+    // const user = localStorage.getItem('user')
     setUser(user)
   },[])
   
