@@ -75,16 +75,17 @@ CREATE TABLE `users` (
   `user_pfp` varchar(1024) NOT NULL,
   `user_phone` varchar(12) NOT NULL,
   `user_password` varchar(30) NOT NULL,
+  `user_email` varchar(100) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `users` */
 
-insert  into `users`(`user_id`,`user_username`,`user_fullname`,`user_pfp`,`user_phone`,`user_password`) values 
-(1,'rinko','Merry Febyanti','...','081234567890','sayajagoreact'),
-(2,'naZura','Raphael Hanley','...','081234567890','Znyahurufbesar'),
-(3,'tenonenot','Valentino Tan','...','081234567890','ANITAMAXWYN'),
-(4,'xyvern','Darren Cahya','...','081234567890','sipenexe');
+insert  into `users`(`user_id`,`user_username`,`user_fullname`,`user_pfp`,`user_phone`,`user_password`,`user_email`) values 
+(5,'rinko','Merry Febyanti','...','081234567890','sayajagoreact','merryfebyanti@gmail.com'),
+(6,'naZura','Raphael Hanley','...','081234567890','Znyahurufbesar','raphhans@gmail.com'),
+(7,'tenonenot','Valentino Tan','...','081234567890','ANITAMAXWYN','valentinotan@gmail.com'),
+(8,'xyvern','Darren Cahya','...','081234567890','sipenexe','darrencahya@gmail.com');
 
 /*Table structure for table `videos` */
 
