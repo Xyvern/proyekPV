@@ -67,25 +67,6 @@ function App() {
       }else{
         error.map((e)=>console.log(e))
       }
-      // if(nama!='' || email != '' || notelp!= '' || pass != ''){
-      //   const found = temp.find((x) => x.user_username === nama)
-      //   if(found){
-      //     alert("Username sudah ada")
-      //   }
-      //   else if(!cekemail){
-      //     alert("Format email salah")
-      //   }
-      //   else if(notelp.length<10 || notelp.length >12){
-      //     alert("Panjang nomor telepon harus 10-12 angka")
-      //   }
-      //   else if(!found && cekemail && notelp.length>=10 && notelp.length <=12){
-      //     alert("Register berhasil")
-      //     window.api.register(nama,email,notelp,pass).then(function(){})
-      //   }
-      // }
-      // else{
-      //   alert("Jangan dikosongi")
-      // }
     })
   }
 
