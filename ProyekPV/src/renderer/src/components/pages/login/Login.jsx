@@ -8,13 +8,18 @@ import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import './Login.css'
 
 
-const LoginRegister = () => {
+const LoginRegister = ({handlelogin}) => {
   const [page, setPage] = useState('login')
 
-  const loginUnameTxt = useRef("")
-  const loginPassTxt = useRef("")
+  // const [loginUname, setLoginUname] = useState("");
+  // const [loginPass, setLoginPass] = useState("");
   const registerUnameTxt = useRef("")
   const registerPassTxt = useRef("")
+
+  const handleLoginClick = (event) => {
+    event.preventDefault(); 
+    handlelogin(registerUnameTxt.current.value, registerPassTxt.current.value);
+  };
 
   if (page == "login") {
     return (
@@ -30,19 +35,22 @@ const LoginRegister = () => {
               <Box className='mb-5'>
                 <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                   <PersonIcon sx={{ color: 'white', mr: 1, my: 0.5 }} />
-                  <TextField id="input-with-sx" label="Username" type='text' variant="standard" sx={{ input: { color: 'white' } }} ref={loginUnameTxt}/>
+                  <TextField id="input-with-sx" label="Username" type='text' variant="standard" inputRef={registerUnameTxt} sx={{ input: { color: 'white' } }}/>
                 </Box>
               </Box>
               {/* Texfield Password Login */}
               <Box className='mb-10'>
                 <Box sx={{ display: 'flex', alignItems: 'flex-end' }} >
                   <LockIcon sx={{ color: 'white', mr: 1, my: 0.5 }} />
-                  <TextField id="input-with-sx" label="Password" type='password' variant="standard" ref={loginPassTxt}  sx={{ input: { color: 'white' } }}/>
+                  <TextField id="input-with-sx" label="Password" type='password' variant="standard" inputRef={registerPassTxt} sx={{ input: { color: 'white' } }}/>
                 </Box>
               </Box>
               {/* Button Login */}
               <Box className='mb-3'>
-                <button className='text-white backdrop-blur-sm bg-[#ffffff2c] px-20 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-2xl mb-2 btn'>Login</button>
+                <button
+                className='text-white backdrop-blur-sm bg-[#ffffff2c] px-20 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-2xl mb-2 btn'
+                onClick={handleLoginClick}>
+                    Login</button>
               </Box>
             </form>
             <p className='text-white text-sm'>Don't have an account? <span><button className='underline underline-offset-4 font-semibold' onClick={()=> setPage("register")}>Register</button></span></p>
