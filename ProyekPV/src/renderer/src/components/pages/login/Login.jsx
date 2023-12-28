@@ -10,10 +10,15 @@ import './Login.css'
 const LoginRegister = ({handlelogin}) => {
   const [page, setPage] = useState('login')
 
-  const [loginUname, setLoginUname] = useState("");
-  const [loginPass, setLoginPass] = useState("");
+  // const [loginUname, setLoginUname] = useState("");
+  // const [loginPass, setLoginPass] = useState("");
   const registerUnameTxt = useRef("")
   const registerPassTxt = useRef("")
+
+  const handleLoginClick = (event) => {
+    event.preventDefault(); 
+    handlelogin(registerUnameTxt.current.value, registerPassTxt.current.value);
+  };
 
   if (page == "login") {
     return (
@@ -28,21 +33,19 @@ const LoginRegister = ({handlelogin}) => {
               <Box className='mb-5'>
                 <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                   <PersonIcon sx={{ color: 'white', mr: 1, my: 0.5 }} />
-                  <TextField id="input-with-sx" label="Username" type='text' variant="standard" onChange={(e) => setLoginUname(e.target.value)} sx={{ input: { color: 'white' } }}/>
+                  <TextField id="input-with-sx" label="Username" type='text' variant="standard" inputRef={registerUnameTxt} sx={{ input: { color: 'white' } }}/>
                 </Box>
               </Box>
               <Box className='mb-10'>
                 <Box sx={{ display: 'flex', alignItems: 'flex-end' }} >
                   <LockIcon sx={{ color: 'white', mr: 1, my: 0.5 }} />
-                  <TextField id="input-with-sx" label="Password" type='password' variant="standard" onChange={(e) => setLoginPass(e.target.value)} sx={{ input: { color: 'white' } }}/>
+                  <TextField id="input-with-sx" label="Password" type='password' variant="standard" inputRef={registerPassTxt} sx={{ input: { color: 'white' } }}/>
                 </Box>
               </Box>
               <Box className='mb-3'>
                 <button
                 className='text-white backdrop-blur-sm bg-[#ffffff2c] px-20 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-2xl mb-2 btn'
-                onClick={() => {
-                  handlelogin(loginUname, loginPass);
-                }}>
+                onClick={handleLoginClick}>
                     Login</button>
               </Box>
             </form>

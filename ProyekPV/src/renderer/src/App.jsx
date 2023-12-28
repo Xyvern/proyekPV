@@ -24,24 +24,24 @@ function App() {
 
   function handlelogin(nama,pass){
     let temp =[]
-    window.api.login().then(function(res){
-      temp = res[0]
-      console.log(temp);
-        for (let index = 0; index < temp.length; index++) {
-          if(isiuser[index].name===nama){
-            if(isiuser[index].pass===pass){
-              console.log('dr sini');
-            }
-            else{
-              alert("Password Salah")
-            }
-          }
-          else{
-            alert("Username Tidak Terdaftar")
-          }
-      }
-    })
-    console.log("masuk");
+    // window.api.login().then(function(res){
+    //   temp = res[0]
+    //   console.log(temp);
+    //     for (let index = 0; index < temp.length; index++) {
+    //       if(isiuser[index].name===nama){
+    //         if(isiuser[index].pass===pass){
+    //           console.log('dr sini');
+    //         }
+    //         else{
+    //           alert("Password Salah")
+    //         }
+    //       }
+    //       else{
+    //         alert("Username Tidak Terdaftar")
+    //       }
+    //   }
+    // })
+    console.log(nama,pass);
   }
 
   function register(nama,pass){
