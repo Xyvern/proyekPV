@@ -60,8 +60,8 @@ app.whenReady().then(() => {
   })
 
   ipcMain.handle('register', function(evt,nama,email,notelp,pass){
-    return pool.query(`INSERT INTO users(user_username,user_fullname,user_pfp,user_phone,user_password,user_email)
-    VALUES('${nama}',"...","...","${notelp}","${pass}","${email}");`)
+    return pool.query(`INSERT INTO users(user_username,user_pfp,user_phone,user_password,user_email)
+    VALUES('${nama}',"...","${notelp}","${pass}","${email}");`)
   })
   createWindow()
 
