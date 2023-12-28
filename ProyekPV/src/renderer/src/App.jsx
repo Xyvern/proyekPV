@@ -22,6 +22,41 @@ function App() {
   const [user, setUser] = useState('')
   const [listUser, setListUser] = useState([])
 
+  function login(nama,pass){
+    let temp =[]
+    window.api.login().then(function(res){
+      temp = res[0]
+        for (let index = 0; index < temp.length; index++) {
+          if(isiuser[index].name===nama){
+            if(isiuser[index].pass===pass){
+              console.log('dr sini');
+            }
+            else{
+              alert("Password Salah")
+            }
+          }
+          else{
+            alert("Username Tidak Terdaftar")
+          }
+      }
+    })
+  }
+
+  function register(nama,pass){
+    let temp = []
+    window.api.login().then(function(res){
+      temp = res[0]
+        for (let index = 0; index < temp.length; index++) {
+          if(isiuser[index].name===nama){
+            window.api.register(nama,pass)
+          }
+          else{
+            alert("Username Sudah ada ")
+          }
+      }
+    })
+  }
+
   if (!user) {
     return <LoginRegister/>
   } else {
