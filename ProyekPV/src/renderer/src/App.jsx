@@ -84,9 +84,9 @@ function App() {
     return (
       <div>
         <RouterProvider router ={router} />
-        <div>
+        <div className='flex justify-center mt-4 py-10'>
           {/* <h1>Welcome {user}!</h1> */}
-        {/*logout button*/}
+          <button className='text-white backdrop-blur-sm bg-[#ffffff2c] px-10 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-2xl mb-2 btn'>Log Out</button>
         </div>
       </div>
     )
