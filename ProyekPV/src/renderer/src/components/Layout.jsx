@@ -25,7 +25,6 @@ const Layout = () => {
               <li><NavLink to="/filter" className="hover:text-gray-500">Filter</NavLink></li>
               <li><NavLink to="/myfav" className="hover:text-gray-500">My Favourites</NavLink></li>
               <li><NavLink to="/profile" className="hover:text-gray-500">Profile</NavLink></li>
-              
             </ul>
           </div>
         </nav>

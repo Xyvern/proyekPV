@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import LoginRegister from './components/pages/login/Login'
 import Layout from './components/Layout'
-import Home from './components/pages/home/home'
 import Filter from './components/pages/filter/filter'
 import MyFavourites from './components/pages/myfavourites/myfavourites'
 import Profile from './components/pages/profile/Profile'
+import Home from './components/pages/home/Home'
 
 const router = createBrowserRouter([
   {
