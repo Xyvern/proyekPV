@@ -13,6 +13,7 @@ const Layout = () => {
           <AnimationIcon fontSize='medium' sx={{color: 'white'}} className=''/>
             <h3 className="text-lg font-semibold text-white px-2">Cinemate</h3>
             <Box className="flex mx-5">
+              {/* Input Search */}
               <input type="text" placeholder="Search anything..." className="text-white rounded-l-lg px-4 py-1 text-sm w-[20rem] bg-[#413988]"/>
               <Box className="bg-white rounded-r-lg w-8 h-8 flex justify-center">
                 <button><SearchIcon sx={{color: 'black'}}/></button>
