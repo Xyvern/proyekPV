@@ -1,3 +1,12 @@
-.bg-main {
+:root {
+  background-color: rgb(19, 1, 62);
+}
 
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Webkit (Safari, Chrome) */
 }
