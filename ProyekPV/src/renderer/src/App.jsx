@@ -4,16 +4,19 @@ import { useEffect, useState } from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import LoginRegister from './components/pages/login/Login'
 import Layout from './components/Layout'
-import Home from './components/pages/home/home'
+import Filter from './components/pages/filter/filter'
+import MyFavourites from './components/pages/myfavourites/myfavourites'
+import Profile from './components/pages/profile/Profile'
+import Home from './components/pages/home/Home'
 
 const router = createBrowserRouter([
   {
     element:<Layout/>,
     children : [
-      {
-        path:'/',
-        element: <Home/>
-      }
+      { path:'/',element: <Home/> },
+      { path:'/filter',element: <Filter/> },
+      { path:'/myfav',element: <MyFavourites/> },
+      { path:'/profile',element: <Profile/> }
     ]
   }
 ])
@@ -37,7 +40,7 @@ function App() {
       }
       else{
         setUser(nama)
-        // localStorage.setItem('user',nama)
+        localStorage.setItem('user',nama)
       }
     })
   }
@@ -80,11 +83,11 @@ function App() {
   } else {
     return (
       <div>
-        <div>
-          <h1>Welcome {user}!</h1>
-        {/*logout button*/}
-        </div>
         <RouterProvider router ={router} />
+        <div className='flex justify-center mt-4 py-10'>
+          {/* <h1>Welcome {user}!</h1> */}
+          <button className='text-white backdrop-blur-sm bg-[#ffffff2c] px-10 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-2xl mb-2 btn'>Log Out</button>
+        </div>
       </div>
     )
   }
