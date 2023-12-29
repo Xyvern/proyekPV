@@ -8,7 +8,7 @@ const Layout = () => {
   return (
     <Box className="bg-main text-white">
       <Box className="z-50 backdrop-blur sticky top-0 ">
-        <nav className="w-100 h-10vh flex justify-between lg-:py-5 px-16 py-5">
+        <nav className="w-100 h-10vh flex justify-between lg-:py-5 px-16 py-5 mb-3">
           <div className="flex items-center flex-1 sticky top-0 ">
           <AnimationIcon fontSize='medium' sx={{color: 'white'}} className=''/>
             <h3 className="text-lg font-semibold text-white px-2">Cinemate</h3>
