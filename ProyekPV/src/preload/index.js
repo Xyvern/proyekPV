@@ -4,6 +4,7 @@ import { electronAPI } from '@electron-toolkit/preload'
 // Custom APIs for renderer
 const api = {
   login: () => ipcRenderer.invoke('login'),
+  loadVideo: () => ipcRenderer.invoke('loadvideo'),
   register: (user,email, notelp,password) => ipcRenderer.invoke('register', user,email,notelp,password),
 }
 

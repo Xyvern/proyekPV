@@ -9,21 +9,28 @@ import MyFavourites from './components/pages/myfavourites/myfavourites'
 import Profile from './components/pages/profile/Profile'
 import Home from './components/pages/home/Home'
 
-const router = createBrowserRouter([
-  {
-    element:<Layout/>,
-    children : [
-      { path:'/',element: <Home/> },
-      { path:'/filter',element: <Filter/> },
-      { path:'/myfav',element: <MyFavourites/> },
-      { path:'/profile',element: <Profile/> }
-    ]
-  }
-])
 
 function App() {
+  const [video, setVideo] = useState([])
   const [user, setUser] = useState('')
-  const [listUser, setListUser] = useState([])
+  // const [listUser, setListUser] = useState([])
+  const router = createBrowserRouter([
+    {
+      element:<Layout/>,
+      children : [
+        { path:'/',element: <Home listVideo={video}/> },
+        { path:'/filter',element: <Filter/> },
+        { path:'/myfav',element: <MyFavourites/> },
+        { path:'/profile',element: <Profile/> }
+      ]
+    }
+  ])
+
+  function loadVideo(){
+    window.api.loadVideo().then(function(res){
+      setVideo(res[0])
+    })
+  }
 
   function handlelogin(nama,pass){
     let temp = []
@@ -80,6 +87,7 @@ function App() {
   useEffect(() => {
     const user = localStorage.getItem('user')
     setUser(user)
+    loadVideo()
   },[])
   
   if (!user) {

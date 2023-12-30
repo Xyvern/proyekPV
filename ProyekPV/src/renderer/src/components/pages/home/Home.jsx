@@ -15,8 +15,14 @@ import './Home.css'
 import banner from "../../../assets/img/tenkinoko1.png";
 import example from "../../../assets/img/encanto.jpg";
 
-const Home = () => {
+const Home = ({listVideo}) => {
   const [open, setOpen] = useState(false);
+  const [idx, setIdx] = useState(null);
+  
+  // function setIdx(id){
+  //   const nemu = listVideo.find((v) => v.video_id ==id)
+  //   idx=nemu.video_id
+  // }
   var settings = {
     dots: true,
     infinite: false,
@@ -80,14 +86,17 @@ const Home = () => {
       <Box className="flex flex-col px-5 mt-16">
         <h1 className="text-xl font-semibold mb-5 ml-4">New Releases</h1>
         <Slider {...settings} className="" >
+          {listVideo.map((vid,i) => {
+            return(
+              <button key={vid.video_id} className="" onClick={() => {setOpen(true);setIdx(i)}}><img src={example} alt="" className="rounded-lg" /></button>
+          )})}
+          {/* <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
           <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
           <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
           <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
           <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
           <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
-          <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
-          <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
-          <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
+          <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button> */}
         </Slider>
       </Box>
       {/* Carousel Top Movies */}
@@ -123,13 +132,10 @@ const Home = () => {
         <Sheet sx={{ maxWidth: 1000,borderRadius: 'md',p: 3,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white'}} >
           <ModalClose variant="soft" sx={{ m: 1, bgcolor:'#413988' }}  />
           <Box>
-            <p>Judul_Movie</p>
-            <iframe
-              width="560"
-              height="315"
-              src={`https://www.youtube-nocookie.com/embed/FavUpD_IjVY?si=ZwHZnt2d8HemC9o3`}
-            ></iframe>            
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores doloribus dolore praesentium laborum iste magnam nisi cumque consequuntur obcaecati ducimus.</p>
+            {console.log(listVideo)}
+            <p>{idx !== null ? listVideo[idx].video_name : 'apalah'}</p>
+            <iframe width="560" height="315" src={idx !== null ?listVideo[idx].video_link : "yang bener"} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>           
+            <p>{idx !== null ? listVideo[idx].video_detail : "yakin"}</p>
           </Box>
         </Sheet>
       </Modal>
