@@ -3,8 +3,15 @@ import { NavLink, Outlet } from "react-router-dom";
 import './Layout.css'
 import AnimationIcon from '@mui/icons-material/Animation';
 import SearchIcon from '@mui/icons-material/Search';
+import { useState } from "react";
 
 const Layout = () => {
+  const [search, setSearch] = useState([])
+  function hasilSearch(input){
+    window.api.search(input).then(function(res){
+      setSearch(res[0])
+    })
+  }
   return (
     <Box className="bg-main text-white">
       <Box className="z-50 backdrop-blur sticky top-0 ">

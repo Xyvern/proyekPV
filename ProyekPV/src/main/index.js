@@ -61,6 +61,9 @@ app.whenReady().then(() => {
   ipcMain.handle("loadvideo",function (evt){
     return pool.query(`select * from videos`)
   })
+  ipcMain.handle("search",function (evt, nama){
+    return pool.query(`select * from videos where video_name like '%${nama}%'`)
+  })
 
   ipcMain.handle('register', function(evt,nama,email,notelp,pass){
     return pool.query(`INSERT INTO users(user_username,user_pfp,user_phone,user_password,user_email)

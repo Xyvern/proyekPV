@@ -129,12 +129,12 @@ const Home = ({listVideo}) => {
       </Box>
       {/* Modal Pop Up */}
       <Modal open={open} onClose={() => setOpen(false)} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white' }} >
-        <Sheet sx={{ maxWidth: 1000,borderRadius: 'md',p: 3,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white'}} >
+        <Sheet sx={{ maxHeight:'80vh',maxWidth: 1000,borderRadius: 'md',p: 3,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white', overflowY:'auto'}} >
           <ModalClose variant="soft" sx={{ m: 1, bgcolor:'#413988' }}  />
           <Box>
             {console.log(listVideo)}
             <p>{idx !== null ? listVideo[idx].video_name : 'apalah'}</p>
-            <iframe width="560" height="315" src={idx !== null ?listVideo[idx].video_link : "yang bener"} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>           
+            <iframe width="900" height="500" src={idx !== null ?listVideo[idx].video_link : "yang bener"} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>           
             <p>{idx !== null ? listVideo[idx].video_detail : "yakin"}</p>
           </Box>
         </Sheet>
