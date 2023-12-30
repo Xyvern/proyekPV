@@ -5,3 +5,12 @@
 .slick-slide div{
   margin: 0 1rem;
 }
+
+/* .modal {
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+} */
+
+/* .modal::-webkit-scrollbar {
+  display: none; 
+} */
