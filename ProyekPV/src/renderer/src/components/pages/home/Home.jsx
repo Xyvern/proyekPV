@@ -108,7 +108,7 @@ const Home = () => {
       <Box className="flex flex-col px-5 mt-16">
         <h1 className="text-xl font-semibold mb-5 ml-4">For Kids</h1>
         <Slider {...settings} className="" >
-          <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg shadow-2xl"/></button>
+          <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
           <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
           <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
           <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>

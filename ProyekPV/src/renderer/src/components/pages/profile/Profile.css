@@ -1,0 +1,15 @@
+.bg-header {
+  background-color:#99a0ff;
+  background-image:
+  radial-gradient(at 58% 95%, hsla(259,67%,62%,1) 0px, transparent 50%),
+  radial-gradient(at 99% 91%, hsla(248,62%,79%,1) 0px, transparent 50%),
+  radial-gradient(at 25% 15%, hsla(166,90%,76%,1) 0px, transparent 50%),
+  radial-gradient(at 84% 61%, hsla(323,83%,73%,1) 0px, transparent 50%),
+  radial-gradient(at 28% 72%, hsla(236,61%,62%,1) 0px, transparent 50%),
+  radial-gradient(at 95% 98%, hsla(192,98%,73%,1) 0px, transparent 50%),
+  radial-gradient(at 15% 55%, hsla(177,92%,76%,1) 0px, transparent 50%);
+}
+
+.pfp-setting {
+  margin-top: -87px;
+}
