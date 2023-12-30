@@ -124,6 +124,11 @@ const Home = () => {
           <ModalClose variant="soft" sx={{ m: 1, bgcolor:'#413988' }}  />
           <Box>
             <p>Judul_Movie</p>
+            <iframe
+              width="560"
+              height="315"
+              src={`https://www.youtube-nocookie.com/embed/FavUpD_IjVY?si=ZwHZnt2d8HemC9o3`}
+            ></iframe>            
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores doloribus dolore praesentium laborum iste magnam nisi cumque consequuntur obcaecati ducimus.</p>
           </Box>
         </Sheet>
