@@ -58,16 +58,30 @@ app.whenReady().then(() => {
   ipcMain.handle("login",function (evt){
     return pool.query(`select * from users`)
   })
+
   ipcMain.handle("loadvideo",function (evt){
     return pool.query(`select * from videos`)
   })
+
+  ipcMain.handle("loadfavorite",function (evt,user){
+    return pool.query(`select * from videos v 
+    join favorite f on v.video_id = f.video_id 
+    join users u on u.user_username = f.user_username
+    where f.user_username = '${user}'`)
+  })
+
   ipcMain.handle("search",function (evt, nama){
     return pool.query(`select * from videos where video_name like '%${nama}%'`)
-  })
+    })
 
   ipcMain.handle('register', function(evt,nama,email,notelp,pass){
     return pool.query(`INSERT INTO users(user_username,user_pfp,user_phone,user_password,user_email)
     VALUES('${nama}',"...","${notelp}","${pass}","${email}");`)
+  })
+
+  ipcMain.handle('addfavorite', function(evt,nama,video_id){
+    return pool.query(`INSERT INTO favorite(user_username,video_id)
+    VALUES('${nama}',${video_id})`)
   })
   createWindow()
 

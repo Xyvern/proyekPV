@@ -5,7 +5,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import LoginRegister from './components/pages/login/Login'
 import Layout from './components/Layout'
 import Filter from './components/pages/filter/filter'
-import MyFavourites from './components/pages/myfavourites/myfavourites'
+import MyFavourites from './components/pages/myfavourites/Myfavourites'
 import Profile from './components/pages/profile/Profile'
 import Home from './components/pages/home/Home'
 
@@ -13,6 +13,8 @@ import Home from './components/pages/home/Home'
 function App() {
   const [video, setVideo] = useState([])
   const [user, setUser] = useState('')
+  const [komen, setKomen] = useState([])
+  const [favoriteVideo, setFavoriteVideo] = useState([])
   // const [listUser, setListUser] = useState([])
   const router = createBrowserRouter([
     {
@@ -29,6 +31,18 @@ function App() {
   function loadVideo(){
     window.api.loadVideo().then(function(res){
       setVideo(res[0])
+    })
+  }
+  
+  function favorite(user){
+    window.api.loadfavorite(user).then(function(res){
+      setFavoriteVideo(res[0])
+    })
+  }
+  
+  function nambahKomen(user){
+    window.api.comment(isikomen,username).then(function(res){
+      setKomen(res[0])
     })
   }
 

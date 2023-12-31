@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Box, Button, Divider, Rating } from "@mui/material";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
@@ -20,7 +20,9 @@ import { Textarea } from "@mui/joy";
 
 const Home = ({listVideo}) => {
   const [open, setOpen] = useState(false);
+  const [idx, setIdx] = useState(null);
   const [value, setValue] = useState();
+  const isikomen = useRef('')
   var settings = {
     dots: true,
     infinite: false,
@@ -130,7 +132,7 @@ const Home = ({listVideo}) => {
               <iframe style={{boxShadow:'-19vw 1vw 90vw 1vw #280185'}}
                 width="100%"
                 height="400rem"
-                src={`https://www.youtube-nocookie.com/embed/FavUpD_IjVY?si=ZwHZnt2d8HemC9o3`} className="rounded-lg mt-10 flex"
+                src={idx !== null ? listVideo[idx].video_link : 'Link video tidak ditemukan'} className="rounded-lg mt-10 flex"
                 ></iframe>            
             </Box>
             <p className="mt-6">
@@ -145,9 +147,9 @@ const Home = ({listVideo}) => {
               <span className="mr-2 text-xs text-gray-400">Genre</span>
             </p>
             {/* Judul Movie */}
-            <p className="text-5xl mt-2 font-semibold text-violet-100">Judul Movie</p>
+            <p className="text-5xl mt-2 font-semibold text-violet-100">{idx !== null ? listVideo[idx].video_name : 'Nama Video tidak ditemukan'}</p>
             {/* Desc Movie */}
-            <p className="mt-4 text-sm text-violet-200">"Cows Cows Cows" is a surreal and humorous animated short video that gained popularity on the internet. The video features repeating images of cows with a catchy and rhythmic song in the background chanting "Cows cows cows, I like cows, I like cows, I like cows..."</p>
+            <p className="mt-4 text-sm text-violet-200">{idx !== null ? listVideo[idx].video_detail : 'Tidak ada detail video'}</p>
             <Box className="flex flex-row 'mb-3 mt-8">
               <Box className='mr-4'>
                 {/* Button Submit Add to Favorite */}
@@ -171,6 +173,7 @@ const Home = ({listVideo}) => {
                 sx={{borderRadius:'lg',color:'rgb(19, 1, 62)', '&::before': {display: 'none'},'&:focus-within': {
                 outline: '2px solid var(--Textarea-focusedHighlight)',
                 outlineOffset: '2px', borderRadius:'lg', color:'rgb(19, 1, 62)', }}}
+                ref={isikomen}
               />
               {/* Button Submit Comments */}
               <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg'>Submit</button>
