@@ -20,7 +20,7 @@ function App() {
     {
       element:<Layout/>,
       children : [
-        { path:'/',element: <Home listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} /> },
+        { path:'/',element: <Home listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} removefavorite={removefavorite}/> },
         { path:'/filter',element: <Filter/> },
         { path:'/myfav',element: <MyFavourites listVideo={favoriteVideo} user={user}/> },
         { path:'/profile',element: <Profile/> }
@@ -42,6 +42,11 @@ function App() {
   
   function addfavorite(user,id){
     window.api.addfavorite(user,id).then(function(){
+    })
+  }
+
+  function removefavorite(id){
+    window.api.removefavorite(id).then(function(){
     })
   }
 

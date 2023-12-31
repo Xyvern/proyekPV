@@ -19,7 +19,7 @@ import example from "../../../assets/img/encanto.jpg";
 import { Textarea } from "@mui/joy";
 
 
-const Home = ({listVideo, addfavorite, user, favoriteVideo}) => {
+const Home = ({listVideo, addfavorite, user, favoriteVideo, removefavorite}) => {
   const [open, setOpen] = useState(false);
   const [idx, setIdx] = useState(null);
   const [value, setValue] = useState();
@@ -59,18 +59,19 @@ const Home = ({listVideo, addfavorite, user, favoriteVideo}) => {
     ]
   };
 
-  function cari(id){
-    const found = favoriteVideo.find((v) => v.video_id === id)
-    if(!found){
-      () => addfavorite(user,id)
-    }
-    else{
-      alert("Video sudah ada dalam favorite")
-    }
-  }
+  // function cari(id){
+  //   const found = favoriteVideo.find((v) => v.video_id === id)
+  //   if(!found){
+  //     () => addfavorite(user,id)
+  //   }
+  //   else{
+  //     alert("Video sudah ada dalam favorite")
+  //   }
+  // }
 
   function find(id){
     const found = favoriteVideo.find((v) => v.video_id === id)
+    console.log(favoriteVideo);
     if(!found){
       return true
     }
@@ -177,13 +178,13 @@ const Home = ({listVideo, addfavorite, user, favoriteVideo}) => {
                 find(listVideo[idx].video_id) ? (
                   <button
                     className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center'
-                    onClick={() => cari(listVideo[idx].video_id)}
+                    onClick={() => addfavorite(user,listVideo[idx].video_id)}
                   >
                     Add to Favorite <span className="ml-2"><Add/></span>
                   </button>
                 ) : (
                   <button
-                    className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center' onClick={() => window.api.removefavorite(listVideo[idx].video_id)}
+                    className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center' onClick={() =>removefavorite(listVideo[idx].video_id)}
                   >
                     Unfavorite <span className="ml-2"><RemoveCircleRoundedIcon/></span>
                   </button>
