@@ -80,9 +80,15 @@ app.whenReady().then(() => {
   })
 
   ipcMain.handle('addfavorite', function(evt,nama,video_id){
+    console.log(nama,video_id);
     return pool.query(`INSERT INTO favorite(user_username,video_id)
     VALUES('${nama}',${video_id})`)
   })
+  
+  ipcMain.handle('unfavorite', function(evt,video_id){
+    return pool.query(`DELETE FROM FAVORITE where video_id = ${video_id}`)
+  })
+
   createWindow()
 
   app.on('activate', function () {

@@ -6,8 +6,10 @@ const api = {
   login: () => ipcRenderer.invoke('login'),
   loadVideo: () => ipcRenderer.invoke('loadvideo'),
   search: (nama) => ipcRenderer.invoke('search',nama),
-  loadfavorite: (user) => ipcRenderer.invoke('favorite',user),
+  removefavorite: (id) => ipcRenderer.invoke('unfavorite',id),
+  loadfavorite: (user) => ipcRenderer.invoke('loadfavorite',user),
   comment: (isikomen, user) => ipcRenderer.invoke('favorite',isikomen, user),
+  addfavorite: (nama, id) => ipcRenderer.invoke('addfavorite',nama, id),
   register: (user,email, notelp,password) => ipcRenderer.invoke('register', user,email,notelp,password),
 }
 

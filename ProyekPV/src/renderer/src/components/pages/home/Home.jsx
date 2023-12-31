@@ -19,7 +19,7 @@ import example from "../../../assets/img/encanto.jpg";
 import { Textarea } from "@mui/joy";
 
 
-const Home = ({listVideo}) => {
+const Home = ({listVideo, addfavorite, user, favoriteVideo}) => {
   const [open, setOpen] = useState(false);
   const [idx, setIdx] = useState(null);
   const [value, setValue] = useState();
@@ -58,6 +58,26 @@ const Home = ({listVideo}) => {
       }
     ]
   };
+
+  function cari(id){
+    const found = favoriteVideo.find((v) => v.video_id === id)
+    if(!found){
+      () => addfavorite(user,id)
+    }
+    else{
+      alert("Video sudah ada dalam favorite")
+    }
+  }
+
+  function find(id){
+    const found = favoriteVideo.find((v) => v.video_id === id)
+    if(!found){
+      return true
+    }
+    else{
+      return false
+    }
+  }
   return (
     <Box>
       {/* Banner Cover */}
@@ -153,10 +173,24 @@ const Home = ({listVideo}) => {
             <p className="mt-4 text-sm text-violet-200">{idx !== null ? listVideo[idx].video_detail : 'Tidak ada detail video'}</p>
             <Box className="flex flex-row 'mb-3 mt-8">
               <Box className='mr-4'>
+              {idx !== null && (
+                find(listVideo[idx].video_id) ? (
+                  <button
+                    className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center'
+                    onClick={() => cari(listVideo[idx].video_id)}
+                  >
+                    Add to Favorite <span className="ml-2"><Add/></span>
+                  </button>
+                ) : (
+                  <button
+                    className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center' onClick={() => window.api.removefavorite(listVideo[idx].video_id)}
+                  >
+                    Unfavorite <span className="ml-2"><RemoveCircleRoundedIcon/></span>
+                  </button>
+                )
+              )}
                 {/* Button Add to Favorite */}
-                <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center' >Add to Favorite <span className="ml-2" ><Add/></span></button>
                 {/* Button Unfavorite */}
-                {/* <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center' >Unfavorite<span className="ml-2" ><RemoveCircleRoundedIcon/></span></button> */}
               </Box>
               <Box className='flex flex-row'>
                 {/* Rating */}

@@ -31,7 +31,7 @@ const Layout = () => {
             <ul className="flex gap-8 mr-6 text-md font-semibold">
               <li><NavLink to="/" className="hover:text-gray-500">Home</NavLink></li>
               <li><NavLink to="/filter" className="hover:text-gray-500">Filter</NavLink></li>
-              <li><NavLink to="/myfav" className="hover:text-gray-500">My Favourites</NavLink></li>
+              <li><NavLink to="/myfav" className="hover:text-gray-500">My Favorites</NavLink></li>
               <li><NavLink to="/profile" className="hover:text-gray-500">Profile</NavLink></li>
             </ul>
           </div>

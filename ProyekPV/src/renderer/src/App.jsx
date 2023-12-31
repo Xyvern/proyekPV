@@ -20,9 +20,9 @@ function App() {
     {
       element:<Layout/>,
       children : [
-        { path:'/',element: <Home listVideo={video}/> },
+        { path:'/',element: <Home listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} /> },
         { path:'/filter',element: <Filter/> },
-        { path:'/myfav',element: <MyFavourites/> },
+        { path:'/myfav',element: <MyFavourites listVideo={favoriteVideo} /> },
         { path:'/profile',element: <Profile/> }
       ]
     }
@@ -40,6 +40,11 @@ function App() {
     })
   }
   
+  function addfavorite(user,id){
+    window.api.addfavorite(user,id).then(function(){
+    })
+  }
+
   function nambahKomen(user){
     window.api.comment(isikomen,username).then(function(res){
       setKomen(res[0])
@@ -102,6 +107,7 @@ function App() {
     const user = localStorage.getItem('user')
     setUser(user)
     loadVideo()
+    favorite(user)
   },[])
   
   if (!user) {

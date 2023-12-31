@@ -9,35 +9,39 @@ import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded';
 import example from "../../../assets/img/encanto.jpg";
 
-const MyFavourites = () => {
+const MyFavourites = ({listVideo}) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
+  const [idx, setIdx] = useState(null);
   return (
     <Box>
       <Box className='mt-8'>
         {/* Filtered Item */}
-        <Box>
-          <button className='flex flex-row ' onClick={() => setOpen(true)}>
+      {listVideo.map((video,i) =>{
+      return(
+        <Box key={i}>
+          <button className='flex flex-row ' onClick={() => {setOpen(true);setIdx(i)}}>
             <img src={example} alt="" className="rounded-lg w-[18rem]"/>
-            <Box className="ml-5 text-left">
-              <p>
-                <span className="mr-2 text-xs text-gray-400">Category</span>
-                <span className="mr-2 text-xs text-gray-400">┃</span>
-                <span className="mr-2 text-xs text-gray-400">Genre</span>
-              </p>
-              {/* Judul Movie */}
-              <p className="text-lg mt-1 font-semibold text-violet-100">Judul Movie</p>
-              <span className="mr-1">
-                  <StarRoundedIcon sx={{fontSize:20, color:'#FFEF00'}}/>
-              </span>
-              {/* Overall Rate */}
-              <span className="mr-2 text-xs font- text-gray-400">4.5{'/5'}</span>
-              {/* Desc Movie */}
-              <p className="mt-4 text-xs  text-violet-200">"Cows Cows Cows" is a surreal and humorous animated short video that gained popularity on the internet. The video features repeating images of cows with a catchy and rhythmic song in the background chanting "Cows cows cows, I like cows, I like cows, I like cows..."</p>
-            </Box>
+                <Box className="ml-5 text-left">
+                  <p>
+                    <span className="mr-2 text-xs text-gray-400">Category</span>
+                    <span className="mr-2 text-xs text-gray-400">┃</span>
+                    <span className="mr-2 text-xs text-gray-400">Genre</span>
+                  </p>
+                  {/* Judul Movie */}
+                  <p className="text-lg mt-1 font-semibold text-violet-100">{video.video_name}</p>
+                  <span className="mr-1">
+                      <StarRoundedIcon sx={{fontSize:20, color:'#FFEF00'}}/>
+                  </span>
+                  {/* Overall Rate */}
+                  <span className="mr-2 text-xs font- text-gray-400">4.5{'/5'}</span>
+                  {/* Desc Movie */}
+                  <p className="mt-4 text-xs  text-violet-200">{video.video_detail}</p>
+                </Box>
           </button>
           <Divider sx={{bgcolor:'#ffffff4a',marginTop:2, marginBottom:2}} />
         </Box>
+        )})}
       </Box>
       <Modal open={open} onClose={() => setOpen(false)} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
         <Sheet  sx={{ width:'80vw',borderRadius: 'md',p: 5,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white', overflowY: 'auto', maxHeight: '70vh','::-webkit-scrollbar': {
@@ -50,7 +54,7 @@ const MyFavourites = () => {
               <iframe style={{boxShadow:'-19vw 1vw 90vw 1vw #280185'}}
                 width="100%"
                 height="400rem"
-                src={`https://www.youtube-nocookie.com/embed/FavUpD_IjVY?si=ZwHZnt2d8HemC9o3`} className="rounded-lg mt-10 flex"
+                src={idx !== null ? listVideo[idx].video_link : 'Link video tidak ditemukan'} className="rounded-lg mt-10 flex"
                 ></iframe>            
             </Box>
             <p className="mt-6">
@@ -65,13 +69,13 @@ const MyFavourites = () => {
               <span className="mr-2 text-xs text-gray-400">Genre</span>
             </p>
             {/* Judul Movie */}
-            <p className="text-5xl mt-2 font-semibold text-violet-100">Judul Movie</p>
+            <p className="text-5xl mt-2 font-semibold text-violet-100">{idx !== null ? listVideo[idx].video_name : 'Nama video tidak ditemukan'}</p>
             {/* Desc Movie */}
-            <p className="mt-4 text-sm text-violet-200">"Cows Cows Cows" is a surreal and humorous animated short video that gained popularity on the internet. The video features repeating images of cows with a catchy and rhythmic song in the background chanting "Cows cows cows, I like cows, I like cows, I like cows..."</p>
+            <p className="mt-4 text-sm text-violet-200">{idx !== null ? listVideo[idx].video_detail : 'Detail video tidak ada'}</p>
             <Box className="flex flex-row 'mb-3 mt-8">
               <Box className='mr-4'>
                 {/* Button Unfavorite */}
-                <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center' >Unfavorite<span className="ml-2" ><RemoveCircleRoundedIcon/></span></button>
+                <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center' onClick={() => window.api.removefavorite(listVideo[idx].video_id)}>Unfavorite<span className="ml-2" ><RemoveCircleRoundedIcon/></span></button>
               </Box>
               <Box className='flex flex-row'>
                 {/* Rating */}
