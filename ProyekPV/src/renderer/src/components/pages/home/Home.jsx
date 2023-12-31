@@ -12,6 +12,7 @@ import Sheet from '@mui/joy/Sheet';
 import Add from '@mui/icons-material/AddCircleRounded';
 import PlayArrowIcon from '@mui/icons-material/PlayArrowRounded';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
+import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded';
 import './Home.css'
 import banner from "../../../assets/img/tenkinoko1.png";
 import example from "../../../assets/img/encanto.jpg";
@@ -62,7 +63,7 @@ const Home = ({listVideo}) => {
       {/* Banner Cover */}
       <Card sx={{ border: 'none', borderRadius: '2rem', width: '100%', height: '30rem', marginTop:'2rem'}}>
         <CardCover sx={{bgcolor:'rgb(19, 1, 62)'}}>
-          <img src={banner} alt="Tenkinoko" className=""/>
+          <img src={banner} alt="Tenkinoko" style={{boxShadow:'-19vw 1vw 90vw 1vw #280185'}}/>
         </CardCover>
         <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'start', justifyContent:'end', padding: '25px 70px'}}>
           <h1 className="text-white font-semibold text-5xl mb-5">Weathering with You</h1>
@@ -152,12 +153,14 @@ const Home = ({listVideo}) => {
             <p className="mt-4 text-sm text-violet-200">{idx !== null ? listVideo[idx].video_detail : 'Tidak ada detail video'}</p>
             <Box className="flex flex-row 'mb-3 mt-8">
               <Box className='mr-4'>
-                {/* Button Submit Add to Favorite */}
+                {/* Button Add to Favorite */}
                 <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center' >Add to Favorite <span className="ml-2" ><Add/></span></button>
+                {/* Button Unfavorite */}
+                {/* <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center' >Unfavorite<span className="ml-2" ><RemoveCircleRoundedIcon/></span></button> */}
               </Box>
               <Box className='flex flex-row'>
                 {/* Rating */}
-                <Box className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-l-full font-semibold shadow-lg  btn flex items-center' >
+                <Box className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-l-full font-semibold shadow-lg   flex items-center' >
                   <Rating name="simple-controlled" value={value} onChange={(event, newValue) => {setValue(newValue)}} />
                 </Box>
                 {/* Button Submit Rating*/}
@@ -176,13 +179,13 @@ const Home = ({listVideo}) => {
                 ref={isikomen}
               />
               {/* Button Submit Comments */}
-              <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg'>Submit</button>
+              <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg btn'>Submit</button>
             </Box>
             <Divider sx={{bgcolor:'#ffffff4a',marginTop:4, marginBottom:1}} />
             {/* List Comments */}
             <Box className='mb-6'>
               <p className="text-md mt-2 font-medium text-violet-100">Nama User</p>
-              <p className="text-[10px] text-gray-400 mt-1">Minggu, 31 Desember 2023</p>
+              <p className="text-[10px] text-gray-400 mt-1">31 Desember 2023  12:30</p>
               <p className="mt-2 text-xs text-violet-200">"Cows Cows Cows" is a surreal and humorous animated short video that gained popularity on the internet. The video features repeating images of cows with a catchy and rhythmic song in the background chanting "Cows cows cows, I like cows, I like cows, I like cows..."</p>
             </Box>
           </Box>
