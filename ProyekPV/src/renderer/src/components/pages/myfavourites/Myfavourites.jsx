@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Box, Divider, Rating } from "@mui/material";
 import { Textarea } from "@mui/joy";
 import Modal from '@mui/joy/Modal';
@@ -9,15 +9,24 @@ import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded';
 import example from "../../../assets/img/encanto.jpg";
 
-const MyFavourites = ({listVideo}) => {
+const MyFavourites = ({user}) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
   const [idx, setIdx] = useState(null);
+  const [favorite, setFavorite] = useState([])
+
+  useEffect(() =>{
+    window.api.loadfavorite(user).then(function(res){
+      setFavorite(res[0])
+      console.log(res[0]);
+    })
+  },[])
+
   return (
     <Box>
       <Box className='mt-8'>
         {/* Filtered Item */}
-      {listVideo.map((video,i) =>{
+      {favorite.map((video,i) =>{
       return(
         <Box key={i}>
           <button className='flex flex-row ' onClick={() => {setOpen(true);setIdx(i)}}>
@@ -54,7 +63,7 @@ const MyFavourites = ({listVideo}) => {
               <iframe style={{boxShadow:'-19vw 1vw 90vw 1vw #280185'}}
                 width="100%"
                 height="400rem"
-                src={idx !== null ? listVideo[idx].video_link : 'Link video tidak ditemukan'} className="rounded-lg mt-10 flex"
+                src={idx !== null ? favorite[idx].video_link : 'Link video tidak ditemukan'} className="rounded-lg mt-10 flex"
                 ></iframe>            
             </Box>
             <p className="mt-6">
@@ -69,18 +78,18 @@ const MyFavourites = ({listVideo}) => {
               <span className="mr-2 text-xs text-gray-400">Genre</span>
             </p>
             {/* Judul Movie */}
-            <p className="text-5xl mt-2 font-semibold text-violet-100">{idx !== null ? listVideo[idx].video_name : 'Nama video tidak ditemukan'}</p>
+            <p className="text-5xl mt-2 font-semibold text-violet-100">{idx !== null ? favorite[idx].video_name : 'Nama video tidak ditemukan'}</p>
             {/* Desc Movie */}
-            <p className="mt-4 text-sm text-violet-200">{idx !== null ? listVideo[idx].video_detail : 'Detail video tidak ada'}</p>
+            <p className="mt-4 text-sm text-violet-200">{idx !== null ? favorite[idx].video_detail : 'Detail video tidak ada'}</p>
             <Box className="flex flex-row 'mb-3 mt-8">
               <Box className='mr-4'>
                 {/* Button Unfavorite */}
-                <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center' onClick={() => window.api.removefavorite(listVideo[idx].video_id)}>Unfavorite<span className="ml-2" ><RemoveCircleRoundedIcon/></span></button>
+                <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center' onClick={() => window.api.removefavorite(favorite[idx].video_id)}>Unfavorite<span className="ml-2" ><RemoveCircleRoundedIcon/></span></button>
               </Box>
               <Box className='flex flex-row'>
                 {/* Rating */}
                 <Box className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-l-full font-semibold shadow-lg   flex items-center' >
-                  <Rating name="simple-controlled" value={value} onChange={(event, newValue) => {setValue(newValue)}} />
+                  {/* <Rating name="simple-controlled" value={value} onChange={(event, newValue) => {setValue(newValue)}} /> */}
                 </Box>
                 {/* Button Submit Rating*/}
                 <button className='text-white text-sm  bg-[#ffffff4a] pl-2 pr-3 py-2 border-solid rounded-r-full font-semibold shadow-lg  flex items-center'>Submit</button>

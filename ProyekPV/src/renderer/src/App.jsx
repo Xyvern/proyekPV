@@ -22,7 +22,7 @@ function App() {
       children : [
         { path:'/',element: <Home listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} /> },
         { path:'/filter',element: <Filter/> },
-        { path:'/myfav',element: <MyFavourites listVideo={favoriteVideo} /> },
+        { path:'/myfav',element: <MyFavourites listVideo={favoriteVideo} user={user}/> },
         { path:'/profile',element: <Profile/> }
       ]
     }
