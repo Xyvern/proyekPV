@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Button, Divider, Rating } from "@mui/material";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import  Slider  from "react-slick";
@@ -9,20 +9,18 @@ import CardContent from '@mui/joy/CardContent';
 import Modal from '@mui/joy/Modal';
 import ModalClose from '@mui/joy/ModalClose';
 import Sheet from '@mui/joy/Sheet';
-import StarIcon from '@mui/icons-material/Star';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import Add from '@mui/icons-material/AddCircleRounded';
+import PlayArrowIcon from '@mui/icons-material/PlayArrowRounded';
+import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import './Home.css'
 import banner from "../../../assets/img/tenkinoko1.png";
 import example from "../../../assets/img/encanto.jpg";
+import { Textarea } from "@mui/joy";
+
 
 const Home = ({listVideo}) => {
   const [open, setOpen] = useState(false);
-  const [idx, setIdx] = useState(null);
-  
-  // function setIdx(id){
-  //   const nemu = listVideo.find((v) => v.video_id ==id)
-  //   idx=nemu.video_id
-  // }
+  const [value, setValue] = useState();
   var settings = {
     dots: true,
     infinite: false,
@@ -69,14 +67,14 @@ const Home = ({listVideo}) => {
           <Box width={'50%'}>
             <p className="text-white text-xs mb-8">"Weathering with You" is a Japanese animated film directed by Makoto Shinkai, known for his visually stunning works. The story revolves around a high school boy named Hodaka Morishima who runs away from his remote island home to Tokyo. There, he encounters a girl named Hina Amano, who possesses a mysterious ability to control the weather.</p>
           </Box>
-          {/* Button Watch Now  */}
           <Box className="flex flex-row">
+            {/* Button Watch Now  */}
             <Box className='mb-3'>
-              <button className='text-white backdrop-blur-sm bg-[#ffffff2c] px-5 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg mr-5 btn flex items-center' onClick={() => setOpen(true)}>Watch Now <span className="ml-1"><PlayArrowIcon/></span></button>
+              <button className='text-white backdrop-blur-sm bg-[#ffffff2c] px-4 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg mr-5 btn flex items-center' onClick={() => setOpen(true)}>Watch Now <span className="ml-1"><PlayArrowIcon sx={{fontSize:30}}/></span></button>
             </Box>
             {/* Button Add Favourite  */}
             <Box className='mb-3 flex'>
-              <button className='text-white backdrop-blur-sm bg-[#ffffff2c] px-5 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg  btn flex items-center' >Add to Favorite <span className="ml-2" ><StarIcon sx={{color:'#FFEF00'}} /></span></button>
+              <button className='text-white backdrop-blur-sm bg-[#ffffff2c] px-4 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg  btn flex items-center' >Add to Favorite <span className="ml-2" ><Add  /></span></button>
             </Box>
           </Box>
         </CardContent>
@@ -110,7 +108,7 @@ const Home = ({listVideo}) => {
       <Box className="flex flex-col px-5 mt-16">
         <h1 className="text-xl font-semibold mb-5 ml-4">For Kids</h1>
         <Slider {...settings} className="" >
-          <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg shadow-2xl"/></button>
+          <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
           <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
           <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
           <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
@@ -121,14 +119,69 @@ const Home = ({listVideo}) => {
         </Slider>
       </Box>
       {/* Modal Pop Up */}
-      <Modal open={open} onClose={() => setOpen(false)} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white' }} >
-        <Sheet sx={{ maxHeight:'80vh',maxWidth: 1000,borderRadius: 'md',p: 3,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white', overflowY:'auto'}} >
+      <Modal open={open} onClose={() => setOpen(false)} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
+        <Sheet  sx={{ width:'80vw',borderRadius: 'md',p: 5,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white', overflowY: 'auto', maxHeight: '70vh','::-webkit-scrollbar': {
+        display: 'none',
+      },}}  >
           <ModalClose variant="soft" sx={{ m: 1, bgcolor:'#413988' }}  />
-          <Box>
-            {console.log(listVideo)}
-            <p>{idx !== null ? listVideo[idx].video_name : 'apalah'}</p>
-            <iframe width="900" height="500" src={idx !== null ?listVideo[idx].video_link : "yang bener"} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>           
-            <p>{idx !== null ? listVideo[idx].video_detail : "yakin"}</p>
+          <Box className="flex flex-col">
+            <Box className="flex">
+              {/* Embed Video */}
+              <iframe style={{boxShadow:'-19vw 1vw 90vw 1vw #280185'}}
+                width="100%"
+                height="400rem"
+                src={`https://www.youtube-nocookie.com/embed/FavUpD_IjVY?si=ZwHZnt2d8HemC9o3`} className="rounded-lg mt-10 flex"
+                ></iframe>            
+            </Box>
+            <p className="mt-6">
+              <span className="mr-1">
+                <StarRoundedIcon sx={{fontSize:20, color:'#FFEF00'}}/>
+              </span>
+              {/* Overall Rate */}
+              <span className="mr-2 text-xs font- text-gray-400">4.5{'/5'}</span>
+              <span className="mr-2 text-xs text-gray-400">┃</span>
+              <span className="mr-2 text-xs text-gray-400">Category</span>
+              <span className="mr-2 text-xs text-gray-400">┃</span>
+              <span className="mr-2 text-xs text-gray-400">Genre</span>
+            </p>
+            {/* Judul Movie */}
+            <p className="text-5xl mt-2 font-semibold text-violet-100">Judul Movie</p>
+            {/* Desc Movie */}
+            <p className="mt-4 text-sm text-violet-200">"Cows Cows Cows" is a surreal and humorous animated short video that gained popularity on the internet. The video features repeating images of cows with a catchy and rhythmic song in the background chanting "Cows cows cows, I like cows, I like cows, I like cows..."</p>
+            <Box className="flex flex-row 'mb-3 mt-8">
+              <Box className='mr-4'>
+                {/* Button Submit Add to Favorite */}
+                <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center' >Add to Favorite <span className="ml-2" ><Add/></span></button>
+              </Box>
+              <Box className='flex flex-row'>
+                {/* Rating */}
+                <Box className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-l-full font-semibold shadow-lg  btn flex items-center' >
+                  <Rating name="simple-controlled" value={value} onChange={(event, newValue) => {setValue(newValue)}} />
+                </Box>
+                {/* Button Submit Rating*/}
+                <button className='text-white text-sm  bg-[#ffffff4a] pl-2 pr-3 py-2 border-solid rounded-r-full font-semibold shadow-lg  flex items-center'>Submit</button>
+              </Box>
+            </Box>
+            <Box className='mt-12'>
+              <p className="text-sm mb-2">Add a comment</p>
+              {/* Textarea Comments */}
+              <Textarea
+                placeholder="Type in here…"
+                minRows={2}
+                sx={{borderRadius:'lg',color:'rgb(19, 1, 62)', '&::before': {display: 'none'},'&:focus-within': {
+                outline: '2px solid var(--Textarea-focusedHighlight)',
+                outlineOffset: '2px', borderRadius:'lg', color:'rgb(19, 1, 62)', }}}
+              />
+              {/* Button Submit Comments */}
+              <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg'>Submit</button>
+            </Box>
+            <Divider sx={{bgcolor:'#ffffff4a',marginTop:4, marginBottom:1}} />
+            {/* List Comments */}
+            <Box className='mb-6'>
+              <p className="text-md mt-2 font-medium text-violet-100">Nama User</p>
+              <p className="text-[10px] text-gray-400 mt-1">Minggu, 31 Desember 2023</p>
+              <p className="mt-2 text-xs text-violet-200">"Cows Cows Cows" is a surreal and humorous animated short video that gained popularity on the internet. The video features repeating images of cows with a catchy and rhythmic song in the background chanting "Cows cows cows, I like cows, I like cows, I like cows..."</p>
+            </Box>
           </Box>
         </Sheet>
       </Modal>
