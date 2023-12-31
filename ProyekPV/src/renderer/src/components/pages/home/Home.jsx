@@ -90,13 +90,6 @@ const Home = ({listVideo}) => {
             return(
               <button key={vid.video_id} className="" onClick={() => {setOpen(true);setIdx(i)}}><img src={example} alt="" className="rounded-lg" /></button>
           )})}
-          {/* <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
-          <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
-          <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
-          <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
-          <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
-          <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button>
-          <button className="" onClick={() => setOpen(true)}><img src={example} alt="" className="rounded-lg"/></button> */}
         </Slider>
       </Box>
       {/* Carousel Top Movies */}
