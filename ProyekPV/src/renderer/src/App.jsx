@@ -15,15 +15,16 @@ function App() {
   const [user, setUser] = useState('')
   const [komen, setKomen] = useState([])
   const [favoriteVideo, setFavoriteVideo] = useState([])
+  const [datadiri, setDatadiri] = useState({})
   // const [listUser, setListUser] = useState([])
   const router = createBrowserRouter([
     {
       element:<Layout/>,
       children : [
-        { path:'/',element: <Home listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} removefavorite={removefavorite}/> },
+        { path:'/',element: <Home listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} removefavorite={removefavorite} komen/> },
         { path:'/filter',element: <Filter/> },
         { path:'/myfav',element: <MyFavourites listVideo={favoriteVideo} user={user}/> },
-        { path:'/profile',element: <Profile/> }
+        { path:'/profile',element: <Profile datauser={datadiri}/> }
       ]
     }
   ])
@@ -50,9 +51,14 @@ function App() {
     })
   }
 
-  function nambahKomen(user){
-    window.api.comment(isikomen,username).then(function(res){
-      setKomen(res[0])
+  function datauser(){
+    window.api.login().then(function(res){
+      console.log(user);
+      if(user !== ''){
+        const temp = res[0].find((v) => v.user_username === user)
+        setDatadiri(temp)
+        console.log(temp);
+      }
     })
   }
 
@@ -113,6 +119,7 @@ function App() {
     setUser(user)
     loadVideo()
     favorite(user)
+    datauser()
   },[])
   
   if (!user) {

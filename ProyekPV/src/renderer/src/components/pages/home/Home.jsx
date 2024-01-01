@@ -23,7 +23,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite}) => {
   const [open, setOpen] = useState(false);
   const [idx, setIdx] = useState(null);
   const [value, setValue] = useState();
-  const [isFavorite, setIsfavorite] = useState(false)
+  const [isFavorite, setIsfavorite] = useState(true)
   const [id, setId] = useState('')
   const isikomen = useRef('')
   var settings = {
@@ -64,12 +64,15 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite}) => {
 
   useEffect(() => {
     if(idx!==null){  
+      console.log(id);
       const temp= favoriteVideo.find((v) => v.video_id === id)
       if(temp){
         setIsfavorite(true);
+        setId('')
       }
       else{
         setIsfavorite(false)
+        setId('')
       }
     }
   }, [listVideo, idx]);
@@ -148,7 +151,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite}) => {
         </Slider>
       </Box>
       {/* Modal Pop Up */}
-      <Modal open={open} onClose={() => {setOpen(false),setId('')}} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
+      <Modal open={open} onClose={() => {setOpen(false)}} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
         <Sheet  sx={{ width:'80vw',borderRadius: 'md',p: 5,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white', overflowY: 'auto', maxHeight: '70vh','::-webkit-scrollbar': {
         display: 'none',
       },}}  >

@@ -63,6 +63,10 @@ app.whenReady().then(() => {
     return pool.query(`select * from videos`)
   })
 
+  ipcMain.handle("loadkomen",function (evt){
+    return pool.query(`select * from videos`)
+  })
+
   ipcMain.handle("loadfavorite",function (evt,user){
     return pool.query(`select * from videos v 
     join favorite f on v.video_id = f.video_id 
@@ -80,7 +84,6 @@ app.whenReady().then(() => {
   })
 
   ipcMain.handle('addfavorite', function(evt,nama,video_id){
-    console.log(nama,video_id);
     return pool.query(`INSERT INTO favorite(user_username,video_id)
     VALUES('${nama}',${video_id})`)
   })
