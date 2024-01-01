@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Box, Button, Divider, Rating } from "@mui/material";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
@@ -19,10 +19,12 @@ import example from "../../../assets/img/encanto.jpg";
 import { Textarea } from "@mui/joy";
 
 
-const Home = ({listVideo, addfavorite, user, favoriteVideo, removefavorite}) => {
+const Home = ({listVideo, user, favoriteVideo, removefavorite}) => {
   const [open, setOpen] = useState(false);
   const [idx, setIdx] = useState(null);
   const [value, setValue] = useState();
+  const [isFavorite, setIsfavorite] = useState(false)
+  const [id, setId] = useState('')
   const isikomen = useRef('')
   var settings = {
     dots: true,
@@ -59,26 +61,29 @@ const Home = ({listVideo, addfavorite, user, favoriteVideo, removefavorite}) => 
     ]
   };
 
-  // function cari(id){
-  //   const found = favoriteVideo.find((v) => v.video_id === id)
-  //   if(!found){
-  //     () => addfavorite(user,id)
-  //   }
-  //   else{
-  //     alert("Video sudah ada dalam favorite")
-  //   }
-  // }
 
-  function find(id){
-    const found = favoriteVideo.find((v) => v.video_id === id)
-    console.log(favoriteVideo);
-    if(!found){
-      return true
+  useEffect(() => {
+    if(idx!==null){  
+      const temp= favoriteVideo.find((v) => v.video_id === id)
+      if(temp){
+        setIsfavorite(true);
+      }
+      else{
+        setIsfavorite(false)
+      }
     }
+  }, [listVideo, idx]);
+
+  const favorite = () => {
+    if(isFavorite){
+       window.api.removefavorite(listVideo[idx].video_id).then(function(){})
+    } 
     else{
-      return false
+       window.api.addfavorite(user,listVideo[idx].video_id).then(function(){})
     }
+    setIsfavorite(!isFavorite)
   }
+
   return (
     <Box>
       {/* Banner Cover */}
@@ -110,7 +115,7 @@ const Home = ({listVideo, addfavorite, user, favoriteVideo, removefavorite}) => 
         <Slider {...settings} className="" >
           {listVideo.map((vid,i) => {
             return(
-              <button key={vid.video_id} className="" onClick={() => {setOpen(true);setIdx(i)}}><img src={example} alt="" className="rounded-lg" /></button>
+              <button key={vid.video_id} className="" onClick={() => {setOpen(true);setIdx(i);setId(listVideo[i].video_id)}}><img src={example} alt="" className="rounded-lg" /></button>
           )})}
         </Slider>
       </Box>
@@ -143,11 +148,11 @@ const Home = ({listVideo, addfavorite, user, favoriteVideo, removefavorite}) => 
         </Slider>
       </Box>
       {/* Modal Pop Up */}
-      <Modal open={open} onClose={() => setOpen(false)} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
+      <Modal open={open} onClose={() => {setOpen(false),setId('')}} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
         <Sheet  sx={{ width:'80vw',borderRadius: 'md',p: 5,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white', overflowY: 'auto', maxHeight: '70vh','::-webkit-scrollbar': {
         display: 'none',
       },}}  >
-          <ModalClose variant="soft" sx={{ m: 1, bgcolor:'#413988' }}  />
+          <ModalClose variant="soft" sx={{ m: 1, bgcolor:'#413988' }} />
           <Box className="flex flex-col">
             <Box className="flex">
               {/* Embed Video */}
@@ -175,18 +180,17 @@ const Home = ({listVideo, addfavorite, user, favoriteVideo, removefavorite}) => 
             <Box className="flex flex-row 'mb-3 mt-8">
               <Box className='mr-4'>
               {idx !== null && (
-                find(listVideo[idx].video_id) ? (
+                isFavorite ? (
                   <button
                     className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center'
-                    onClick={() => addfavorite(user,listVideo[idx].video_id)}
-                  >
-                    Add to Favorite <span className="ml-2"><Add/></span>
+                    onClick={favorite}>
+                    Unfavorite <span className="ml-2"><RemoveCircleRoundedIcon/></span>
                   </button>
                 ) : (
                   <button
-                    className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center' onClick={() =>removefavorite(listVideo[idx].video_id)}
-                  >
-                    Unfavorite <span className="ml-2"><RemoveCircleRoundedIcon/></span>
+                    className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center'
+                    onClick={favorite}>
+                    Add to Favorite <span className="ml-2"><Add/></span>
                   </button>
                 )
               )}
