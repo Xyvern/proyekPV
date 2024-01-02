@@ -17,6 +17,7 @@ import './Home.css'
 import banner from "../../../assets/img/tenkinoko1.png";
 import example from "../../../assets/img/encanto.jpg";
 import { Textarea } from "@mui/joy";
+import { useLocation } from "react-router-dom";
 
 
 const Home = ({listVideo, user, favoriteVideo, removefavorite}) => {
@@ -63,7 +64,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite}) => {
 
 
   useEffect(() => {
-    if(idx!==null){  
+    if(idx!==null && id!==''){  
       console.log(id);
       const temp= favoriteVideo.find((v) => v.video_id === id)
       if(temp){
@@ -75,16 +76,19 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite}) => {
         setId('')
       }
     }
-  }, [listVideo, idx]);
+  }, [listVideo, idx,isFavorite,id]);
 
   const favorite = () => {
     if(isFavorite){
-       window.api.removefavorite(listVideo[idx].video_id).then(function(){})
+       window.api.removefavorite(listVideo[idx].video_id).then(function(){
+        setIsfavorite(false)
+       })
     } 
     else{
-       window.api.addfavorite(user,listVideo[idx].video_id).then(function(){})
+       window.api.addfavorite(user,listVideo[idx].video_id).then(function(){
+        setIsfavorite(true)
+       })
     }
-    setIsfavorite(!isFavorite)
   }
 
   return (
@@ -186,13 +190,13 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite}) => {
                 isFavorite ? (
                   <button
                     className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center'
-                    onClick={favorite}>
+                    onClick={() => favorite()}>
                     Unfavorite <span className="ml-2"><RemoveCircleRoundedIcon/></span>
                   </button>
                 ) : (
                   <button
                     className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center'
-                    onClick={favorite}>
+                    onClick={() => favorite()}>
                     Add to Favorite <span className="ml-2"><Add/></span>
                   </button>
                 )
