@@ -25,7 +25,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
   const [idx, setIdx] = useState(null);
   const [value, setValue] = useState();
   const [id, setId] = useState('')
-  const isikomen = useRef('')
+  const [isikomen, setIsikomen] = useState('')
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
   
@@ -81,6 +81,17 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
       window.api.addfavorite(user,listVideo[idx].video_id).then(function(){
          favoritev(user)
        })
+    }
+  }
+
+  function addcomment(nama,id,content){
+    const invalid = /['"`]/
+    if(!invalid.test(content)){
+      window.api.addkomen(nama,id,content).then(function(){})
+      setIsikomen('')
+    }
+    else{
+      alert(`Jangan menggunakan ' dan " `)
     }
   }
 
@@ -215,10 +226,11 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
                 sx={{borderRadius:'lg',color:'rgb(19, 1, 62)', '&::before': {display: 'none'},'&:focus-within': {
                 outline: '2px solid var(--Textarea-focusedHighlight)',
                 outlineOffset: '2px', borderRadius:'lg', color:'rgb(19, 1, 62)', }}}
-                ref={isikomen}
+                value={isikomen}
+                onChange={(e) => setIsikomen(e.target.value)}
               />
               {/* Button Submit Comments */}
-              <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg btn' onClick={() => console.log(isikomen.current.value)}>Submit</button>
+              <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg btn' onClick={() => addcomment(user,id,isikomen)}>Submit</button>
             </Box>
             <Divider sx={{bgcolor:'#ffffff4a',marginTop:4, marginBottom:1}} />
             {/* List Comments */}
