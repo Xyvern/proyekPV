@@ -13,21 +13,27 @@ import Home from './components/pages/home/Home'
 function App() {
   const [video, setVideo] = useState([])
   const [user, setUser] = useState('')
-  const [komen, setKomen] = useState([])
   const [favoriteVideo, setFavoriteVideo] = useState([])
+  const [comment,setComment] = useState([])
   
   // const [listUser, setListUser] = useState([])
   const router = createBrowserRouter([
     {
       element:<Layout/>,
       children : [
-        { path:'/',element: <Home listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} removefavorite={removefavorite} komen/> },
+        { path:'/',element: <Home listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} removefavorite={removefavorite} komen={comment} favoritev={favorite} loadkomen={loadcomment}/> },
         { path:'/filter',element: <Filter/> },
         { path:'/myfav',element: <MyFavourites listVideo={favoriteVideo} user={user}/> },
         { path:'/profile',element: <Profile user={user}/> }
       ]
     }
   ])
+
+  function loadcomment(id){
+    window.api.loadKomen(id).then(function(res){
+      setComment(res[0])
+    })
+  }
 
   function loadVideo(){
     window.api.loadVideo().then(function(res){

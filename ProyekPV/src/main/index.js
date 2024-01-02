@@ -63,8 +63,8 @@ app.whenReady().then(() => {
     return pool.query(`select * from videos`)
   })
 
-  ipcMain.handle("loadkomen",function (evt){
-    return pool.query(`select * from videos`)
+  ipcMain.handle("loadkomen",function (evt, id){
+    return pool.query(`select * from comments where video_id = ${id}`)
   })
 
   ipcMain.handle("loadfavorite",function (evt,user){
@@ -88,6 +88,11 @@ app.whenReady().then(() => {
     VALUES('${nama}',${video_id})`)
   })
   
+  ipcMain.handle('addkomen', function(evt,nama,video_id,isikomen){
+    return pool.query(`INSERT INTO comments(user_username,video_id,comment_content)
+    VALUES('${nama}',${video_id},'${isikomen}')`)
+  })
+
   ipcMain.handle('unfavorite', function(evt,video_id){
     return pool.query(`DELETE FROM FAVORITE where video_id = ${video_id}`)
   })

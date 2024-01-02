@@ -20,13 +20,15 @@ import { Textarea } from "@mui/joy";
 import { useLocation } from "react-router-dom";
 
 
-const Home = ({listVideo, user, favoriteVideo, removefavorite}) => {
+const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,loadkomen}) => {
   const [open, setOpen] = useState(false);
   const [idx, setIdx] = useState(null);
   const [value, setValue] = useState();
-  const [isFavorite, setIsfavorite] = useState(true)
   const [id, setId] = useState('')
   const isikomen = useRef('')
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+  
   var settings = {
     dots: true,
     infinite: false,
@@ -65,28 +67,19 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite}) => {
 
   useEffect(() => {
     if(idx!==null && id!==''){  
-      console.log(id);
-      const temp= favoriteVideo.find((v) => v.video_id === id)
-      if(temp){
-        setIsfavorite(true);
-        setId('')
-      }
-      else{
-        setIsfavorite(false)
-        setId('')
-      }
+      loadkomen(id)
     }
-  }, [listVideo, idx,isFavorite,id]);
+  }, [listVideo, idx,id, favoriteVideo,komen,isikomen]);
 
   const favorite = () => {
-    if(isFavorite){
+    if(favoriteVideo.find((v) => v.video_id ==id)){
        window.api.removefavorite(listVideo[idx].video_id).then(function(){
-        setIsfavorite(false)
-       })
+        favoritev(user)
+      })
     } 
     else{
-       window.api.addfavorite(user,listVideo[idx].video_id).then(function(){
-        setIsfavorite(true)
+      window.api.addfavorite(user,listVideo[idx].video_id).then(function(){
+         favoritev(user)
        })
     }
   }
@@ -187,7 +180,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite}) => {
             <Box className="flex flex-row 'mb-3 mt-8">
               <Box className='mr-4'>
               {idx !== null && (
-                isFavorite ? (
+                favoriteVideo.find((v) => v.video_id ==id) ? (
                   <button
                     className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center'
                     onClick={() => favorite()}>
@@ -225,15 +218,22 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite}) => {
                 ref={isikomen}
               />
               {/* Button Submit Comments */}
-              <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg btn'>Submit</button>
+              <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg btn' onClick={() => console.log(isikomen.current.value)}>Submit</button>
             </Box>
             <Divider sx={{bgcolor:'#ffffff4a',marginTop:4, marginBottom:1}} />
             {/* List Comments */}
-            <Box className='mb-6'>
-              <p className="text-md mt-2 font-medium text-violet-100">Nama User</p>
-              <p className="text-[10px] text-gray-400 mt-1">31 Desember 2023  12:30</p>
-              <p className="mt-2 text-xs text-violet-200">"Cows Cows Cows" is a surreal and humorous animated short video that gained popularity on the internet. The video features repeating images of cows with a catchy and rhythmic song in the background chanting "Cows cows cows, I like cows, I like cows, I like cows..."</p>
-            </Box>
+            {komen.length > 0 ? 
+            komen.map((c,i) => {
+              const inputDate = new Date(c.comment_date.toString());
+              const formattedDate = inputDate.toLocaleDateString('id-ID', options);
+              return(
+              <Box key={i} className='mb-6'>
+                <p className="text-md mt-2 font-medium text-violet-100">{c.user_username}</p>
+                <p className="text-[10px] text-gray-400 mt-1">{formattedDate}</p>
+                <p className="mt-2 text-xs text-violet-200">{c.comment_content}</p>
+              </Box>
+              )}) 
+            : console.log("serlok")}
           </Box>
         </Sheet>
       </Modal>
