@@ -22,7 +22,7 @@ function App() {
     {
       element:<Layout search={hasilSearch}/>,
       children : [
-        { path:'/',element: <Home listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} removefavorite={removefavorite} komen={comment} favoritev={favorite} loadkomen={loadcomment}/> },
+        { path:'/',element: <Home search={search} listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} removefavorite={removefavorite} komen={comment} favoritev={favorite} loadkomen={loadcomment}/> },
         { path:'/filter',element: <Filter/> },
         { path:'/myfav',element: <MyFavourites listVideo={favoriteVideo} user={user} removefavorite={removefavorite}/> },
         { path:'/profile',element: <Profile user={user} handlelogout={handlelogout}/> }
@@ -31,10 +31,17 @@ function App() {
   ])
 
   function hasilSearch(input){
-    window.api.search(input).then(function(res){
-      setSearch(res[0])
-      console.log(search);
-    })
+    console.log(input);
+    if(input!==''){
+      window.api.search(input).then(function(res){
+        setSearch(res[0])
+        console.log(res[0]);
+      })
+    }
+    else{
+      setSearch([])
+    }
+    console.log(search);
   }
 
   function loadcomment(id){
@@ -122,7 +129,7 @@ function App() {
     setUser(user)
     loadVideo()
     favorite(user)
-  },[favoriteVideo])
+  },[favoriteVideo,search])
   
   if (!user) {
     return <LoginRegister handlelogin={handlelogin} handleregister={handleregister}/>

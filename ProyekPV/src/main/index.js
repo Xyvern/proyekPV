@@ -75,6 +75,7 @@ app.whenReady().then(() => {
   })
 
   ipcMain.handle("search",function (evt, nama){
+    console.log(nama);
     return pool.query(`select * from videos where video_name like '%${nama}%'`)
     })
 

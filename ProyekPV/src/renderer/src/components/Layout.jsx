@@ -5,7 +5,7 @@ import AnimationIcon from '@mui/icons-material/Animation';
 import SearchIcon from '@mui/icons-material/Search';
 import { useRef, useState } from "react";
 
-const Layout = ({hasilsearch}) => {
+const Layout = ({search}) => {
   const isisearch = useRef('')
   return (
     <Box className="bg-main text-white">
@@ -18,7 +18,7 @@ const Layout = ({hasilsearch}) => {
               {/* Input Search */}
               <input type="text" placeholder="Search anything..." className="text-white rounded-l-lg px-4 py-1 text-sm w-[20rem] bg-[#413988]" ref={isisearch}/>
               <Box className="bg-white rounded-r-lg w-8 h-8 flex justify-center">
-                <button onClick={() => hasilsearch(isisearch.current.value)}><SearchIcon sx={{color: 'black'}}/></button>
+                <button onClick={() => search(isisearch.current.value)}><SearchIcon sx={{color: 'black'}}/></button>
               </Box>
             </Box>
           </div>
