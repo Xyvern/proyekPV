@@ -68,6 +68,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
   useEffect(() => {
     if(idx!==null && id!==''){  
       loadkomen(id)
+
     }
   }, [listVideo, idx,id, favoriteVideo,komen,isikomen]);
 
@@ -82,6 +83,8 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
          favoritev(user)
        })
     }
+    setId(null)
+    setIdx(null)
   }
 
   function addcomment(nama,id,content){
@@ -110,11 +113,32 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
           <Box className="flex flex-row">
             {/* Button Watch Now  */}
             <Box className='mb-3'>
-              <button className='text-white backdrop-blur-sm bg-[#ffffff2c] px-4 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg mr-5 btn flex items-center' onClick={() => setOpen(true)}>Watch Now <span className="ml-1"><PlayArrowIcon sx={{fontSize:30}}/></span></button>
+              <button className='text-white backdrop-blur-sm bg-[#ffffff2c] px-4 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg mr-5 btn flex items-center' 
+              onClick={() => {setOpen(true);setIdx(22);setId(listVideo[22].video_id)}}>Watch Now <span className="ml-1"><PlayArrowIcon sx={{fontSize:30}}/></span></button>
             </Box>
             {/* Button Add Favourite  */}
             <Box className='mb-3 flex'>
-              <button className='text-white backdrop-blur-sm bg-[#ffffff2c] px-4 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg  btn flex items-center' >Add to Favorite <span className="ml-2" ><Add  /></span></button>
+              {/* <button className='text-white backdrop-blur-sm bg-[#ffffff2c] px-4 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg  btn flex items-center' >
+                Add to Favorite <span className="ml-2" ><Add  /></span></button> */}
+              {(
+                favoriteVideo.find((v) => v.video_id ==listVideo[22].video_id) ? (
+                  <>
+                  <button
+                  className='text-white backdrop-blur-sm bg-[#ffffff2c] px-4 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg mr-5 btn flex items-center'
+                    onClick={() => {console.log(idx);setIdx(22);setId(listVideo[22].video_id);favorite()}}>
+                    Unfavorite <span className="ml-2"><RemoveCircleRoundedIcon/></span>
+                  </button>
+                  </>
+                ) : (
+                  <>
+                  <button
+                  className='text-white backdrop-blur-sm bg-[#ffffff2c] px-4 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg mr-5 btn flex items-center'
+                    onClick={() => {console.log(idx);setIdx(22);setId(listVideo[22].video_id);favorite()}}>
+                    Add to Favorite <span className="ml-2"><Add/></span>
+                  </button>
+                  </>
+                )
+              )}
             </Box>
           </Box>
         </CardContent>
@@ -245,7 +269,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
                 <p className="mt-2 text-xs text-violet-200">{c.comment_content}</p>
               </Box>
               )}) 
-            : console.log("serlok")}
+            : ""}
           </Box>
         </Sheet>
       </Modal>

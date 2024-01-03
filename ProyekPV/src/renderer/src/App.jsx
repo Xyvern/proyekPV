@@ -15,11 +15,12 @@ function App() {
   const [user, setUser] = useState('')
   const [favoriteVideo, setFavoriteVideo] = useState([])
   const [comment,setComment] = useState([])
+  const [search, setSearch] = useState([])
   
   // const [listUser, setListUser] = useState([])
   const router = createBrowserRouter([
     {
-      element:<Layout/>,
+      element:<Layout search={hasilSearch}/>,
       children : [
         { path:'/',element: <Home listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} removefavorite={removefavorite} komen={comment} favoritev={favorite} loadkomen={loadcomment}/> },
         { path:'/filter',element: <Filter/> },
@@ -28,6 +29,13 @@ function App() {
       ]
     }
   ])
+
+  function hasilSearch(input){
+    window.api.search(input).then(function(res){
+      setSearch(res[0])
+      console.log(search);
+    })
+  }
 
   function loadcomment(id){
     window.api.loadKomen(id).then(function(res){
@@ -114,7 +122,7 @@ function App() {
     setUser(user)
     loadVideo()
     favorite(user)
-  },[])
+  },[favoriteVideo])
   
   if (!user) {
     return <LoginRegister handlelogin={handlelogin} handleregister={handleregister}/>
