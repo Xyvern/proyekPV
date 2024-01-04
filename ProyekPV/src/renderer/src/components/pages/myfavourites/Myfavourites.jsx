@@ -9,23 +9,27 @@ import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded';
 import example from "../../../assets/img/encanto.jpg";
 
-const MyFavourites = ({user}) => {
+const MyFavourites = ({user,removefavorite}) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
   const [idx, setIdx] = useState(null);
   const [favorite, setFavorite] = useState([])
 
   useEffect(() =>{
+    loadfavorite()
+  },[favorite])
+
+  function loadfavorite(){
     window.api.loadfavorite(user).then(function(res){
       setFavorite(res[0])
     })
-  },[])
+  }
 
   return (
     <Box>
       <Box className='mt-8'>
         {/* Filtered Item */}
-      {favorite.map((video,i) =>{
+      {favorite.length >0 ? favorite.map((video,i) =>{
       return(
         <Box key={i}>
           <button className='flex flex-row ' onClick={() => {setOpen(true);setIdx(i)}}>
@@ -49,7 +53,7 @@ const MyFavourites = ({user}) => {
           </button>
           <Divider sx={{bgcolor:'#ffffff4a',marginTop:2, marginBottom:2}} />
         </Box>
-        )})}
+        )}):"I have no enemies"}
       </Box>
       <Modal open={open} onClose={() => setOpen(false)} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
         <Sheet  sx={{ width:'80vw',borderRadius: 'md',p: 5,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white', overflowY: 'auto', maxHeight: '70vh','::-webkit-scrollbar': {
@@ -83,7 +87,7 @@ const MyFavourites = ({user}) => {
             <Box className="flex flex-row 'mb-3 mt-8">
               <Box className='mr-4'>
                 {/* Button Unfavorite */}
-                <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center' onClick={() => window.api.removefavorite(favorite[idx].video_id)}>Unfavorite<span className="ml-2" ><RemoveCircleRoundedIcon/></span></button>
+                <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center' onClick={() => {removefavorite(favorite[idx].video_id);setIdx(null);setOpen(false)}}>Unfavorite<span className="ml-2" ><RemoveCircleRoundedIcon/></span></button>
               </Box>
               <Box className='flex flex-row'>
                 {/* Rating */}

@@ -6,7 +6,7 @@ import './Profile.css'
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-const Profile = ({user}) => {
+const Profile = ({user,handlelogout}) => {
   const [datadiri, setDatadiri] = useState({})
   useEffect(() => {
     window.api.login().then(function(res){
@@ -30,7 +30,13 @@ const Profile = ({user}) => {
         <h1 className="text-lg font-semibold">{datadiri.user_username}</h1>
         <p className="text-gray-400">{datadiri.user_email}</p>
       </Box>
+      <div className='flex justify-center mt-4 py-10'>
+          {/* <h1>Welcome {user}!</h1> */}
+          <button className='text-white backdrop-blur-sm bg-[#ffffff2c] px-10 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-2xl mb-2 btn'
+          onClick={() => handlelogout()}>Log Out</button>
+        </div>
     </Box>
+    
   );
 }
  

@@ -13,21 +13,42 @@ import Home from './components/pages/home/Home'
 function App() {
   const [video, setVideo] = useState([])
   const [user, setUser] = useState('')
-  const [komen, setKomen] = useState([])
   const [favoriteVideo, setFavoriteVideo] = useState([])
+  const [comment,setComment] = useState([])
+  const [search, setSearch] = useState([])
   
   // const [listUser, setListUser] = useState([])
   const router = createBrowserRouter([
     {
-      element:<Layout/>,
+      element:<Layout search={hasilSearch}/>,
       children : [
-        { path:'/',element: <Home listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} removefavorite={removefavorite} komen/> },
+        { path:'/',element: <Home search={search} listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} removefavorite={removefavorite} komen={comment} favoritev={favorite} loadkomen={loadcomment}/> },
         { path:'/filter',element: <Filter/> },
-        { path:'/myfav',element: <MyFavourites listVideo={favoriteVideo} user={user}/> },
-        { path:'/profile',element: <Profile user={user}/> }
+        { path:'/myfav',element: <MyFavourites listVideo={favoriteVideo} user={user} removefavorite={removefavorite}/> },
+        { path:'/profile',element: <Profile user={user} handlelogout={handlelogout}/> }
       ]
     }
   ])
+
+  function hasilSearch(input){
+    console.log(input);
+    if(input!==''){
+      window.api.search(input).then(function(res){
+        setSearch(res[0])
+        console.log(res[0]);
+      })
+    }
+    else{
+      setSearch([])
+    }
+    console.log(search);
+  }
+
+  function loadcomment(id){
+    window.api.loadKomen(id).then(function(res){
+      setComment(res[0])
+    })
+  }
 
   function loadVideo(){
     window.api.loadVideo().then(function(res){
@@ -108,7 +129,7 @@ function App() {
     setUser(user)
     loadVideo()
     favorite(user)
-  },[])
+  },[favoriteVideo,search])
   
   if (!user) {
     return <LoginRegister handlelogin={handlelogin} handleregister={handleregister}/>
@@ -116,11 +137,6 @@ function App() {
     return (
       <div>
         <RouterProvider router ={router} />
-        <div className='flex justify-center mt-4 py-10'>
-          {/* <h1>Welcome {user}!</h1> */}
-          <button className='text-white backdrop-blur-sm bg-[#ffffff2c] px-10 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-2xl mb-2 btn'
-          onClick={handlelogout}>Log Out</button>
-        </div>
       </div>
     )
   }
