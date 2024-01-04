@@ -175,7 +175,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
             {listVideo.map((vid,i) => {
               if(vid.video_category === 'Blockbusters'){
               return(
-                <button key={vid.video_id} className="" onClick={() => {setOpen(true);setIdx(i);setId(listVideo[i].video_id)}}><img src={example} alt="" className="rounded-lg" /></button>
+                <button key={vid.video_id} className="" onClick={() => {setOpen(true);setIdx(i);setId(listVideo[i].video_id)}}><img src={vid.video_banner} alt="" className="rounded-lg" /></button>
             )}})}
           </Slider>
         </Box>
@@ -186,7 +186,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
             {listVideo.map((vid,i) => {
               if(vid.video_category === 'Movies'){
                 return(
-                  <button key={vid.video_id} className="" onClick={() => {setOpen(true);setIdx(i);setId(listVideo[i].video_id)}}><img src={example} alt="" className="rounded-lg" /></button>
+                  <button key={vid.video_id} className="" onClick={() => {setOpen(true);setIdx(i);setId(listVideo[i].video_id)}}><img src={vid.video_banner} alt="" className="rounded-lg" /></button>
               )}})}
             </Slider>
         </Box>
@@ -305,7 +305,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
       return(
         <Box key={i}>
           <button className='flex flex-row ' onClick={() => {setOpen(true);setIdx(listVideo.findIndex((v) => v.video_id == video.video_id));setId(videoid.video_id)}}>
-            <img src={example} alt="" className="rounded-lg w-[18rem]"/>
+            <img src={video.video_banner} alt="" className="rounded-lg w-[18rem]"/>
                 <Box className="ml-5 text-left">
                   <p>
                     <span className="mr-2 text-xs text-gray-400">{video.video_category}</span>

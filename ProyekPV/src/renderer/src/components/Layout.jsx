@@ -18,7 +18,7 @@ const Layout = ({search}) => {
               {/* Input Search */}
               <input type="text" placeholder="Search anything..." className="text-white rounded-l-lg px-4 py-1 text-sm w-[20rem] bg-[#413988]" ref={isisearch}/>
               <Box className="bg-white rounded-r-lg w-8 h-8 flex justify-center">
-                <button onClick={() => search(isisearch.current.value)}><SearchIcon sx={{color: 'black'}}/></button>
+                <button onClick={() => {search(isisearch.current.value)}}><SearchIcon sx={{color: 'black'}}/></button>
               </Box>
             </Box>
           </div>
