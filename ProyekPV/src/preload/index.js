@@ -13,6 +13,7 @@ const api = {
   addfavorite: (nama, id) => ipcRenderer.invoke('addfavorite',nama, id),
   addkomen: (nama, id,isikomen) => ipcRenderer.invoke('addkomen',nama, id,isikomen),
   register: (user,email, notelp,password) => ipcRenderer.invoke('register', user,email,notelp,password),
+  hasilfilter: (genre,category) => ipcRenderer.invoke('hasilfilter', genre,category)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

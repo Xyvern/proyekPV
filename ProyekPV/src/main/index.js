@@ -74,6 +74,13 @@ app.whenReady().then(() => {
     where f.user_username = '${user}'`)
   })
 
+  ipcMain.handle("hasilfilter",function (evt, genre, category){
+    console.log(genre);
+    console.log(category);
+    return pool.query(`select * from videos where video_genre like '%${genre}%' and video_category like '%${category}%'`)
+    })
+
+
   ipcMain.handle("search",function (evt, nama){
     console.log(nama);
     return pool.query(`select * from videos where video_name like '%${nama}%'`)

@@ -13,9 +13,15 @@ import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded';
 import Add from '@mui/icons-material/AddCircleRounded';
 import example from "../../../assets/img/encanto.jpg";
 
-const Filter = () => {
+const Filter = ({hasilfilter,filter}) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
+  const [index, setIndex] = useState('')
+
+  const [category, setCategory] = useState('');
+  const [genre, setGenre] = useState('');
+  const [sortby, setSortby] = useState('');
+
   // ini nanti di kali 3 sama diganti di setiap select sama fungsi close "X" nya ya sist :) aku mager
   const action = useRef(null);
   return (
@@ -25,10 +31,10 @@ const Filter = () => {
         {/* Select Category */}
         <Select
         action={action}
-        value={value}
+        category={category}
         placeholder="Category"
-        onChange={(e, newValue) => setValue(newValue)}
-        {...(value && {
+        onChange={(e, newCategory) => setCategory(newCategory)}
+        {...(category && {
           endDecorator: (
             <IconButton
             size="sm"
@@ -38,8 +44,8 @@ const Filter = () => {
               event.stopPropagation();
             }}
             onClick={() => {
-              console.log(value);
-              setValue(null);
+              console.log(category);
+              setCategory(null);
               action.current.focusVisible();
             }}
               >
@@ -50,18 +56,19 @@ const Filter = () => {
         })}
 
         sx={{ width:'14vw', color:'rgb(19, 1, 62)', bgcolor:"whitesmoke" }}>
-          <Option value="Anime">Anime</Option>
-          <Option value="cat">Cat</Option>
-          <Option value="fish">Fish</Option>
-          <Option value="bird">Bird</Option>
+          <Option value="Blockbusters">Blockbusters</Option>
+          <Option value="Movies">Movies</Option>
+          <Option value="For kids">For Kids</Option>
+          <Option value="Bird">Bird</Option>
+          <Option value="Critically Acclaimed">Critically Acclaimed</Option>
         </Select>
         {/* Select Genre */}
         <Select
         action={action}
-        value={value}
+        genre={genre}
         placeholder="Genre"
-        onChange={(e, newValue) => setValue(newValue)}
-        {...(value && {
+        onChange={(e, newGenre) => setGenre(newGenre)}
+        {...(genre && {
           endDecorator: (
             <IconButton
             size="sm"
@@ -71,8 +78,8 @@ const Filter = () => {
                 event.stopPropagation();
               }}
               onClick={() => {
-                console.log(value);
-                setValue(null);
+                console.log(genre);
+                setGenre(null);
                 action.current.focusVisible();
               }}
               >
@@ -83,10 +90,14 @@ const Filter = () => {
         })}
         
         sx={{ width:'14vw', color:'rgb(19, 1, 62)', bgcolor:"whitesmoke" }}>
-          <Option value="Anime">Anime</Option>
-          <Option value="cat">Cat</Option>
-          <Option value="fish">Fish</Option>
-          <Option value="bird">Bird</Option>
+          <Option value="Romance">Romance</Option>
+          <Option value="Drama">Drama</Option>
+          <Option value="Action">Action</Option>
+          <Option value="Comedy">Comedy</Option>
+          <Option value="Horror">Horror</Option>
+          <Option value="Sci-Fi">Sci-Fi</Option>
+          <Option value="Animation">Animation</Option>
+          <Option value="Crime">Crime</Option>
         </Select>
         {/* Select Sort by */}
         <Select
@@ -123,36 +134,41 @@ const Filter = () => {
         </Select>
         <Box className='mr-4'>
           {/* Button Filter */}
-          <button className='text-white text-sm  bg-[#ffffff2c] pr-2 pl-4 py-2 border-solid rounded-lg font-semibold shadow-lg  btn' >Filter<span className="ml-2" ></span></button>
+          <button className='text-white text-sm  bg-[#ffffff2c] pr-2 pl-4 py-2 border-solid rounded-lg font-semibold shadow-lg  btn' onClick={()=>hasilfilter(genre,category)}>Filter<span className="ml-2" ></span></button>
         </Box>
       </Box>
       {/* Content List Hasil Filter */}
-      <Box className='mt-12'>
+      {filter.length > 0? 
+      filter.map((video, i)=>{
+        return(<Box key={i} className='mt-12'>
         {/* Filtered Item */}
         <Box>
-          <button className='flex flex-row ' onClick={() => setOpen(true)}>
+          <button className='flex flex-row ' onClick={() => {setOpen(true),setIndex(i)}}>
+            {console.log(index)}
             <img src={example} alt="" className="rounded-lg w-[18rem]"/>
             <Box className="ml-5 text-left">
               <p>
-                <span className="mr-2 text-xs text-gray-400">Category</span>
+                <span className="mr-2 text-xs text-gray-400">{video.video_category}</span>
                 <span className="mr-2 text-xs text-gray-400">┃</span>
-                <span className="mr-2 text-xs text-gray-400">Genre</span>
+                <span className="mr-2 text-xs text-gray-400">{video.video_genre}</span>
               </p>
               {/* Judul Movie */}
-              <p className="text-lg mt-1 font-semibold text-violet-100">Judul Movie</p>
+              <p className="text-lg mt-1 font-semibold text-violet-100">{video.video_name}</p>
               <span className="mr-1">
                   <StarRoundedIcon sx={{fontSize:20, color:'#FFEF00'}}/>
                 </span>
                 {/* Overall Rate */}
                 <span className="mr-2 text-xs font- text-gray-400">4.5{'/5'}</span>
               {/* Desc Movie */}
-
-              <p className="mt-4 text-xs  text-violet-200">"Cows Cows Cows" is a surreal and humorous animated short video that gained popularity on the internet. The video features repeating images of cows with a catchy and rhythmic song in the background chanting "Cows cows cows, I like cows, I like cows, I like cows..."</p>
+  
+              <p className="mt-4 text-xs  text-violet-200">{video.video_detail}</p>
             </Box>
           </button>
           <Divider sx={{bgcolor:'#ffffff4a',marginTop:2, marginBottom:2}} />
         </Box>
-      </Box>
+      </Box>)
+      })
+     :""}
       <Modal open={open} onClose={() => setOpen(false)} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
         <Sheet  sx={{ width:'80vw',borderRadius: 'md',p: 5,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white', overflowY: 'auto', maxHeight: '70vh','::-webkit-scrollbar': {
         display: 'none',
@@ -164,7 +180,7 @@ const Filter = () => {
               <iframe style={{boxShadow:'-19vw 1vw 90vw 1vw #280185'}}
                 width="100%"
                 height="400rem"
-                src={`https://www.youtube-nocookie.com/embed/FavUpD_IjVY?si=ZwHZnt2d8HemC9o3`} className="rounded-lg mt-10 flex"
+                src={index >=0 ? filter[index].video_link:""} className="rounded-lg mt-10 flex"
                 ></iframe>            
             </Box>
             <p className="mt-6">
@@ -174,14 +190,14 @@ const Filter = () => {
               {/* Overall Rate */}
               <span className="mr-2 text-xs font- text-gray-400">4.5{'/5'}</span>
               <span className="mr-2 text-xs text-gray-400">┃</span>
-              <span className="mr-2 text-xs text-gray-400">Category</span>
+              <span className="mr-2 text-xs text-gray-400">{index >=0? filter[index].video_category:""}</span>
               <span className="mr-2 text-xs text-gray-400">┃</span>
-              <span className="mr-2 text-xs text-gray-400">Genre</span>
+              <span className="mr-2 text-xs text-gray-400">{index >=0? filter[index].video_genre:""}</span>
             </p>
             {/* Judul Movie */}
-            <p className="text-5xl mt-2 font-semibold text-violet-100">Judul Movie</p>
+            <p className="text-5xl mt-2 font-semibold text-violet-100">{index >=0? filter[index].video_name:""}</p>
             {/* Desc Movie */}
-            <p className="mt-4 text-sm text-violet-200">"Cows Cows Cows" is a surreal and humorous animated short video that gained popularity on the internet. The video features repeating images of cows with a catchy and rhythmic song in the background chanting "Cows cows cows, I like cows, I like cows, I like cows..."</p>
+            <p className="mt-4 text-sm text-violet-200">{index>=0? filter[index].video_detail:""}</p>
             <Box className="flex flex-row 'mb-3 mt-8">
               <Box className='mr-4'>
                 {/* Button Add to Favorite */}
@@ -192,7 +208,7 @@ const Filter = () => {
               <Box className='flex flex-row'>
                 {/* Rating */}
                 <Box className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-l-full font-semibold shadow-lg   flex items-center' >
-                  <Rating name="simple-controlled" value={value} onChange={(event, newValue) => {setValue(newValue)}} />
+                  {/* <Rating name="simple-controlled" value={value} onChange={(event, newValue) => {setValue(newValue)}} /> */}
                 </Box>
                 {/* Button Submit Rating*/}
                 <button className='text-white text-sm  bg-[#ffffff4a] pl-2 pr-3 py-2 border-solid rounded-r-full font-semibold shadow-lg  flex items-center'>Submit</button>
