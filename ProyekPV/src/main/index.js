@@ -64,7 +64,7 @@ app.whenReady().then(() => {
   })
 
   ipcMain.handle("loadkomen",function (evt, id){
-    return pool.query(`select * from comments where video_id = ${id}`)
+    return pool.query(`select * from comments where video_id = ${id} ORDER BY comment_date DESC`)
   })
 
   ipcMain.handle("loadfavorite",function (evt,user){
