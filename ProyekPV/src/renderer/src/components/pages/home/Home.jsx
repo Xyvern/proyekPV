@@ -173,7 +173,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
           {listVideo.map((vid,i) => {
             if(vid.video_category === 'For kids'){
               return(
-                <button key={vid.video_id} className="" onClick={() => {setOpen(true);setIdx(i);setId(listVideo[i].video_id)}}><img src={example} alt="" className="rounded-lg" /></button>
+                <button key={vid.video_id} className="" onClick={() => {setOpen(true);setIdx(i);setId(listVideo[i].video_id)}}><img src={vid.video_banner} alt="" className="rounded-lg" /></button>
             )}})}
           </Slider>
         </Box>
