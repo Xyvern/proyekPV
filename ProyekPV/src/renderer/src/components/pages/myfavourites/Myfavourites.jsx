@@ -76,9 +76,9 @@ const MyFavourites = ({user,removefavorite}) => {
               {/* Overall Rate */}
               <span className="mr-2 text-xs font- text-gray-400">4.5{'/5'}</span>
               <span className="mr-2 text-xs text-gray-400">┃</span>
-              <span className="mr-2 text-xs text-gray-400">Category</span>
+              <span className="mr-2 text-xs text-gray-400">{idx !== null ? listVideo[idx].video_category : 'Kategori video tidak ditemukan'}</span>
               <span className="mr-2 text-xs text-gray-400">┃</span>
-              <span className="mr-2 text-xs text-gray-400">Genre</span>
+              <span className="mr-2 text-xs text-gray-400">{idx !== null ? listVideo[idx].video_genre : 'Genre video tidak ditemukan'}</span>
             </p>
             {/* Judul Movie */}
             <p className="text-5xl mt-2 font-semibold text-violet-100">{idx !== null ? favorite[idx].video_name : 'Nama video tidak ditemukan'}</p>

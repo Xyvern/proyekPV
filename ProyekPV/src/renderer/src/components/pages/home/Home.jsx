@@ -284,9 +284,9 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
             <img src={example} alt="" className="rounded-lg w-[18rem]"/>
                 <Box className="ml-5 text-left">
                   <p>
-                    <span className="mr-2 text-xs text-gray-400">Category</span>
+                    <span className="mr-2 text-xs text-gray-400">{video.video_category}</span>
                     <span className="mr-2 text-xs text-gray-400">┃</span>
-                    <span className="mr-2 text-xs text-gray-400">Genre</span>
+                    <span className="mr-2 text-xs text-gray-400">{video.video_genre}</span>
                   </p>
                   {/* Judul Movie */}
                   <p className="text-lg mt-1 font-semibold text-violet-100">{video.video_name}</p>
@@ -324,9 +324,9 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
               {/* Overall Rate */}
               <span className="mr-2 text-xs font- text-gray-400">4.5{'/5'}</span>
               <span className="mr-2 text-xs text-gray-400">┃</span>
-              <span className="mr-2 text-xs text-gray-400">Category</span>
+              <span className="mr-2 text-xs text-gray-400">{idx !== null ? listVideo[idx].video_category : 'Kategori video tidak ditemukan'}</span>
               <span className="mr-2 text-xs text-gray-400">┃</span>
-              <span className="mr-2 text-xs text-gray-400">Genre</span>
+              <span className="mr-2 text-xs text-gray-400">{idx !== null ? listVideo[idx].video_genre : 'Genre video tidak ditemukan'}</span>
             </p>
             {/* Judul Movie */}
             <p className="text-5xl mt-2 font-semibold text-violet-100">{idx !== null ? listVideo[idx].video_name : 'Nama video tidak ditemukan'}</p>
