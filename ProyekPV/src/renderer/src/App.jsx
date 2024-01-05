@@ -17,13 +17,15 @@ function App() {
   const [comment,setComment] = useState([])
   const [search, setSearch] = useState([])
   const [filter, setFilter] = useState([])
+  const [rating, setRating] = useState([])
   
   // const [listUser, setListUser] = useState([])
   const router = createBrowserRouter([
     {
       element:<Layout search={hasilSearch}/>,
       children : [
-        { path:'/',element: <Home search={search} listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} removefavorite={removefavorite} komen={comment} favoritev={favorite} loadkomen={loadcomment}/> },
+        { path:'/',element: <Home search={search} listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} 
+        removefavorite={removefavorite} komen={comment} favoritev={favorite} loadkomen={loadcomment} rating={rating} /> },
         { path:'/filter',element: <Filter filter={filter} hasilfilter={hasilfilter} search={search} listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} removefavorite={removefavorite} komen={comment} favoritev={favorite} loadkomen={loadcomment}/> },
         { path:'/myfav',element: <MyFavourites listVideo={favoriteVideo} user={user} removefavorite={removefavorite}/> },
         { path:'/profile',element: <Profile user={user} handlelogout={handlelogout}/> }
@@ -63,6 +65,12 @@ function App() {
   function loadVideo(){
     window.api.loadVideo().then(function(res){
       setVideo(res[0])
+    })
+  }
+
+  function loadRate(){
+    window.api.loadRating().then(function(res){
+      setRating(res[0])
     })
   }
   
@@ -139,7 +147,8 @@ function App() {
     setUser(user)
     loadVideo()
     favorite(user)
-  },[favoriteVideo,search])
+    loadRate()
+  },[favoriteVideo,search,rating])
   
   if (!user) {
     return <LoginRegister handlelogin={handlelogin} handleregister={handleregister}/>

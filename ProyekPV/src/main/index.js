@@ -64,7 +64,7 @@ app.whenReady().then(() => {
   })
 
   ipcMain.handle("loadkomen",function (evt, id){
-    return pool.query(`select * from comments where video_id = ${id}`)
+    return pool.query(`select * from comments where video_id = ${id} ORDER BY comment_date DESC`)
   })
 
   ipcMain.handle("loadfavorite",function (evt,user){
@@ -104,8 +104,16 @@ app.whenReady().then(() => {
 
 
   ipcMain.handle("search",function (evt, nama){
-    console.log(nama);
+    // console.log(nama);
     return pool.query(`select * from videos where video_name like '%${nama}%'`)
+    })
+
+  ipcMain.handle("loadrating",function (evt){
+    return pool.query(`select * from ratings`)
+  })
+
+  ipcMain.handle("hitungrating",function (evt,id){
+    return pool.query(`select ROUND(AVG(rating), 1) from ratings where video_id = ${id} group by video_id`)
     })
 
   ipcMain.handle('register', function(evt,nama,email,notelp,pass){

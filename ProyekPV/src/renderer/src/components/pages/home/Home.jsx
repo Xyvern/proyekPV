@@ -19,14 +19,39 @@ import example from "../../../assets/img/encanto.jpg";
 import { Textarea } from "@mui/joy";
 import { useLocation } from "react-router-dom";
 import Search from "@mui/icons-material/Search";
+// Banner video
+import fastx from "../../../assets/banner/fastx.png";
+import bluebeetle from "../../../assets/banner/bluebeetle.jpg";
+import granturismo from "../../../assets/banner/granturismo.jpg";
+import mario from "../../../assets/banner/mario.jpg";
+import ahauntinginvenice from "../../../assets/banner/ahauntinginvenice.jpg";
+import lalaland from "../../../assets/banner/lalaland.jpg";
+import poltergeist from "../../../assets/banner/poltergeist.jpg";
+import interstellar from "../../../assets/banner/interstellar.jpeg";
+import littlemermaid from "../../../assets/banner/littlemermaid.webp";
+import oppenheimer from "../../../assets/banner/oppenheimer.jpg";
+import infinitywar from "../../../assets/banner/infinitywar.webp";
+import boboiboy from "../../../assets/banner/boboiboy.jpg";
+import thenun from "../../../assets/banner/thenun.jpg";
+import missionimpossible from "../../../assets/banner/missionimpossible.jpg";
+import spongebob from "../../../assets/banner/spongebob.jpg";
+import ted2 from "../../../assets/banner/ted2.jpg";
+import transformer from "../../../assets/banner/transformer.jpg";
+import httyd from "../../../assets/banner/httyd.jpeg";
+import wpa from "../../../assets/banner/warplanetapes.webp";
+import bighero6 from "../../../assets/banner/bighero6.jpg";
+import motoe from "../../../assets/banner/murderontheorientexpress.jpg";
+import spiderman from "../../../assets/banner/spiderman.webp";
+import tenkinoko from "../../../assets/banner/tenkinoko.jpg";
 
 
-const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,loadkomen,search}) => {
+const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,loadkomen,search, rating}) => {
   const [open, setOpen] = useState(false);
   const [idx, setIdx] = useState(null);
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(0);
   const [id, setId] = useState('')
   const [isikomen, setIsikomen] = useState('')
+  const [totalrate, setTotalrate] = useState(0)
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
   
@@ -70,7 +95,13 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
     if(idx!==null && id!==''){  
       loadkomen(id)
     }
-  }, [listVideo, favoriteVideo,isikomen,idx,id,search]);
+    if(idx!==null && rating.length > 0){  
+      const temp = rating.findIndex((r) => r.video_id == listVideo[idx].video_id && r.user_username == user)
+      setValue(rating[idx].rating)
+      setTotalrate()
+    }
+
+  }, [listVideo, favoriteVideo,isikomen,idx,id,search,rating,totalrate]);
 
   const favorite = () => {
     if(favoriteVideo.find((v) => v.video_id ==id)){
@@ -151,7 +182,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
             {listVideo.map((vid,i) => {
               if(vid.video_category === 'Blockbusters'){
               return(
-                <button key={vid.video_id} className="" onClick={() => {setOpen(true);setIdx(i);setId(listVideo[i].video_id)}}><img src={example} alt="" className="rounded-lg" /></button>
+                <button key={vid.video_id} className="" onClick={() => {setOpen(true);setIdx(i);setId(listVideo[i].video_id)}}><img src={vid.video_banner} alt="" className="rounded-lg" /></button>
             )}})}
           </Slider>
         </Box>
@@ -162,7 +193,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
             {listVideo.map((vid,i) => {
               if(vid.video_category === 'Movies'){
                 return(
-                  <button key={vid.video_id} className="" onClick={() => {setOpen(true);setIdx(i);setId(listVideo[i].video_id)}}><img src={example} alt="" className="rounded-lg" /></button>
+                  <button key={vid.video_id} className="" onClick={() => {setOpen(true);setIdx(i);setId(listVideo[i].video_id)}}><img src={vid.video_banner} alt="" className="rounded-lg" /></button>
               )}})}
             </Slider>
         </Box>
@@ -173,7 +204,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
           {listVideo.map((vid,i) => {
             if(vid.video_category === 'For kids'){
               return(
-                <button key={vid.video_id} className="" onClick={() => {setOpen(true);setIdx(i);setId(listVideo[i].video_id)}}><img src={example} alt="" className="rounded-lg" /></button>
+                <button key={vid.video_id} className="" onClick={() => {setOpen(true);setIdx(i);setId(listVideo[i].video_id)}}><img src={vid.video_banner} alt="" className="rounded-lg" /></button>
             )}})}
           </Slider>
         </Box>
@@ -281,12 +312,12 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
       return(
         <Box key={i}>
           <button className='flex flex-row ' onClick={() => {setOpen(true);setIdx(listVideo.findIndex((v) => v.video_id == video.video_id));setId(videoid.video_id)}}>
-            <img src={example} alt="" className="rounded-lg w-[18rem]"/>
+            <img src={video.video_banner} alt="" className="rounded-lg w-[18rem]"/>
                 <Box className="ml-5 text-left">
                   <p>
-                    <span className="mr-2 text-xs text-gray-400">Category</span>
+                    <span className="mr-2 text-xs text-gray-400">{video.video_category}</span>
                     <span className="mr-2 text-xs text-gray-400">┃</span>
-                    <span className="mr-2 text-xs text-gray-400">Genre</span>
+                    <span className="mr-2 text-xs text-gray-400">{video.video_genre}</span>
                   </p>
                   {/* Judul Movie */}
                   <p className="text-lg mt-1 font-semibold text-violet-100">{video.video_name}</p>
@@ -324,9 +355,9 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
               {/* Overall Rate */}
               <span className="mr-2 text-xs font- text-gray-400">4.5{'/5'}</span>
               <span className="mr-2 text-xs text-gray-400">┃</span>
-              <span className="mr-2 text-xs text-gray-400">Category</span>
+              <span className="mr-2 text-xs text-gray-400">{idx !== null ? listVideo[idx].video_category : 'Kategori video tidak ditemukan'}</span>
               <span className="mr-2 text-xs text-gray-400">┃</span>
-              <span className="mr-2 text-xs text-gray-400">Genre</span>
+              <span className="mr-2 text-xs text-gray-400">{idx !== null ? listVideo[idx].video_genre : 'Genre video tidak ditemukan'}</span>
             </p>
             {/* Judul Movie */}
             <p className="text-5xl mt-2 font-semibold text-violet-100">{idx !== null ? listVideo[idx].video_name : 'Nama video tidak ditemukan'}</p>

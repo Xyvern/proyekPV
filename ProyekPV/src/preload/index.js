@@ -5,6 +5,7 @@ import { electronAPI } from '@electron-toolkit/preload'
 const api = {
   login: () => ipcRenderer.invoke('login'),
   loadVideo: () => ipcRenderer.invoke('loadvideo'),
+  loadRating: () => ipcRenderer.invoke('loadrating'),
   loadKomen: (id) => ipcRenderer.invoke('loadkomen',id),
   search: (nama) => ipcRenderer.invoke('search',nama),
   removefavorite: (id) => ipcRenderer.invoke('unfavorite',id),

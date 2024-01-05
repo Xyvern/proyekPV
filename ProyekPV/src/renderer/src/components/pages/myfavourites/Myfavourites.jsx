@@ -8,6 +8,29 @@ import CloseRounded from '@mui/icons-material/CloseRounded';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded';
 import example from "../../../assets/img/encanto.jpg";
+import fastx from "../../../assets/banner/fastx.png";
+import bluebeetle from "../../../assets/banner/bluebeetle.jpg";
+import granturismo from "../../../assets/banner/granturismo.jpg";
+import mario from "../../../assets/banner/mario.jpg";
+import ahauntinginvenice from "../../../assets/banner/ahauntinginvenice.jpg";
+import lalaland from "../../../assets/banner/lalaland.jpg";
+import poltergeist from "../../../assets/banner/poltergeist.jpg";
+import interstellar from "../../../assets/banner/interstellar.jpeg";
+import littlemermaid from "../../../assets/banner/littlemermaid.webp";
+import oppenheimer from "../../../assets/banner/oppenheimer.jpg";
+import infinitywar from "../../../assets/banner/infinitywar.webp";
+import boboiboy from "../../../assets/banner/boboiboy.jpg";
+import thenun from "../../../assets/banner/thenun.jpg";
+import missionimpossible from "../../../assets/banner/missionimpossible.jpg";
+import spongebob from "../../../assets/banner/spongebob.jpg";
+import ted2 from "../../../assets/banner/ted2.jpg";
+import transformer from "../../../assets/banner/transformer.jpg";
+import httyd from "../../../assets/banner/httyd.jpeg";
+import wpa from "../../../assets/banner/warplanetapes.webp";
+import bighero6 from "../../../assets/banner/bighero6.jpg";
+import motoe from "../../../assets/banner/murderontheorientexpress.jpg";
+import spiderman from "../../../assets/banner/spiderman.webp";
+import tenkinoko from "../../../assets/banner/tenkinoko.jpg";
 
 const MyFavourites = ({user,removefavorite}) => {
   const [open, setOpen] = useState(false);
@@ -33,12 +56,12 @@ const MyFavourites = ({user,removefavorite}) => {
       return(
         <Box key={i}>
           <button className='flex flex-row ' onClick={() => {setOpen(true);setIdx(i)}}>
-            <img src={example} alt="" className="rounded-lg w-[18rem]"/>
+            <img src={video.video_banner} alt="" className="rounded-lg w-[18rem]"/>
                 <Box className="ml-5 text-left">
                   <p>
-                    <span className="mr-2 text-xs text-gray-400">Category</span>
+                    <span className="mr-2 text-xs text-gray-400">{video.video_category}</span>
                     <span className="mr-2 text-xs text-gray-400">┃</span>
-                    <span className="mr-2 text-xs text-gray-400">Genre</span>
+                    <span className="mr-2 text-xs text-gray-400">{video.video_genre}</span>
                   </p>
                   {/* Judul Movie */}
                   <p className="text-lg mt-1 font-semibold text-violet-100">{video.video_name}</p>
@@ -76,9 +99,9 @@ const MyFavourites = ({user,removefavorite}) => {
               {/* Overall Rate */}
               <span className="mr-2 text-xs font- text-gray-400">4.5{'/5'}</span>
               <span className="mr-2 text-xs text-gray-400">┃</span>
-              <span className="mr-2 text-xs text-gray-400">Category</span>
+              <span className="mr-2 text-xs text-gray-400">{idx !== null ? favorite[idx].video_category : 'Kategori video tidak ditemukan'}</span>
               <span className="mr-2 text-xs text-gray-400">┃</span>
-              <span className="mr-2 text-xs text-gray-400">Genre</span>
+              <span className="mr-2 text-xs text-gray-400">{idx !== null ? favorite[idx].video_genre : 'Genre video tidak ditemukan'}</span>
             </p>
             {/* Judul Movie */}
             <p className="text-5xl mt-2 font-semibold text-violet-100">{idx !== null ? favorite[idx].video_name : 'Nama video tidak ditemukan'}</p>
