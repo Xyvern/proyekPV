@@ -74,10 +74,20 @@ app.whenReady().then(() => {
     where f.user_username = '${user}'`)
   })
 
-  ipcMain.handle("hasilfilter",function (evt, genre, category){
+  ipcMain.handle("hasilfilter",function (evt, genre, category,sort){
     console.log(genre);
     console.log(category);
-    return pool.query(`select * from videos where video_genre like '%${genre}%' and video_category like '%${category}%'`)
+    console.log(sort);
+    // return pool.query(`select * from videos where video_genre like '%${genre}%' and video_category like '%${category}%' order by video_name ${sort}`)
+    if (genre == null ) {
+      return pool.query(`select * from videos where video_category like '%${category}%' order by video_name ${sort}`)
+    }
+    else if (category == null) {
+      return pool.query(`select * from videos where video_genre like '%${genre}%' order by video_name ${sort}`)
+    }
+    else{
+      return pool.query(`select * from videos where video_genre like '%${genre}%' and video_category like '%${category}%' order by video_name ${sort}`)
+    }
     })
 
 

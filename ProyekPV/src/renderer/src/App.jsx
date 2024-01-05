@@ -31,10 +31,10 @@ function App() {
     }
   ])
 
-  function hasilfilter(genre,category){
+  function hasilfilter(genre,category,sort){
     console.log(genre);
     console.log(category);
-    window.api.hasilfilter(genre,category).then(function(res){
+    window.api.hasilfilter(genre,category,sort).then(function(res){
       setFilter(res[0])
       console.log(res[0]);
     })

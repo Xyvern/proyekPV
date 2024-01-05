@@ -20,7 +20,7 @@ const Filter = ({hasilfilter,filter}) => {
 
   const [category, setCategory] = useState('');
   const [genre, setGenre] = useState('');
-  const [sortby, setSortby] = useState('');
+  const [sort, setSort] = useState('');
 
   // ini nanti di kali 3 sama diganti di setiap select sama fungsi close "X" nya ya sist :) aku mager
   const action = useRef(null);
@@ -44,7 +44,6 @@ const Filter = ({hasilfilter,filter}) => {
               event.stopPropagation();
             }}
             onClick={() => {
-              console.log(category);
               setCategory(null);
               action.current.focusVisible();
             }}
@@ -59,7 +58,7 @@ const Filter = ({hasilfilter,filter}) => {
           <Option value="Blockbusters">Blockbusters</Option>
           <Option value="Movies">Movies</Option>
           <Option value="For kids">For Kids</Option>
-          <Option value="Bird">Bird</Option>
+          <Option value="Musical">Musical</Option>
           <Option value="Critically Acclaimed">Critically Acclaimed</Option>
         </Select>
         {/* Select Genre */}
@@ -78,7 +77,6 @@ const Filter = ({hasilfilter,filter}) => {
                 event.stopPropagation();
               }}
               onClick={() => {
-                console.log(genre);
                 setGenre(null);
                 action.current.focusVisible();
               }}
@@ -102,10 +100,10 @@ const Filter = ({hasilfilter,filter}) => {
         {/* Select Sort by */}
         <Select
         action={action}
-        value={value}
+        sort={sort}
         placeholder="Sort by"
-        onChange={(e, newValue) => setValue(newValue)}
-        {...(value && {
+        onChange={(e, newSort) => setSort(newSort)}
+        {...(sort && {
           endDecorator: (
             <IconButton
             size="sm"
@@ -115,8 +113,7 @@ const Filter = ({hasilfilter,filter}) => {
                 event.stopPropagation();
               }}
               onClick={() => {
-                console.log(value);
-                setValue(null);
+                setSort(null);
                 action.current.focusVisible();
               }}
               >
@@ -127,14 +124,13 @@ const Filter = ({hasilfilter,filter}) => {
         })}
         
         sx={{ width:'10vw', color:'rgb(19, 1, 62)', bgcolor:"whitesmoke" }}>
-          <Option value="Anime">Anime</Option>
-          <Option value="cat">Cat</Option>
-          <Option value="fish">Fish</Option>
-          <Option value="bird">Bird</Option>
+          <Option value="asc">A-Z</Option>
+          <Option value="desc">Z-A</Option>
+          
         </Select>
         <Box className='mr-4'>
           {/* Button Filter */}
-          <button className='text-white text-sm  bg-[#ffffff2c] pr-2 pl-4 py-2 border-solid rounded-lg font-semibold shadow-lg  btn' onClick={()=>hasilfilter(genre,category)}>Filter<span className="ml-2" ></span></button>
+          <button className='text-white text-sm  bg-[#ffffff2c] pr-2 pl-4 py-2 border-solid rounded-lg font-semibold shadow-lg  btn' onClick={()=>hasilfilter(genre,category,sort)}>Filter<span className="ml-2" ></span></button>
         </Box>
       </Box>
       {/* Content List Hasil Filter */}
@@ -144,7 +140,6 @@ const Filter = ({hasilfilter,filter}) => {
         {/* Filtered Item */}
         <Box>
           <button className='flex flex-row ' onClick={() => {setOpen(true),setIndex(i)}}>
-            {console.log(index)}
             <img src={example} alt="" className="rounded-lg w-[18rem]"/>
             <Box className="ml-5 text-left">
               <p>
@@ -169,7 +164,7 @@ const Filter = ({hasilfilter,filter}) => {
       </Box>)
       })
      :""}
-      <Modal open={open} onClose={() => setOpen(false)} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
+     {filter > 0 ? <Modal open={open} onClose={() => setOpen(false)} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
         <Sheet  sx={{ width:'80vw',borderRadius: 'md',p: 5,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white', overflowY: 'auto', maxHeight: '70vh','::-webkit-scrollbar': {
         display: 'none',
       },}}  >
@@ -180,8 +175,8 @@ const Filter = ({hasilfilter,filter}) => {
               <iframe style={{boxShadow:'-19vw 1vw 90vw 1vw #280185'}}
                 width="100%"
                 height="400rem"
-                src={index >=0 ? filter[index].video_link:""} className="rounded-lg mt-10 flex"
-                ></iframe>            
+                src={index >= 0? filter[index].video_link:''} className="rounded-lg mt-10 flex"
+                ></iframe>   
             </Box>
             <p className="mt-6">
               <span className="mr-1">
@@ -236,7 +231,7 @@ const Filter = ({hasilfilter,filter}) => {
             </Box>
           </Box>
         </Sheet>
-      </Modal>
+      </Modal>:''}
     </Box>
   );
 }
