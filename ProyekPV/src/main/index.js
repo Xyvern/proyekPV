@@ -79,11 +79,23 @@ app.whenReady().then(() => {
     console.log(category);
     console.log(sort);
     // return pool.query(`select * from videos where video_genre like '%${genre}%' and video_category like '%${category}%' order by video_name ${sort}`)
-    if (genre == null ) {
+    if (genre == null && category == null) {
+      return pool.query(`select * from videos order by video_name ${sort}`)
+    }
+    else if (genre == null && sort == null) {
+      return pool.query(`select * from videos where video_category like '%${category}%'`)
+    }
+    else if (category == null && sort == null) {
+      return pool.query(`select * from videos where video_genre like '%${genre}%'`)
+    }
+    else if (genre == null){
       return pool.query(`select * from videos where video_category like '%${category}%' order by video_name ${sort}`)
     }
-    else if (category == null) {
+    else if (category == null){
       return pool.query(`select * from videos where video_genre like '%${genre}%' order by video_name ${sort}`)
+    }
+    else if (sort == null){
+      return pool.query(`select * from videos where video_genre like '%${genre}%' and video_category like '%${category}%'`)
     }
     else{
       return pool.query(`select * from videos where video_genre like '%${genre}%' and video_category like '%${category}%' order by video_name ${sort}`)

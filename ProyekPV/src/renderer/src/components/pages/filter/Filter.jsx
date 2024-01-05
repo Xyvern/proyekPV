@@ -164,7 +164,7 @@ const Filter = ({hasilfilter,filter}) => {
       </Box>)
       })
      :""}
-     {filter > 0 ? <Modal open={open} onClose={() => setOpen(false)} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
+     {filter.length >0?<Modal open={open} onClose={() => setOpen(false)} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
         <Sheet  sx={{ width:'80vw',borderRadius: 'md',p: 5,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white', overflowY: 'auto', maxHeight: '70vh','::-webkit-scrollbar': {
         display: 'none',
       },}}  >
@@ -175,7 +175,7 @@ const Filter = ({hasilfilter,filter}) => {
               <iframe style={{boxShadow:'-19vw 1vw 90vw 1vw #280185'}}
                 width="100%"
                 height="400rem"
-                src={index >= 0? filter[index].video_link:''} className="rounded-lg mt-10 flex"
+                src={filter[0].video_link} className="rounded-lg mt-10 flex"
                 ></iframe>   
             </Box>
             <p className="mt-6">
@@ -185,14 +185,14 @@ const Filter = ({hasilfilter,filter}) => {
               {/* Overall Rate */}
               <span className="mr-2 text-xs font- text-gray-400">4.5{'/5'}</span>
               <span className="mr-2 text-xs text-gray-400">┃</span>
-              <span className="mr-2 text-xs text-gray-400">{index >=0? filter[index].video_category:""}</span>
+              <span className="mr-2 text-xs text-gray-400">{filter[0].video_category}</span>
               <span className="mr-2 text-xs text-gray-400">┃</span>
-              <span className="mr-2 text-xs text-gray-400">{index >=0? filter[index].video_genre:""}</span>
+              <span className="mr-2 text-xs text-gray-400">{filter[0].video_genre}</span>
             </p>
             {/* Judul Movie */}
-            <p className="text-5xl mt-2 font-semibold text-violet-100">{index >=0? filter[index].video_name:""}</p>
+            <p className="text-5xl mt-2 font-semibold text-violet-100">{filter[0].video_name}</p>
             {/* Desc Movie */}
-            <p className="mt-4 text-sm text-violet-200">{index>=0? filter[index].video_detail:""}</p>
+            <p className="mt-4 text-sm text-violet-200">{filter[0].video_detail}</p>
             <Box className="flex flex-row 'mb-3 mt-8">
               <Box className='mr-4'>
                 {/* Button Add to Favorite */}
