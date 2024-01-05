@@ -241,7 +241,7 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
       {filter.length > 0? 
       filter.map((video, i)=>{
         const videoid = listVideo.find((v) => v.video_id === video.video_id)
-        return(<Box key={i} className='mt-12'>
+        return(<Box key={i} >
         {/* Filtered Item */}
         <Box>
           <button className='flex flex-row ' onClick={() => {setOpen(true),setIndex(i),setIdx(listVideo.findIndex((v) => v.video_id == video.video_id));setId(videoid.video_id)}}>
@@ -345,7 +345,7 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
                 {console.log(id)}
                 {console.log(isikomen)}
               </Box>
-              <Divider sx={{bgcolor:'#ffffff4a',marginTop:4, marginBottom:1}} />
+              <Divider sx={{bgcolor:'#ffffff4a',marginTop:2, marginBottom:2}} />
               {/* List Comments */}
               {komen.length > 0 ? 
               komen.map((c,i) => {
