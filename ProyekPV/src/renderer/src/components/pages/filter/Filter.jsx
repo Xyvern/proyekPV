@@ -13,6 +13,32 @@ import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded';
 import Add from '@mui/icons-material/AddCircleRounded';
 import example from "../../../assets/img/encanto.jpg";
 
+//banner video
+import fastx from "../../../assets/banner/fastx.png";
+import bluebeetle from "../../../assets/banner/bluebeetle.jpg";
+import granturismo from "../../../assets/banner/granturismo.jpg";
+import mario from "../../../assets/banner/mario.jpg";
+import ahauntinginvenice from "../../../assets/banner/ahauntinginvenice.jpg";
+import lalaland from "../../../assets/banner/lalaland.jpg";
+import poltergeist from "../../../assets/banner/poltergeist.jpg";
+import interstellar from "../../../assets/banner/interstellar.jpeg";
+import littlemermaid from "../../../assets/banner/littlemermaid.webp";
+import oppenheimer from "../../../assets/banner/oppenheimer.jpg";
+import infinitywar from "../../../assets/banner/infinitywar.webp";
+import boboiboy from "../../../assets/banner/boboiboy.jpg";
+import thenun from "../../../assets/banner/thenun.jpg";
+import missionimpossible from "../../../assets/banner/missionimpossible.jpg";
+import spongebob from "../../../assets/banner/spongebob.jpg";
+import ted2 from "../../../assets/banner/ted2.jpg";
+import transformer from "../../../assets/banner/transformer.jpg";
+import httyd from "../../../assets/banner/httyd.jpeg";
+import wpa from "../../../assets/banner/warplanetapes.webp";
+import bighero6 from "../../../assets/banner/bighero6.jpg";
+import motoe from "../../../assets/banner/murderontheorientexpress.jpg";
+import spiderman from "../../../assets/banner/spiderman.webp";
+import tenkinoko from "../../../assets/banner/tenkinoko.jpg";
+
+
 const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavorite,komen,favoritev,loadkomen,search}) => {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(null)
@@ -219,7 +245,7 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
         {/* Filtered Item */}
         <Box>
           <button className='flex flex-row ' onClick={() => {setOpen(true),setIndex(i),setIdx(listVideo.findIndex((v) => v.video_id == video.video_id));setId(videoid.video_id)}}>
-            <img src={example} alt="" className="rounded-lg w-[18rem]"/>
+            <img src={video.video_banner} alt="" className="rounded-lg w-[18rem]"/>
             <Box className="ml-5 text-left">
               <p>
                 <span className="mr-2 text-xs text-gray-400">{video.video_category}</span>
@@ -269,7 +295,7 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
                 <span className="mr-2 text-xs text-gray-400">{index != null ? filter[index].video_genre : 'Tidak ada genre video'}</span>
               </p>
               {/* Judul Movie */}
-              <p className="text-5xl mt-2 font-semibold text-violet-100">{index != null ? listVideo[index].video_name : 'Nama Video tidak ditemukan'}</p>
+              <p className="text-5xl mt-2 font-semibold text-violet-100">{index != null ? filter[index].video_name : 'Nama Video tidak ditemukan'}</p>
               {/* Desc Movie */}
               <p className="mt-4 text-sm text-violet-200">{index != null ? filter[index].video_detail : 'Tidak ada detail video'}</p>
               <Box className="flex flex-row 'mb-3 mt-8">
