@@ -45,12 +45,13 @@ import spiderman from "../../../assets/banner/spiderman.webp";
 import tenkinoko from "../../../assets/banner/tenkinoko.jpg";
 
 
-const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,loadkomen,search}) => {
+const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,loadkomen,search, rating}) => {
   const [open, setOpen] = useState(false);
   const [idx, setIdx] = useState(null);
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(0);
   const [id, setId] = useState('')
   const [isikomen, setIsikomen] = useState('')
+  const [totalrate, setTotalrate] = useState(0)
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
   
@@ -94,7 +95,13 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
     if(idx!==null && id!==''){  
       loadkomen(id)
     }
-  }, [listVideo, favoriteVideo,isikomen,idx,id,search]);
+    if(idx!==null && rating.length > 0){  
+      const temp = rating.findIndex((r) => r.video_id == listVideo[idx].video_id && r.user_username == user)
+      setValue(rating[idx].rating)
+      setTotalrate()
+    }
+
+  }, [listVideo, favoriteVideo,isikomen,idx,id,search,rating,totalrate]);
 
   const favorite = () => {
     if(favoriteVideo.find((v) => v.video_id ==id)){

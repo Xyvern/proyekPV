@@ -5,6 +5,7 @@ import { electronAPI } from '@electron-toolkit/preload'
 const api = {
   login: () => ipcRenderer.invoke('login'),
   loadVideo: () => ipcRenderer.invoke('loadvideo'),
+  loadRating: () => ipcRenderer.invoke('loadrating'),
   loadKomen: (id) => ipcRenderer.invoke('loadkomen',id),
   search: (nama) => ipcRenderer.invoke('search',nama),
   removefavorite: (id) => ipcRenderer.invoke('unfavorite',id),
@@ -13,6 +14,7 @@ const api = {
   addfavorite: (nama, id) => ipcRenderer.invoke('addfavorite',nama, id),
   addkomen: (nama, id,isikomen) => ipcRenderer.invoke('addkomen',nama, id,isikomen),
   register: (user,email, notelp,password) => ipcRenderer.invoke('register', user,email,notelp,password),
+  hasilfilter: (genre,category,sort) => ipcRenderer.invoke('hasilfilter', genre,category,sort)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
