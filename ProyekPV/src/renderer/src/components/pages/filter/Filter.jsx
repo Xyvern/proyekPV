@@ -123,7 +123,7 @@ const Filter = () => {
         </Select>
         <Box className='mr-4'>
           {/* Button Filter */}
-          <button className='text-white text-sm  bg-[#ffffff2c] pr-2 pl-4 py-2 border-solid rounded-lg font-semibold shadow-lg  btn' >Filter<span className="ml-2" ></span></button>
+          <button className='text-white text-sm  bg-[#ffffff2c] pr-2 pl-4 py-2 border-solid rounded-lg font-semibold shadow-lg  btn hover:bg-[#ffffff49]' >Filter<span className="ml-2" ></span></button>
         </Box>
       </Box>
       {/* Content List Hasil Filter */}
@@ -179,13 +179,13 @@ const Filter = () => {
               <span className="mr-2 text-xs text-gray-400">Genre</span>
             </p>
             {/* Judul Movie */}
-            <p className="text-5xl mt-2 font-semibold text-violet-100">Judul Movie</p>
+            <p className="text-5xl mt-2 font-semibold text-white">Judul Movie</p>
             {/* Desc Movie */}
             <p className="mt-4 text-sm text-violet-200">"Cows Cows Cows" is a surreal and humorous animated short video that gained popularity on the internet. The video features repeating images of cows with a catchy and rhythmic song in the background chanting "Cows cows cows, I like cows, I like cows, I like cows..."</p>
             <Box className="flex flex-row 'mb-3 mt-8">
               <Box className='mr-4'>
                 {/* Button Add to Favorite */}
-                <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center' >Add to Favorite <span className="ml-2" ><Add/></span></button>
+                <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center hover:bg-[#ffffff49]' >Add to Favorite <span className="ml-2" ><Add/></span></button>
                 {/* Button Unfavorite */}
                 {/* <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center' >Unfavorite<span className="ml-2" ><RemoveCircleRoundedIcon/></span></button> */}
               </Box>
@@ -209,7 +209,7 @@ const Filter = () => {
                 outlineOffset: '2px', borderRadius:'lg', color:'rgb(19, 1, 62)', }}}
               />
               {/* Button Submit Comments */}
-              <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg btn'>Submit</button>
+              <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg btn hover:bg-[#ffffff49]'>Submit</button>
             </Box>
             <Divider sx={{bgcolor:'#ffffff4a',marginTop:4, marginBottom:1}} />
             {/* List Comments */}

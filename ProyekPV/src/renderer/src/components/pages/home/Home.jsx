@@ -138,17 +138,15 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
             <Box className="flex flex-row">
               {/* Button Watch Now  */}
               <Box className='mb-3'>
-                <button className='text-white backdrop-blur-sm bg-[#ffffff2c] px-4 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg mr-5 btn flex items-center' 
+                <button className='text-white backdrop-blur-sm bg-[#ffffff2c] px-4 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg mr-5 btn flex items-center hover:bg-[#ffffff49]' 
                 onClick={() => {setOpen(true);setIdx(22);setId(listVideo[22].video_id)}}>Watch Now <span className="ml-1"><PlayArrowIcon sx={{fontSize:30}}/></span></button>
               </Box>
               {/* Button Add Favourite  */}
-              <Box className='mb-3 flex'>
-                {/* <button className='text-white backdrop-blur-sm bg-[#ffffff2c] px-4 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg  btn flex items-center' >
-                  Add to Favorite <span className="ml-2" ><Add  /></span></button> */}
+              {/* <Box className='mb-3 flex'>
                 {favoriteVideo.find((v) => v.video_id ==listVideo[22].video_id) ? (
                     <>
                     <button
-                    className='text-white backdrop-blur-sm bg-[#ffffff2c] px-4 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg mr-5 btn flex items-center'
+                    className='text-white backdrop-blur-sm bg-[#ffffff2c] px-4 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg mr-5 btn flex items-center hover:bg-[#ffffff49]'
                       onClick={() => khusus(22)}>
                       Unfavorite <span className="ml-2"><RemoveCircleRoundedIcon/></span>
                     </button>
@@ -156,14 +154,14 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
                   ) : (
                     <>
                     <button
-                    className='text-white backdrop-blur-sm bg-[#ffffff2c] px-4 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg mr-5 btn flex items-center'
+                    className='text-white backdrop-blur-sm bg-[#ffffff2c] px-4 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg mr-5 btn flex items-center hover:bg-[#ffffff49]'
                       onClick={() => {khusus(22)}}>
                       Add to Favorite <span className="ml-2"><Add/></span>
                     </button>
                     </>
                   )
                 }
-              </Box>
+              </Box> */}
             </Box>
           </CardContent>
         </Card>
@@ -228,7 +226,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
                 <span className="mr-2 text-xs text-gray-400">{idx !== null ? listVideo[idx].video_genre : 'Tidak ada genre video'}</span>
               </p>
               {/* Judul Movie */}
-              <p className="text-5xl mt-2 font-semibold text-violet-100">{idx !== null ? listVideo[idx].video_name : 'Nama Video tidak ditemukan'}</p>
+              <p className="text-5xl mt-2 font-semibold text-white">{idx !== null ? listVideo[idx].video_name : 'Nama Video tidak ditemukan'}</p>
               {/* Desc Movie */}
               <p className="mt-4 text-sm text-violet-200">{idx !== null ? listVideo[idx].video_detail : 'Tidak ada detail video'}</p>
               <Box className="flex flex-row 'mb-3 mt-8">
@@ -236,13 +234,13 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
                 {idx !== null && (
                   favoriteVideo.find((v) => v.video_id ==id) ? (
                     <button
-                      className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center'
+                      className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center hover:bg-[#ffffff49]'
                       onClick={() => favorite()}>
                       Unfavorite <span className="ml-2"><RemoveCircleRoundedIcon/></span>
                     </button>
                   ) : (
                     <button
-                      className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center'
+                      className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center hover:bg-[#ffffff49]'
                       onClick={() => favorite()}>
                       Add to Favorite <span className="ml-2"><Add/></span>
                     </button>
@@ -273,7 +271,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
                   onChange={(e) => setIsikomen(e.target.value)}
                 />
                 {/* Button Submit Comments */}
-                <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg btn' onClick={() => addcomment(user,id,isikomen)}>Submit</button>
+                <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg btn hover:bg-[#ffffff49]' onClick={() => addcomment(user,id,isikomen)}>Submit</button>
               </Box>
               <Divider sx={{bgcolor:'#ffffff4a',marginTop:4, marginBottom:1}} />
               {/* List Comments */}
@@ -283,7 +281,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
                 const formattedDate = inputDate.toLocaleDateString('id-ID', options);
                 return(
                 <Box key={i} className='mb-6'>
-                  <p className="text-md mt-2 font-medium text-violet-100">{c.user_username}</p>
+                  <p className="text-md mt-2 font-medium text-white">{c.user_username}</p>
                   <p className="text-[10px] text-gray-400 mt-1">{formattedDate}</p>
                   <p className="mt-2 text-xs text-violet-200">{c.comment_content}</p>
                 </Box>
@@ -313,7 +311,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
                     <span className="mr-2 text-xs text-gray-400">{video.video_genre}</span>
                   </p>
                   {/* Judul Movie */}
-                  <p className="text-lg mt-1 font-semibold text-violet-100">{video.video_name}</p>
+                  <p className="text-lg mt-1 font-semibold text-white">{video.video_name}</p>
                   <span className="mr-1">
                       <StarRoundedIcon sx={{fontSize:20, color:'#FFEF00'}}/>
                   </span>
@@ -353,7 +351,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
               <span className="mr-2 text-xs text-gray-400">{idx !== null ? listVideo[idx].video_genre : 'Genre video tidak ditemukan'}</span>
             </p>
             {/* Judul Movie */}
-            <p className="text-5xl mt-2 font-semibold text-violet-100">{idx !== null ? listVideo[idx].video_name : 'Nama video tidak ditemukan'}</p>
+            <p className="text-5xl mt-2 font-semibold text-white">{idx !== null ? listVideo[idx].video_name : 'Nama video tidak ditemukan'}</p>
             {/* Desc Movie */}
             <p className="mt-4 text-sm text-violet-200">{idx !== null ? listVideo[idx].video_detail : 'Detail video tidak ada'}</p>
             <Box className="flex flex-row 'mb-3 mt-8">
@@ -362,18 +360,19 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
                 {idx !== null && (
                   favoriteVideo.find((v) => v.video_id ==id) ? (
                     <button
-                      className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center'
+                      className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center hover:bg-[#ffffff49]'
                       onClick={() => favorite()}>
                       Unfavorite <span className="ml-2"><RemoveCircleRoundedIcon/></span>
                     </button>
                   ) : (
                     <button
-                      className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center'
+                      className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center hover:bg-[#ffffff49]'
                       onClick={() => favorite()}>
                       Add to Favorite <span className="ml-2"><Add/></span>
                     </button>
                   )
-                )}              </Box>
+                )}
+              </Box>
               <Box className='flex flex-row'>
                 {/* Rating */}
                 <Box className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-l-full font-semibold shadow-lg   flex items-center' >
@@ -396,7 +395,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
                 onChange={(e) => setIsikomen(e.target.value)}
               />
               {/* Button Submit Comments */}
-              <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg btn' onClick={() => addcomment(user,id,isikomen)}>Submit</button>
+              <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg btn hover:bg-[#ffffff49]' onClick={() => addcomment(user,id,isikomen)}>Submit</button>
             </Box>
             <Divider sx={{bgcolor:'#ffffff4a',marginTop:4, marginBottom:1}} />
             {/* List Comments */}
@@ -406,7 +405,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
                 const formattedDate = inputDate.toLocaleDateString('id-ID', options);
                 return(
                 <Box key={i} className='mb-6'>
-                  <p className="text-md mt-2 font-medium text-violet-100">{c.user_username}</p>
+                  <p className="text-md mt-2 font-medium text-white">{c.user_username}</p>
                   <p className="text-[10px] text-gray-400 mt-1">{formattedDate}</p>
                   <p className="mt-2 text-xs text-violet-200">{c.comment_content}</p>
                 </Box>
