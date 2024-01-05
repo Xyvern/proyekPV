@@ -5,9 +5,9 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import LoginRegister from './components/pages/login/Login'
 import Layout from './components/Layout'
 import Filter from './components/pages/filter/filter'
-import MyFavourites from './components/pages/myfavourites/Myfavourites'
 import Profile from './components/pages/profile/Profile'
 import Home from './components/pages/home/Home'
+import MyFavourites from './components/pages/myfavourites/myfavourites'
 
 
 function App() {
