@@ -189,7 +189,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
             </Slider>
         </Box>
         {/* Carousel For Kids */}
-        <Box className="flex flex-col px-5 mt-16">
+        <Box className="flex flex-col px-5 mt-16 mb-16">
           <h1 className="text-xl font-semibold mb-5 ml-4">For Kids</h1>
           <Slider {...settings} className="" >
           {listVideo.map((vid,i) => {
