@@ -128,7 +128,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
         {/* Banner Cover */}
         <Card sx={{ border: 'none', borderRadius: '2rem', width: '100%', height: '30rem', marginTop:'2rem'}}>
           <CardCover sx={{bgcolor:'rgb(19, 1, 62)'}}>
-            <img src={banner} alt="Tenkinoko" style={{boxShadow:'-19vw 1vw 90vw 1vw #280185'}}/>
+            <img src={banner} alt="Tenkinoko" style={{boxShadow:'19vw 1vw 90vw 1vw #280185'}}/>
           </CardCover>
           <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'start', justifyContent:'end', padding: '25px 70px'}}>
             <h1 className="text-white font-semibold text-5xl mb-5">Weathering with You</h1>
