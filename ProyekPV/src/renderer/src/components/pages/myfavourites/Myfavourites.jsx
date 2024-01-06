@@ -110,7 +110,7 @@ const MyFavourites = ({user,removefavorite}) => {
             <Box className="flex flex-row 'mb-3 mt-8">
               <Box className='mr-4'>
                 {/* Button Unfavorite */}
-                <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center' onClick={() => {removefavorite(favorite[idx].video_id);setIdx(null);setOpen(false)}}>Unfavorite<span className="ml-2" ><RemoveCircleRoundedIcon/></span></button>
+                <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center hover:bg-[#ffffff49]' onClick={() => {removefavorite(favorite[idx].video_id);setIdx(null);setOpen(false)}}>Unfavorite<span className="ml-2" ><RemoveCircleRoundedIcon/></span></button>
               </Box>
               <Box className='flex flex-row'>
                 {/* Rating */}
@@ -118,7 +118,7 @@ const MyFavourites = ({user,removefavorite}) => {
                   {/* <Rating name="simple-controlled" value={value} onChange={(event, newValue) => {setValue(newValue)}} /> */}
                 </Box>
                 {/* Button Submit Rating*/}
-                <button className='text-white text-sm  bg-[#ffffff4a] pl-2 pr-3 py-2 border-solid rounded-r-full font-semibold shadow-lg  flex items-center'>Submit</button>
+                <button className='text-white text-sm  bg-[#ffffff4a] pl-2 pr-3 py-2 border-solid rounded-r-full font-semibold shadow-lg  flex items-center hover:bg-[#ffffff49]'>Submit</button>
               </Box>
             </Box>
             <Box className='mt-12'>
@@ -132,7 +132,7 @@ const MyFavourites = ({user,removefavorite}) => {
                 outlineOffset: '2px', borderRadius:'lg', color:'rgb(19, 1, 62)', }}}
               />
               {/* Button Submit Comments */}
-              <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg btn'>Submit</button>
+              <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg btn hover:bg-[#ffffff49]'>Submit</button>
             </Box>
             <Divider sx={{bgcolor:'#ffffff4a',marginTop:4, marginBottom:1}} />
             {/* List Comments */}

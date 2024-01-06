@@ -74,6 +74,35 @@ app.whenReady().then(() => {
     where f.user_username = '${user}'`)
   })
 
+  ipcMain.handle("hasilfilter",function (evt, genre, category,sort){
+    console.log(genre);
+    console.log(category);
+    console.log(sort);
+    // return pool.query(`select * from videos where video_genre like '%${genre}%' and video_category like '%${category}%' order by video_name ${sort}`)
+    if (genre == null && category == null) {
+      return pool.query(`select * from videos order by video_name ${sort}`)
+    }
+    else if (genre == null && sort == null) {
+      return pool.query(`select * from videos where video_category like '%${category}%'`)
+    }
+    else if (category == null && sort == null) {
+      return pool.query(`select * from videos where video_genre like '%${genre}%'`)
+    }
+    else if (genre == null){
+      return pool.query(`select * from videos where video_category like '%${category}%' order by video_name ${sort}`)
+    }
+    else if (category == null){
+      return pool.query(`select * from videos where video_genre like '%${genre}%' order by video_name ${sort}`)
+    }
+    else if (sort == null){
+      return pool.query(`select * from videos where video_genre like '%${genre}%' and video_category like '%${category}%'`)
+    }
+    else{
+      return pool.query(`select * from videos where video_genre like '%${genre}%' and video_category like '%${category}%' order by video_name ${sort}`)
+    }
+    })
+
+
   ipcMain.handle("search",function (evt, nama){
     // console.log(nama);
     return pool.query(`select * from videos where video_name like '%${nama}%'`)

@@ -16,6 +16,7 @@ const api = {
   addrating: (name,id,rating) => ipcRenderer.invoke('addrating',name,id,rating),
   editrating: (name,id,rating) => ipcRenderer.invoke('editrating',name,id,rating),
   register: (user,email, notelp,password) => ipcRenderer.invoke('register', user,email,notelp,password),
+  hasilfilter: (genre,category,sort) => ipcRenderer.invoke('hasilfilter', genre,category,sort)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import LoginRegister from './components/pages/login/Login'
 import Layout from './components/Layout'
-import Filter from './components/pages/filter/filter'
-import MyFavourites from './components/pages/myfavourites/Myfavourites'
+import Filter from './components/pages/filter/Filter'
 import Profile from './components/pages/profile/Profile'
 import Home from './components/pages/home/Home'
+import MyFavourites from './components/pages/myfavourites/myfavourites'
 
 
 function App() {
@@ -16,6 +16,7 @@ function App() {
   const [favoriteVideo, setFavoriteVideo] = useState([])
   const [comment,setComment] = useState([])
   const [search, setSearch] = useState([])
+  const [filter, setFilter] = useState([])
   const [rating, setRating] = useState([])
   
   // const [listUser, setListUser] = useState([])
@@ -25,12 +26,21 @@ function App() {
       children : [
         { path:'/',element: <Home search={search} listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} 
         removefavorite={removefavorite} komen={comment} favoritev={favorite} loadkomen={loadcomment} rating={rating} /> },
-        { path:'/filter',element: <Filter/> },
+        { path:'/filter',element: <Filter filter={filter} hasilfilter={hasilfilter} search={search} listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} removefavorite={removefavorite} komen={comment} favoritev={favorite} loadkomen={loadcomment}/> },
         { path:'/myfav',element: <MyFavourites listVideo={favoriteVideo} user={user} removefavorite={removefavorite}/> },
         { path:'/profile',element: <Profile user={user} handlelogout={handlelogout}/> }
       ]
     }
   ])
+
+  function hasilfilter(genre,category,sort){
+    console.log(genre);
+    console.log(category);
+    window.api.hasilfilter(genre,category,sort).then(function(res){
+      setFilter(res[0])
+      console.log(res[0]);
+    })
+  }
 
   function hasilSearch(input){
     console.log(input);
