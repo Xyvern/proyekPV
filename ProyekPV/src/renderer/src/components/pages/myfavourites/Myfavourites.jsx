@@ -32,7 +32,7 @@ import motoe from "../../../assets/banner/murderontheorientexpress.jpg";
 import spiderman from "../../../assets/banner/spiderman.webp";
 import tenkinoko from "../../../assets/banner/tenkinoko.jpg";
 
-const MyFavourites = ({user,removefavorite,komen,loadkomen}) => {
+const MyFavourites = ({user,removefavorite,komen,loadkomen,listVideo}) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
   const [idx, setIdx] = useState(null);
@@ -40,6 +40,8 @@ const MyFavourites = ({user,removefavorite,komen,loadkomen}) => {
   const [isikomen, setIsikomen] = useState('')
   const [id, setId] = useState('')
   const [index, setIndex] = useState('')
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
 
 
   // useEffect(() =>{
@@ -52,7 +54,7 @@ const MyFavourites = ({user,removefavorite,komen,loadkomen}) => {
       loadkomen(id)
     }
     loadfavorite()
-  }, [isikomen,idx,id,favorite]);
+  }, [listVideo,isikomen,idx,id,favorite]);
 
   function addcomment(nama,id,content){
     const invalid = /['"`]/
@@ -76,6 +78,8 @@ const MyFavourites = ({user,removefavorite,komen,loadkomen}) => {
       <Box className='mt-8'>
         {/* Filtered Item */}
       {favorite.length >0 ? favorite.map((video,i) =>{
+                const videoid = listVideo.find((v) => v.video_id === video.video_id)
+
       return(
         <Box key={i}>
           <button className='flex flex-row ' onClick={() => {setOpen(true),setIdx(i),setIndex(listVideo.findIndex((v) => v.video_id == video.video_id));setId(videoid.video_id)}}>
@@ -161,7 +165,7 @@ const MyFavourites = ({user,removefavorite,komen,loadkomen}) => {
               </Box>
               <Divider sx={{bgcolor:'#ffffff4a',marginTop:2, marginBottom:2}} />
               {/* List Comments */}
-              {console.log(komen)}
+              {console.log(isikomen)}
               {komen.length > 0 ? 
               komen.map((c,i) => {
                 const inputDate = new Date(c.comment_date.toString());
