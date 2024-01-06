@@ -130,10 +130,10 @@ function App() {
         error.push("Panjang nomor telepon harus 10-12 angka")
       }
       if (error.length===0){
-        console.log("register berhasil");
+        alert("Register Berhasil");
         window.api.register(nama,email,notelp,pass).then(function(){})
       }else{
-        error.map((e)=>console.log(e))
+        error.map((e)=>alert(e))
       }
     })
   }
