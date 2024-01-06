@@ -40,7 +40,7 @@ const MyFavourites = ({user,removefavorite}) => {
 
   useEffect(() =>{
     loadfavorite()
-  },[favorite])
+  },[])
 
   function loadfavorite(){
     window.api.loadfavorite(user).then(function(res){
@@ -110,7 +110,7 @@ const MyFavourites = ({user,removefavorite}) => {
             <Box className="flex flex-row 'mb-3 mt-8">
               <Box className='mr-4'>
                 {/* Button Unfavorite */}
-                <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center hover:bg-[#ffffff49]' onClick={() => {removefavorite(favorite[idx].video_id);setIdx(null);setOpen(false)}}>Unfavorite<span className="ml-2" ><RemoveCircleRoundedIcon/></span></button>
+                <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center hover:bg-[#ffffff49]' onClick={() => {removefavorite(favorite[idx].video_id);setIdx(null);setOpen(false);setFavorite(favorite.filter((f)=> f.video_id != favorite[idx].video_id))}}>Unfavorite<span className="ml-2" ><RemoveCircleRoundedIcon/></span></button>
               </Box>
               <Box className='flex flex-row'>
                 {/* Rating */}

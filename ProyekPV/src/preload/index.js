@@ -9,6 +9,7 @@ const api = {
   loadKomen: (id) => ipcRenderer.invoke('loadkomen',id),
   search: (nama) => ipcRenderer.invoke('search',nama),
   removefavorite: (id) => ipcRenderer.invoke('unfavorite',id),
+  hitungrate: (id) => ipcRenderer.invoke('hitungrating',id),
   loadfavorite: (user) => ipcRenderer.invoke('loadfavorite',user),
   comment: (isikomen, user) => ipcRenderer.invoke('favorite',isikomen, user),
   addfavorite: (nama, id) => ipcRenderer.invoke('addfavorite',nama, id),

@@ -52,6 +52,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
   const [id, setId] = useState('')
   const [isikomen, setIsikomen] = useState('')
   const [totalrate, setTotalrate] = useState(0)
+  let checker = false
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
   
@@ -92,21 +93,21 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
 
 
   useEffect(() => {
-    if(idx!==null && id!==''){  
+    if(idx!==null && id!=='' && rating.length > 0){  
       loadkomen(id)
+      avgrating(id)
     }
-    if(idx!==null && rating.length > 0){  
-      // const temp = rating.findIndex((r) => r.video_id == listVideo[idx].video_id && r.user_username == user)
-      setTotalrate()
+    if(idx!==null && rating.length > 0 ){  
+      const temp = rating.findIndex((r) => r.video_id == listVideo[idx].video_id && r.user_username == user)
+      console.log(listVideo,rating);
+      if(temp!=-1){
+        setValue(rating[temp].rating);
+      }
+      else{
+        setValue(0)
+      }
     }
-
-  }, [listVideo, favoriteVideo,isikomen,idx,id,search,rating,totalrate]);
-
-  useEffect(() => {
-    if(idx!==null && rating.length > 0){  
-      setValue(rating[idx].rating)
-    }
-  },[idx,rating])
+  }, [idx,id,search]);
 
   const favorite = () => {
     if(favoriteVideo.find((v) => v.video_id ==id)){
@@ -146,6 +147,12 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
     }
   }
 
+  function avgrating(id){
+    window.api.hitungrate(id).then(function(res){
+      setTotalrate(res[0])
+    })
+  }
+
   if(search.length == 0){
     return (
       <Box>
@@ -165,27 +172,6 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
                 <button className='text-white backdrop-blur-sm bg-[#ffffff2c] px-4 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg mr-5 btn flex items-center hover:bg-[#ffffff49]' 
                 onClick={() => {setOpen(true);setIdx(22);setId(listVideo[22].video_id)}}>Watch Now <span className="ml-1"><PlayArrowIcon sx={{fontSize:30}}/></span></button>
               </Box>
-              {/* Button Add Favourite  */}
-              {/* <Box className='mb-3 flex'>
-                {favoriteVideo.find((v) => v.video_id ==listVideo[22].video_id) ? (
-                    <>
-                    <button
-                    className='text-white backdrop-blur-sm bg-[#ffffff2c] px-4 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg mr-5 btn flex items-center hover:bg-[#ffffff49]'
-                      onClick={() => khusus(22)}>
-                      Unfavorite <span className="ml-2"><RemoveCircleRoundedIcon/></span>
-                    </button>
-                    </>
-                  ) : (
-                    <>
-                    <button
-                    className='text-white backdrop-blur-sm bg-[#ffffff2c] px-4 py-2 border-solid border-2 border-[#e2e3e59d] rounded-full font-semibold shadow-lg mr-5 btn flex items-center hover:bg-[#ffffff49]'
-                      onClick={() => {khusus(22)}}>
-                      Add to Favorite <span className="ml-2"><Add/></span>
-                    </button>
-                    </>
-                  )
-                }
-              </Box> */}
             </Box>
           </CardContent>
         </Card>
@@ -224,11 +210,11 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
           </Slider>
         </Box>
         {/* Modal Pop Up */}
-        <Modal open={open} onClose={() => {setOpen(false)}} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
+        <Modal open={open} onClose={() => {setOpen(false);checker=true}} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
           <Sheet  sx={{ width:'80vw',borderRadius: 'md',p: 5,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white', overflowY: 'auto', maxHeight: '70vh','::-webkit-scrollbar': {
           display: 'none',
         },}}  >
-            <ModalClose variant="soft" sx={{ m: 1, bgcolor:'#413988' }} />
+            <ModalClose variant="soft" sx={{ m: 1, bgcolor:'#413988' }}/>
             <Box className="flex flex-col">
               <Box className="flex">
                 {/* Embed Video */}
@@ -243,7 +229,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
                   <StarRoundedIcon sx={{fontSize:20, color:'#FFEF00'}}/>
                 </span>
                 {/* Overall Rate */}
-                <span className="mr-2 text-xs font- text-gray-400">4.5{'/5'}</span>
+                <span className="mr-2 text-xs font- text-gray-400">{totalrate !=0 ? totalrate[0].rata : ''}{'/5'}</span>
                 <span className="mr-2 text-xs text-gray-400">┃</span>
                 <span className="mr-2 text-xs text-gray-400">{idx !== null ? listVideo[idx].video_category : 'Tidak ada category video'}</span>
                 <span className="mr-2 text-xs text-gray-400">┃</span>
@@ -349,7 +335,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
         </Box>
         )})}
       </Box>
-      <Modal open={open} onClose={() => setOpen(false)} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
+      <Modal open={open} onClose={() => {setOpen(false)}} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
         <Sheet  sx={{ width:'80vw',borderRadius: 'md',p: 5,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white', overflowY: 'auto', maxHeight: '70vh','::-webkit-scrollbar': {
         display: 'none',
       },}}  >
