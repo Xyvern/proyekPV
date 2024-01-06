@@ -96,12 +96,17 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
       loadkomen(id)
     }
     if(idx!==null && rating.length > 0){  
-      const temp = rating.findIndex((r) => r.video_id == listVideo[idx].video_id && r.user_username == user)
-      setValue(rating[idx].rating)
+      // const temp = rating.findIndex((r) => r.video_id == listVideo[idx].video_id && r.user_username == user)
       setTotalrate()
     }
 
   }, [listVideo, favoriteVideo,isikomen,idx,id,search,rating,totalrate]);
+
+  useEffect(() => {
+    if(idx!==null && rating.length > 0){  
+      setValue(rating[idx].rating)
+    }
+  },[idx,rating])
 
   const favorite = () => {
     if(favoriteVideo.find((v) => v.video_id ==id)){
@@ -126,6 +131,18 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
     }
     else{
       alert(`Jangan menggunakan ' dan " `)
+    }
+  }
+
+  function handleRating(name,id,rating){
+    const cari = rating.find((r) => r.user_username === name && r.video_id === id)
+    if(cari){
+      window.api.addrating(nama,id,rating).then(function(){
+      })
+    }
+    else{
+      window.api.editrating(nama,id,rating).then(function(){
+      })
     }
   }
 
@@ -264,7 +281,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
                     <Rating name="simple-controlled" value={value} onChange={(event, newValue) => {setValue(newValue)}} />
                   </Box>
                   {/* Button Submit Rating*/}
-                  <button className='text-white text-sm  bg-[#ffffff4a] pl-2 pr-3 py-2 border-solid rounded-r-full font-semibold shadow-lg  flex items-center'>Submit</button>
+                  <button className='text-white text-sm  bg-[#ffffff4a] pl-2 pr-3 py-2 border-solid rounded-r-full font-semibold shadow-lg  flex items-center' onClick={() => handleRating(user,id, value)}>Submit</button>
                 </Box>
               </Box>
               <Box className='mt-12'>
@@ -384,10 +401,10 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
               <Box className='flex flex-row'>
                 {/* Rating */}
                 <Box className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-l-full font-semibold shadow-lg   flex items-center' >
-                  {/* <Rating name="simple-controlled" value={value} onChange={(event, newValue) => {setValue(newValue)}} /> */}
+                  <Rating name="simple-controlled" value={value} onChange={(newValue) => {setValue(newValue)}} />
                 </Box>
                 {/* Button Submit Rating*/}
-                <button className='text-white text-sm  bg-[#ffffff4a] pl-2 pr-3 py-2 border-solid rounded-r-full font-semibold shadow-lg  flex items-center'>Submit</button>
+                <button className='text-white text-sm  bg-[#ffffff4a] pl-2 pr-3 py-2 border-solid rounded-r-full font-semibold shadow-lg  flex items-center' onClick={() => handleRating(user,id, value)}>Submit</button>
               </Box>
             </Box>
             <Box className='mt-12'>

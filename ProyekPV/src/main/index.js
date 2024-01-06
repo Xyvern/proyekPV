@@ -82,6 +82,15 @@ app.whenReady().then(() => {
   ipcMain.handle("loadrating",function (evt){
     return pool.query(`select * from ratings`)
   })
+  
+  ipcMain.handle("addrating",function (evt,name,id,rating){
+    return pool.query(`INSERT INTO ratings(user_username,video_id,rating)
+    VALUES('${name}',${id},${rating})`)
+  })
+
+  ipcMain.handle("editrating", function(evt,name,id,rating){
+    return pool.query(`update ratings set rating = ${rating} where video_id = ${id} and user_username = ${name}`)
+  })
 
   ipcMain.handle("hitungrating",function (evt,id){
     return pool.query(`select ROUND(AVG(rating), 1) from ratings where video_id = ${id} group by video_id`)

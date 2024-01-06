@@ -13,6 +13,8 @@ const api = {
   comment: (isikomen, user) => ipcRenderer.invoke('favorite',isikomen, user),
   addfavorite: (nama, id) => ipcRenderer.invoke('addfavorite',nama, id),
   addkomen: (nama, id,isikomen) => ipcRenderer.invoke('addkomen',nama, id,isikomen),
+  addrating: (name,id,rating) => ipcRenderer.invoke('addrating',name,id,rating),
+  editrating: (name,id,rating) => ipcRenderer.invoke('editrating',name,id,rating),
   register: (user,email, notelp,password) => ipcRenderer.invoke('register', user,email,notelp,password),
 }
 
