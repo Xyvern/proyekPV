@@ -36,7 +36,7 @@ const LoginRegister = ({handlelogin,handleregister}) => {
           <Box className='flex flex-col mb-10 justify-center items-center animate-bounce'>
             <h1 className='text-white font-semibold tracking-wider text-lg'>Welcome back <span className='underline underline-offset-8'>Cinematers!</span></h1>
           </Box>
-          <Box className="backdrop-blur-md flex h-[25rem] w-80 flex-col items-center justify-center rounded-2xl border-2 border-[#ffffff66] shadow-2xl">
+          <Box className="backdrop-blur-md flex h-[25rem] w-80 flex-col items-center justify-center rounded-2xl border-[1px] border-[#ffffff66]" sx={{boxShadow:' rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px'}}>
             <h1 className='font-extrabold text-2xl mb-5 text-white'>Login</h1>
             <form className='flex justify-center items-center flex-col'>
               {/* Texfield Username Login */}
@@ -71,11 +71,11 @@ const LoginRegister = ({handlelogin,handleregister}) => {
       <Box className="gmbr justify-center  items-center">
         <Box className='flex justify-center  items-center' height={'100vh'}>
           {/* WRAPPER */}
-          <Box className='flex justify-center  items-center shadow-xl rounded-2xl'>
+          <Box className='flex justify-center  items-center  rounded-2xl' sx={{boxShadow:' rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px'}}>
             {/* LAYOUT KIRI */}
-            <Box className="bg-fuchsia-100 flex h-[30rem] w-80 flex-col rounded-l-2xl p-10 justify-center">
+            <Box className="bg-violet-100 flex h-[30rem] w-80 flex-col rounded-l-2xl p-10 justify-center">
               <span className='pb-5'><AnimationIcon fontSize='large' sx={{color: 'black'}} className='mx-2'/></span>
-              <h1 className='text-4xl font-bold  pb-8'>Welcome to <span className='bg-gradient-to-r from-pink-400  px-3'>Cinemate!</span></h1>
+              <h1 className='text-4xl font-bold  pb-8'>Welcome to <span className='bg-gradient-to-r from-violet-400  px-3'>Cinemate!</span></h1>
               <p className='text-xs text-pink-'>Explore a world of endless entertainment. Dive into an unparalleled collection of movies, series, and documentaries. Immerse yourself in the magic of cinema from the comfort of your screen</p>
             </Box>
             {/* LAYOUT KANAN */}
