@@ -57,41 +57,6 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
   const [isikomen, setIsikomen] = useState('')
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-  var settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
-  };
-
 
   useEffect(() => {
     if(idx!==null && id!==''){  
@@ -321,7 +286,7 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
                 <Box className='flex flex-row'>
                   {/* Rating */}
                   <Box className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-l-full font-semibold shadow-lg   flex items-center' >
-                    <Rating name="simple-controlled" value={value} onChange={(event, newValue) => {setValue(newValue)}} />
+                    {/* <Rating name="simple-controlled" value={value} onChange={(event, newValue) => {setValue(newValue)}} /> */}
                   </Box>
                   {/* Button Submit Rating*/}
                   <button className='text-white text-sm  bg-[#ffffff4a] pl-2 pr-3 py-2 border-solid rounded-r-full font-semibold shadow-lg  flex items-center'>Submit</button>
@@ -341,9 +306,6 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
                 />
                 {/* Button Submit Comments */}
                 <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg btn' onClick={() => addcomment(user,id,isikomen)}>Submit</button>
-                {console.log(user)}
-                {console.log(id)}
-                {console.log(isikomen)}
               </Box>
               <Divider sx={{bgcolor:'#ffffff4a',marginTop:2, marginBottom:2}} />
               {/* List Comments */}
