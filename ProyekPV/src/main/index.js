@@ -135,6 +135,10 @@ app.whenReady().then(() => {
     return pool.query(`DELETE FROM FAVORITE where video_id = ${video_id}`)
   })
 
+  ipcMain.handle('changepfp', function(evt,nama,path){
+    return pool.query(`update users set user_pfp = ${path} where user_username = ${nama}`)
+  })
+
   createWindow()
 
   app.on('activate', function () {

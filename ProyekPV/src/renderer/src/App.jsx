@@ -28,7 +28,7 @@ function App() {
         removefavorite={removefavorite} komen={comment} favoritev={favorite} loadkomen={loadcomment} rating={rating} /> },
         { path:'/filter',element: <Filter filter={filter} hasilfilter={hasilfilter} search={search} listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} removefavorite={removefavorite} komen={comment} favoritev={favorite} loadkomen={loadcomment}/> },
         { path:'/myfav',element: <MyFavourites listVideo={favoriteVideo} user={user} removefavorite={removefavorite}/> },
-        { path:'/profile',element: <Profile user={user} handlelogout={handlelogout}/> }
+        { path:'/profile',element: <Profile user={user} handlelogout={handlelogout} handlepfp={handlepfp}/> }
       ]
     }
   ])
@@ -142,6 +142,12 @@ function App() {
     setUser('')
     localStorage.setItem('user','')
   }
+
+  function handlepfp(nama, path){
+    window.api.handlepfp(nama,path).then(function(){
+    })
+  }
+
   useEffect(() => {
     const user = localStorage.getItem('user')
     setUser(user)

@@ -1,6 +1,5 @@
 import { Avatar, Box, FormLabel } from "@mui/material";
 import example from "../../../assets/img/pfp.jpg";
-import pfp1 from "../../../assets/pfp/1.png";
 import './Profile.css'
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -11,8 +10,17 @@ import Modal from '@mui/joy/Modal';
 import ModalClose from '@mui/joy/ModalClose';
 import Sheet from '@mui/joy/Sheet';
 import Input from '@mui/joy/Input';
+import pfp1 from "../../../assets/pfp/1.png"
+import pfp2 from '../../../assets/pfp/2.png'
+import pfp3 from '../../../assets/pfp/3.png'
+import pfp4 from '../../../assets/pfp/4.png'
+import pfp5 from '../../../assets/pfp/5.png'
+import pfp6 from '../../../assets/pfp/6.png'
+import pfp7 from '../../../assets/pfp/7.png'
+import pfp8 from '../../../assets/pfp/8.png'
+import pfp9 from '../../../assets/pfp/9.png'
 
-const Profile = ({user,handlelogout}) => {
+const Profile = ({user,handlelogout,handlepfp}) => {
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [datadiri, setDatadiri] = useState({})
@@ -45,7 +53,7 @@ const Profile = ({user,handlelogout}) => {
           // Button edit pfp
           <button className="w-10 h-10 bg-violet-400 rounded-full hover:bg-violet-500" onClick={()=> setOpenEdit(true)}><EditRoundedIcon/></button>
       }>
-        <Avatar src={pfp1} className="pfp-setting border-[#e2e3e59d] border-4" sx={{width:174, height:174}}/>
+        <Avatar src={datadiri.user_pfp} className="pfp-setting border-[#e2e3e59d] border-4" sx={{width:174, height:174}}/>
       </Badge>
 
       </Box>
@@ -111,9 +119,21 @@ const Profile = ({user,handlelogout}) => {
             {/* List Image */}
             <p className="mt-2 mb-8 text-xs text-violet-200">Choose a single photo only as your profile picture. The profile picture will be automatically updated</p>
             <Box className='flex flex-wrap'>
-              <button><img src={example} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2"/></button>
-              <button><img src={example} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2"/></button>
-              <button><img src={example} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2"/></button>
+              <button><img src={pfp1} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2"
+              onClick={()=>{
+                let temp = datadiri
+                temp.user_pfp = pfp1
+                setDatadiri(temp)
+                handlepfp(datadiri.user_username, pfp1)}}/></button>
+              <button><img src={pfp2} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2" onClick={()=>{setDatadiri(...datadiri,user_pfp=pfp2);handlepfp(datadiri.user_username, pfp2)
+              }}/></button>
+              <button><img src={pfp3} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2" onClick={()=>{setDatadiri(...datadiri,user_pfp=pfp3);handlepfp(datadiri.user_username, pfp3)}}/></button>
+              <button><img src={pfp4} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2" onClick={()=>{setDatadiri(...datadiri,user_pfp=pfp4);handlepfp(datadiri.user_username, pfp4)}}/></button>
+              <button><img src={pfp5} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2" onClick={()=>{setDatadiri(...datadiri,user_pfp=pfp5);handlepfp(datadiri.user_username, pfp5)}}/></button>
+              <button><img src={pfp6} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2" onClick={()=>{setDatadiri(...datadiri,user_pfp=pfp6);handlepfp(datadiri.user_username, pfp6)}}/></button>
+              <button><img src={pfp7} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2" onClick={()=>{setDatadiri(...datadiri,user_pfp=pfp7);handlepfp(datadiri.user_username, pfp7)}}/></button>
+              <button><img src={pfp8} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2" onClick={()=>{setDatadiri(...datadiri,user_pfp=pfp8);handlepfp(datadiri.user_username, pfp8)}}/></button>
+              <button><img src={pfp9} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2" onClick={()=>{setDatadiri(...datadiri,user_pfp=pfp9);handlepfp(datadiri.user_username, pfp9)}}/></button>
             </Box>
           </Box>
         </Sheet>
