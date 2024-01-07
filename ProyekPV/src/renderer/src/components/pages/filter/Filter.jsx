@@ -39,10 +39,9 @@ import spiderman from "../../../assets/banner/spiderman.webp";
 import tenkinoko from "../../../assets/banner/tenkinoko.jpg";
 
 
-const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavorite,komen,favoritev,loadkomen,search, rating}) => {
+const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavorite,komen,favoritev,loadkomen,search, rating,setRating}) => {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(null)
-
   const [category, setCategory] = useState('');
   const [genre, setGenre] = useState('');
   const [sort, setSort] = useState('');
@@ -154,7 +153,7 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
         {/* Select Category */}
         <Select
         action={action}
-        category={category}
+        value={category}
         placeholder="Category"
         onChange={(e, newCategory) => setCategory(newCategory)}
         {...(category && {
@@ -168,7 +167,7 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
             }}
             onClick={() => {
               setCategory(null);
-              action.current.focusVisible();
+              action.current?.focusVisible();
             }}
               >
               <CloseRounded />
@@ -187,7 +186,7 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
         {/* Select Genre */}
         <Select
         action={action}
-        genre={genre}
+        value={genre}
         placeholder="Genre"
         onChange={(e, newGenre) => setGenre(newGenre)}
         {...(genre && {
@@ -201,7 +200,7 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
               }}
               onClick={() => {
                 setGenre(null);
-                action.current.focusVisible();
+                action.current?.focusVisible();
               }}
               >
               <CloseRounded />
@@ -223,7 +222,7 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
         {/* Select Sort by */}
         <Select
         action={action}
-        sort={sort}
+        value={sort}
         placeholder="Sort by"
         onChange={(e, newSort) => setSort(newSort)}
         {...(sort && {
@@ -237,7 +236,7 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
               }}
               onClick={() => {
                 setSort(null);
-                action.current.focusVisible();
+                action.current?.focusVisible();
               }}
               >
               <CloseRounded />
@@ -344,7 +343,7 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
                     <Rating name="simple-controlled" value={value} onChange={(event, newValue) => {setValue(newValue)}} />
                   </Box>
                   {/* Button Submit Rating*/}
-                  <button className='text-white text-sm  bg-[#ffffff4a] pl-2 pr-3 py-2 border-solid rounded-r-full font-semibold shadow-lg  flex items-center' onClick={() => handleRating(user,id, value)}>Submit</button>
+                  <button className='text-white text-sm  bg-[#ffffff4a] pl-2 pr-3 py-2 border-solid rounded-r-full font-semibold shadow-lg  flex items-center' onClick={() =>{ handleRating(user,id, value)}}>Submit</button>
                 </Box>
               </Box>
               <Box className='mt-12'>

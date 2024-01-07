@@ -34,7 +34,7 @@ import tenkinoko from "../../../assets/banner/tenkinoko.jpg";
 
 const MyFavourites = ({user,removefavorite,rating,setRating,komen,loadkomen,listVideo}) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(0);
   const [idx, setIdx] = useState(null);
   const [favorite, setFavorite] = useState([])
   const [checker, setChecker] = useState(true)
