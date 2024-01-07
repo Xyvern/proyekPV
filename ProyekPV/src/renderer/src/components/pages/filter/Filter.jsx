@@ -39,30 +39,44 @@ import spiderman from "../../../assets/banner/spiderman.webp";
 import tenkinoko from "../../../assets/banner/tenkinoko.jpg";
 
 
-const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavorite,komen,favoritev,loadkomen,search}) => {
+const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavorite,komen,favoritev,loadkomen,search, rating}) => {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(null)
 
   const [category, setCategory] = useState('');
   const [genre, setGenre] = useState('');
   const [sort, setSort] = useState('');
+  const [checker, setChecker] = useState(true)
 
   useEffect(() => {
-      }, [index,category,genre,sort]);
+  }, [index,category,genre,sort]);
 
   //tambahan buat modal?
   const [idx, setIdx] = useState(null);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(0);
   const [id, setId] = useState('')
   const [isikomen, setIsikomen] = useState('')
+  const [totalrate, setTotalrate] = useState(0)
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
 
   useEffect(() => {
     if(idx!==null && id!==''){  
       loadkomen(id)
+      avgrating(id)
     }
-  }, [listVideo, favoriteVideo,isikomen,idx,id,search]);
+    if(idx!==null && rating.length > 0 && checker){  
+      const temp = rating.findIndex((r) => r.video_id == listVideo[idx].video_id && r.user_username == user)
+      console.log(listVideo,rating);
+      if(temp!=-1){
+        setValue(rating[temp].rating);
+      }
+      else{
+        setValue(0)
+      }
+      setChecker(false)
+    }
+  }, [listVideo, favoriteVideo,isikomen,idx,id,search,value,checker]);
 
   const favorite = () => {
     if(favoriteVideo.find((v) => v.video_id ==id)){
@@ -77,6 +91,46 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
     }
     // setId(null)
     // setIdx(null)
+  }
+
+  function avgrating(id){
+    window.api.hitungrate(id).then(function(res){
+      setTotalrate(res[0])
+    })
+  }
+
+  function rata(id){
+    let temp = 0
+    let ctr =0
+    for (let index = 0; index < rating.length; index++) {
+      if(rating[index].video_id===id){
+        temp+=rating[index].rating
+        ctr++
+      }
+    }
+    temp = temp /ctr
+    temp = (temp.toFixed(1))
+    console.log(temp);
+    return temp
+  }
+
+  function handleRating(name,id,isirating){
+    const cari = rating.findIndex((r) => r.user_username === name && r.video_id === id)
+    if(cari==-1){
+      window.api.addrating(name,id,isirating).then(function(){
+        setRating([...rating, { user_username: name, video_id: id, rating: isirating }]);
+      })
+    }
+    else{
+      window.api.editrating(name,id,isirating).then(function(){
+        const temp = rating
+        temp[cari].user_username =name
+        temp[cari].video_id =id
+        temp[cari].rating =isirating
+        setRating(temp)
+      })
+    }
+    setChecker(false)
   }
 
   function addcomment(nama,id,content){
@@ -206,6 +260,7 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
       {filter.length > 0? 
       filter.map((video, i)=>{
         const videoid = listVideo.find((v) => v.video_id === video.video_id)
+        let temp = rata(video.video_id)
         return(<Box key={i} >
         {/* Filtered Item */}
         <Box>
@@ -223,7 +278,7 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
                   <StarRoundedIcon sx={{fontSize:20, color:'#FFEF00'}}/>
                 </span>
                 {/* Overall Rate */}
-                <span className="mr-2 text-xs font- text-gray-400">4.5{'/5'}</span>
+                <span className="mr-2 text-xs font- text-gray-400">{temp !='' ? temp : ''}{'/5'}</span>
               {/* Desc Movie */}
   
               <p className="mt-4 text-xs  text-violet-200">{video.video_detail}</p>
@@ -234,7 +289,7 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
       </Box>)
       })
      :""}
-     {filter.length > 0 ? <Modal open={open} onClose={() => {setOpen(false)}} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
+     {filter.length > 0 ? <Modal open={open} onClose={() => {setOpen(false);checker== true ? setChecker(false) : setChecker(true)}} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
           <Sheet  sx={{ width:'80vw',borderRadius: 'md',p: 5,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white', overflowY: 'auto', maxHeight: '70vh','::-webkit-scrollbar': {
           display: 'none',
         },}}  >
@@ -253,7 +308,7 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
                   <StarRoundedIcon sx={{fontSize:20, color:'#FFEF00'}}/>
                 </span>
                 {/* Overall Rate */}
-                <span className="mr-2 text-xs font- text-gray-400">4.5{'/5'}</span>
+                <span className="mr-2 text-xs font- text-gray-400">{totalrate !=0 ? totalrate[0].rata : ''}{'/5'}</span>
                 <span className="mr-2 text-xs text-gray-400">┃</span>
                 <span className="mr-2 text-xs text-gray-400">{index != null ? filter[index].video_category : 'Tidak ada category video'}</span>
                 <span className="mr-2 text-xs text-gray-400">┃</span>
@@ -286,10 +341,10 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
                 <Box className='flex flex-row'>
                   {/* Rating */}
                   <Box className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-l-full font-semibold shadow-lg   flex items-center' >
-                    {/* <Rating name="simple-controlled" value={value} onChange={(event, newValue) => {setValue(newValue)}} /> */}
+                    <Rating name="simple-controlled" value={value} onChange={(event, newValue) => {setValue(newValue)}} />
                   </Box>
                   {/* Button Submit Rating*/}
-                  <button className='text-white text-sm  bg-[#ffffff4a] pl-2 pr-3 py-2 border-solid rounded-r-full font-semibold shadow-lg  flex items-center'>Submit</button>
+                  <button className='text-white text-sm  bg-[#ffffff4a] pl-2 pr-3 py-2 border-solid rounded-r-full font-semibold shadow-lg  flex items-center' onClick={() => handleRating(user,id, value)}>Submit</button>
                 </Box>
               </Box>
               <Box className='mt-12'>
