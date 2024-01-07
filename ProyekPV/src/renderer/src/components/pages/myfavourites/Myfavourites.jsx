@@ -41,19 +41,10 @@ const MyFavourites = ({user,removefavorite,rating,setRating,komen,loadkomen,list
   const [id,setId] =useState('')
   const [totalrate, setTotalrate] = useState(0)
   const [isikomen, setIsikomen] = useState('')
-  // const [id, setId] = useState('')
-  const [index, setIndex] = useState('')
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-
-
-  // useEffect(() =>{
-  //   loadfavorite()
-  // },[favorite])
-
-  
   useEffect(() => {
-    if(index!==null && id!==''){  
+    if(idx!==null && id!==''){  
       loadkomen(id)
     }
     loadfavorite()
@@ -61,7 +52,17 @@ const MyFavourites = ({user,removefavorite,rating,setRating,komen,loadkomen,list
     if(id!==''){
       avgrating(id)
     }
-  }, [listVideo,isikomen,idx,id,id]);
+    if(idx!==null && rating.length > 0 && checker){  
+      const temp = rating.findIndex((r) => r.video_id == listVideo[idx].video_id && r.user_username == user)
+      if(temp!=-1){
+        setValue(rating[temp].rating);
+      }
+      else{
+        setValue(0)
+      }
+      setChecker(false)
+    }
+  }, [listVideo,isikomen,idx,id,value,checker,rating]);
 
   function addcomment(nama,id,content){
     const invalid = /['"`]/
@@ -91,7 +92,6 @@ const MyFavourites = ({user,removefavorite,rating,setRating,komen,loadkomen,list
     }
     temp = temp /ctr
     temp = (temp.toFixed(1))
-    console.log(temp);
     return temp
   }
 
@@ -126,11 +126,10 @@ const MyFavourites = ({user,removefavorite,rating,setRating,komen,loadkomen,list
         {/* Filtered Item */}
       {favorite.length >0 ? favorite.map((video,i) =>{
       let temp = rata(video.video_id)
-                const videoid = listVideo.find((v) => v.video_id === video.video_id)
-
+      const videoid = listVideo.find((v) => v.video_id === video.video_id)
       return(
         <Box key={i}>
-          <button className='flex flex-row ' onClick={() => {setOpen(true),setIdx(i);setId(video.video_id),setIndex(listVideo.findIndex((v) => v.video_id == video.video_id));setId(videoid.video_id)}}>
+          <button className='flex flex-row ' onClick={() => {setOpen(true),setIdx(i);setId(video.video_id)}}>
             <img src={video.video_banner} alt="" className="rounded-lg w-[18rem]"/>
                 <Box className="ml-5 text-left">
                   <p>
@@ -153,7 +152,7 @@ const MyFavourites = ({user,removefavorite,rating,setRating,komen,loadkomen,list
         </Box>
         )}):"I have no enemies"}
       </Box>
-      <Modal open={open} onClose={() => setOpen(false)} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
+      <Modal open={open} onClose={() => {setOpen(false);checker== true ? setChecker(false) : setChecker(true)}} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
         <Sheet  sx={{ width:'80vw',borderRadius: 'md',p: 5,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white', overflowY: 'auto', maxHeight: '70vh','::-webkit-scrollbar': {
         display: 'none',
       },}}  >
@@ -190,10 +189,10 @@ const MyFavourites = ({user,removefavorite,rating,setRating,komen,loadkomen,list
               <Box className='flex flex-row'>
                 {/* Rating */}
                 <Box className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-l-full font-semibold shadow-lg   flex items-center' >
-                  {/* <Rating name="simple-controlled" value={value} onChange={(event, newValue) => {setValue(newValue)}} /> */}
+                  <Rating name="simple-controlled" value={value} onChange={(event, newValue) => {setValue(newValue)}} />
                 </Box>
                 {/* Button Submit Rating*/}
-                <button className='text-white text-sm  bg-[#ffffff4a] pl-2 pr-3 py-2 border-solid rounded-r-full font-semibold shadow-lg  flex items-center hover:bg-[#ffffff49]'>Submit</button>
+                <button className='text-white text-sm  bg-[#ffffff4a] pl-2 pr-3 py-2 border-solid rounded-r-full font-semibold shadow-lg  flex items-center hover:bg-[#ffffff49]' onClick={() => handleRating(user,id, value)}>Submit</button>
               </Box>
             </Box>
             <Box className='mt-12'>
