@@ -2,7 +2,7 @@ import { Avatar, Box, FormLabel } from "@mui/material";
 import example from "../../../assets/img/pfp.jpg";
 import './Profile.css'
 import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
@@ -20,10 +20,12 @@ import pfp7 from '../../../assets/pfp/7.png'
 import pfp8 from '../../../assets/pfp/8.png'
 import pfp9 from '../../../assets/pfp/9.png'
 
-const Profile = ({user,handlelogout,handlepfp}) => {
+const Profile = ({user,handlelogout,handlepfp,handlechange}) => {
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [datadiri, setDatadiri] = useState({})
+  const changeEmail = useRef("");
+  const changePhone = useRef("");
   useEffect(() => {
     window.api.login().then(function(res){
       console.log(user);
@@ -40,7 +42,44 @@ const Profile = ({user,handlelogout,handlepfp}) => {
     height: 44,
     border: `2px solid ${theme.palette.background.paper}`,
   }));
-
+  function gantipfp(idpfp){
+    let temp = datadiri
+    temp.user_pfp = `/src/assets/pfp/${idpfp}.png`
+    console.log(temp);
+    setDatadiri(temp)
+    handlepfp(temp.user_username, temp.user_pfp)
+    setOpenEdit(false)
+  }
+  function gantidetail(newemail,newphone){
+    let changeemail = true
+    let changephone = true
+    if (newemail==""||newemail==" "||newemail==null){
+      changeemail = false
+    }
+    if (newphone==""||newphone==" "||newphone==null){
+      changephone = false
+    }
+    let temp = datadiri
+    if (changeemail==true && changephone==true) {
+      temp.user_email = newemail
+      temp.user_phone = newphone
+      handlechange(temp.user_username,newemail,newphone,1)
+      setDatadiri(temp)
+      setOpen(false)
+    }else if (changeemail==true && changephone==false){
+      temp.user_email = newemail
+      handlechange(temp.user_username,newemail,null,2)
+      setDatadiri(temp)
+      setOpen(false)
+    }else if (changeemail==false && changephone==true){
+      temp.user_phone = newphone
+      handlechange(temp.user_username,null,newphone,3)
+      setDatadiri(temp)
+      setOpen(false)
+    }else{
+      console.log("input salah");
+    }
+  }
   return (
     <Box className="flex flex-col justify-center ">
       <Box className="bg-header h-72 rounded-2xl">
@@ -89,17 +128,18 @@ const Profile = ({user,handlelogout,handlepfp}) => {
               {/* Input Email */}
               <Box className='mb-4'>
                 <label className="font-medium text-sm">Email Address</label>
-                <Input placeholder="example@gmail.com" required sx={{bgcolor: 'white'}}/>
+                <Input placeholder="example@gmail.com" required sx={{bgcolor: 'white'}} onChange={(e)=>{changeEmail.current = e.target.value;console.log(changeEmail)}}/>
               </Box>
               {/* Input Phone */}
               <Box className='mb-10'>
                 <label className="font-medium text-sm">Phone Number</label>
-                <Input placeholder="123456789" required sx={{bgcolor: 'white'}}/>
+                <Input placeholder="123456789" required sx={{bgcolor: 'white'}} onChange={(e)=>{changePhone.current = e.target.value}}/>
               </Box>
               {/* Button Edit*/}
               <Box className='mb-2'>
                 <button
                   className='text-white text-sm bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg btn flex items-center hover:bg-[#ffffff49]'
+                  onClick={()=>{gantidetail(changeEmail.current,changePhone.current);changeEmail.current="";changePhone.current=""}}
                   >
                   Save Changes
                 </button>
@@ -121,19 +161,40 @@ const Profile = ({user,handlelogout,handlepfp}) => {
             <Box className='flex flex-wrap'>
               <button><img src={pfp1} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2"
               onClick={()=>{
-                let temp = datadiri
-                temp.user_pfp = pfp1
-                setDatadiri(temp)
-                handlepfp(datadiri.user_username, pfp1)}}/></button>
-              <button><img src={pfp2} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2" onClick={()=>{setDatadiri(...datadiri,user_pfp=pfp2);handlepfp(datadiri.user_username, pfp2)
+                gantipfp("1")
               }}/></button>
-              <button><img src={pfp3} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2" onClick={()=>{setDatadiri(...datadiri,user_pfp=pfp3);handlepfp(datadiri.user_username, pfp3)}}/></button>
-              <button><img src={pfp4} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2" onClick={()=>{setDatadiri(...datadiri,user_pfp=pfp4);handlepfp(datadiri.user_username, pfp4)}}/></button>
-              <button><img src={pfp5} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2" onClick={()=>{setDatadiri(...datadiri,user_pfp=pfp5);handlepfp(datadiri.user_username, pfp5)}}/></button>
-              <button><img src={pfp6} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2" onClick={()=>{setDatadiri(...datadiri,user_pfp=pfp6);handlepfp(datadiri.user_username, pfp6)}}/></button>
-              <button><img src={pfp7} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2" onClick={()=>{setDatadiri(...datadiri,user_pfp=pfp7);handlepfp(datadiri.user_username, pfp7)}}/></button>
-              <button><img src={pfp8} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2" onClick={()=>{setDatadiri(...datadiri,user_pfp=pfp8);handlepfp(datadiri.user_username, pfp8)}}/></button>
-              <button><img src={pfp9} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2" onClick={()=>{setDatadiri(...datadiri,user_pfp=pfp9);handlepfp(datadiri.user_username, pfp9)}}/></button>
+              <button><img src={pfp2} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2"
+              onClick={()=>{
+                gantipfp("2")
+              }}/></button>
+              <button><img src={pfp3} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2"
+              onClick={()=>{
+                gantipfp("3")
+              }}/></button>
+              <button><img src={pfp4} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2"
+              onClick={()=>{
+                gantipfp("4")
+              }}/></button>
+              <button><img src={pfp5} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2"
+              onClick={()=>{
+                gantipfp("5")
+              }}/></button>
+              <button><img src={pfp6} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2"
+              onClick={()=>{
+                gantipfp("6")
+              }}/></button>
+              <button><img src={pfp7} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2"
+              onClick={()=>{
+                gantipfp("7")
+              }}/></button>
+              <button><img src={pfp8} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2"
+              onClick={()=>{
+                gantipfp("8")
+              }}/></button>
+              <button><img src={pfp9} alt="" className="w-24 h-24 shadow-xl rounded-lg mr-8 mb-8 hover:outline outline-offset-4 outline-2"
+              onClick={()=>{
+                gantipfp("9")
+              }}/></button>
             </Box>
           </Box>
         </Sheet>

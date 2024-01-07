@@ -107,7 +107,6 @@ CREATE TABLE `favorite` (
 
 insert  into `favorite`(`user_username`,`video_id`) values 
 ('bitapunya',9),
-('bitapunya',13),
 ('bitapunya',15),
 ('bitapunya',18),
 ('bitapunya',23),
@@ -117,7 +116,6 @@ insert  into `favorite`(`user_username`,`video_id`) values
 ('LieTaTze',18),
 ('LieTaTze',23),
 ('martinisme',12),
-('martinisme',13),
 ('martinisme',16),
 ('martinisme',18),
 ('martinisme',20),
@@ -127,25 +125,19 @@ insert  into `favorite`(`user_username`,`video_id`) values
 ('misatha',22),
 ('misatha',23),
 ('ohara',1),
-('ohara',11),
 ('ohara',18),
 ('ohara',20),
 ('ohara',22),
 ('ohara',23),
 ('tenonenot',3),
-('tenonenot',8),
-('tenonenot',10),
-('tenonenot',11),
 ('tenonenot',12),
 ('xyvern',2),
 ('xyvern',5),
-('xyvern',7),
-('xyvern',10),
 ('xyvern',18),
 ('yinko',7),
 ('yinko',8),
 ('yinko',9),
-('yinko',10),
+('yinko',13),
 ('yinko',14);
 
 /*Table structure for table `ratings` */
@@ -257,15 +249,15 @@ CREATE TABLE `users` (
 /*Data for the table `users` */
 
 insert  into `users`(`user_username`,`user_pfp`,`user_phone`,`user_password`,`user_email`) values 
-('bitapunya','...','081431289076','tabibitapunya','punyabita@gmail.com'),
-('LieTaTze','...','081987654321','unbansayawoy','linonibos@gmail.com'),
-('martinisme','...','081123456789','tanyamerry','sudjayamartinisme@gmail.com'),
-('misatha','...','081987654321','lucario','mistermst@gmail.com'),
-('naZura','...','081333444555','Znyahurufbesar','raphhans@gmail.com'),
-('ohara','...','081872615009','niconiconi','clutchmeister@gmail.com'),
-('tenonenot','...','081999888777','ANITAMAXWYN','valentinotan@gmail.com'),
-('xyvern','...','081234567890','sipenexe','darrencahya@gmail.com'),
-('yinko','...','081876543210','sayajagoreact','merryfebyanti@gmail.com');
+('bitapunya','/src/assets/pfp/1.png','081431289076','tabibitapunya','punyabita@gmail.com'),
+('LieTaTze','/src/assets/pfp/1.png','081987654321','unbansayawoy','linonibos@gmail.com'),
+('martinisme','/src/assets/pfp/1.png','081123456789','tanyamerry','sudjayamartinisme@gmail.com'),
+('misatha','/src/assets/pfp/1.png','081987654321','lucario','mistermst@gmail.com'),
+('naZura','/src/assets/pfp/1.png','081333444555','Znyahurufbesar','raphhans@gmail.com'),
+('ohara','/src/assets/pfp/1.png','081872615009','niconiconi','clutchmeister@gmail.com'),
+('tenonenot','/src/assets/pfp/1.png','081999888777','ANITAMAXWYN','valentinotan@gmail.com'),
+('xyvern','/src/assets/pfp/1.png','081234567890','sipenexe','darrencahya@gmail.com'),
+('yinko','/src/assets/pfp/2.png','081876543210','sayajagoreact','merryfebyanti@gmail.com');
 
 /*Table structure for table `videos` */
 

@@ -135,8 +135,21 @@ app.whenReady().then(() => {
     return pool.query(`DELETE FROM FAVORITE where video_id = ${video_id}`)
   })
 
-  ipcMain.handle('changepfp', function(evt,nama,path){
-    return pool.query(`update users set user_pfp = ${path} where user_username = ${nama}`)
+  ipcMain.handle('handlepfp', function(evt,nama,path){
+    console.log(nama,path);
+    return pool.query(`update users set user_pfp = "${path}" where user_username = "${nama}"`)
+  })
+
+  ipcMain.handle('handlechange', function(evt,nama,newemail,newphone,code){
+    console.log(nama,newemail,newphone,code);
+    if (code==1){
+      return pool.query(`update users set user_email = "${newemail}", user_phone = "${newphone}" where user_username = "${nama}"`)
+    }else if (code==2){
+      return pool.query(`update users set user_email = "${newemail}" where user_username = "${nama}"`)
+    }else if (code==3){
+      return pool.query(`update users set user_phone = "${newphone}" where user_username = "${nama}"`)
+    }
+    
   })
 
   createWindow()
