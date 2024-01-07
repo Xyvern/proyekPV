@@ -25,7 +25,7 @@ function App() {
       element:<Layout search={hasilSearch}/>,
       children : [
         { path:'/',element: <Home search={search} listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} 
-        removefavorite={removefavorite} komen={comment} favoritev={favorite} loadkomen={loadcomment} rating={rating} /> },
+        removefavorite={removefavorite} komen={comment} favoritev={favorite} loadkomen={loadcomment} rating={rating} setRating={setRating}/> },
         { path:'/filter',element: <Filter filter={filter} hasilfilter={hasilfilter} search={search} listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} removefavorite={removefavorite} komen={comment} favoritev={favorite} loadkomen={loadcomment}/> },
         { path:'/myfav',element: <MyFavourites listVideo={favoriteVideo} user={user} removefavorite={removefavorite}/> },
         { path:'/profile',element: <Profile user={user} handlelogout={handlelogout}/> }
@@ -148,7 +148,7 @@ function App() {
     loadVideo()
     favorite(user)
     loadRate()
-  },[search])
+  },[search,rating])
   
   if (!user) {
     return <LoginRegister handlelogin={handlelogin} handleregister={handleregister}/>

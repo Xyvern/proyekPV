@@ -118,7 +118,7 @@ app.whenReady().then(() => {
   })
 
   ipcMain.handle("editrating", function(evt,name,id,rating){
-    return pool.query(`update ratings set rating = ${rating} where video_id = ${id} and user_username = ${name}`)
+    return pool.query(`update ratings set rating = ${rating} where video_id = ${id} and user_username = '${name}'`)
   })
 
   ipcMain.handle("hitungrating",function (evt,id){

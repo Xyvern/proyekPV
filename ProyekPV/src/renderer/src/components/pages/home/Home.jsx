@@ -45,14 +45,14 @@ import spiderman from "../../../assets/banner/spiderman.webp";
 import tenkinoko from "../../../assets/banner/tenkinoko.jpg";
 
 
-const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,loadkomen,search, rating}) => {
+const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,loadkomen,search, rating,setRating}) => {
   const [open, setOpen] = useState(false);
   const [idx, setIdx] = useState(null);
   const [value, setValue] = useState(0);
   const [id, setId] = useState('')
   const [isikomen, setIsikomen] = useState('')
   const [totalrate, setTotalrate] = useState(0)
-  let checker = false
+  const [checker, setChecker] = useState(true)
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
   
@@ -97,7 +97,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
       loadkomen(id)
       avgrating(id)
     }
-    if(idx!==null && rating.length > 0 ){  
+    if(idx!==null && rating.length > 0 && checker){  
       const temp = rating.findIndex((r) => r.video_id == listVideo[idx].video_id && r.user_username == user)
       console.log(listVideo,rating);
       if(temp!=-1){
@@ -106,8 +106,9 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
       else{
         setValue(0)
       }
+      setChecker(false)
     }
-  }, [idx,id,search]);
+  }, [idx,id,search,value,checker,rating]);
 
   const favorite = () => {
     if(favoriteVideo.find((v) => v.video_id ==id)){
@@ -135,16 +136,23 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
     }
   }
 
-  function handleRating(name,id,rating){
-    const cari = rating.find((r) => r.user_username === name && r.video_id === id)
-    if(cari){
-      window.api.addrating(nama,id,rating).then(function(){
+  function handleRating(name,id,isirating){
+    const cari = rating.findIndex((r) => r.user_username === name && r.video_id === id)
+    if(cari==-1){
+      window.api.addrating(name,id,isirating).then(function(){
+        setRating([...rating, { user_username: name, video_id: id, rating: isirating }]);
       })
     }
     else{
-      window.api.editrating(nama,id,rating).then(function(){
+      window.api.editrating(name,id,isirating).then(function(){
+        const temp = rating
+        temp[cari].user_username =name
+        temp[cari].video_id =id
+        temp[cari].rating =isirating
+        setRating(temp)
       })
     }
+    setChecker(false)
   }
 
   function avgrating(id){
@@ -210,7 +218,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
           </Slider>
         </Box>
         {/* Modal Pop Up */}
-        <Modal open={open} onClose={() => {setOpen(false);checker=true}} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
+        <Modal open={open} onClose={() => {setOpen(false);checker== true ? setChecker(false) : setChecker(true)}} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
           <Sheet  sx={{ width:'80vw',borderRadius: 'md',p: 5,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white', overflowY: 'auto', maxHeight: '70vh','::-webkit-scrollbar': {
           display: 'none',
         },}}  >
