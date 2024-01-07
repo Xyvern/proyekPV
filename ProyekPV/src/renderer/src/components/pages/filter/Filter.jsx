@@ -150,7 +150,7 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
   return (
     <Box>
       {/* Content Select */}
-      <Box className="flex flex-row gap-4">
+      <Box className="flex flex-row gap-4 mb-8">
         {/* Select Category */}
         <Select
         action={action}
