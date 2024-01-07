@@ -25,9 +25,10 @@ function App() {
       element:<Layout search={hasilSearch}/>,
       children : [
         { path:'/',element: <Home search={search} listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} 
-        removefavorite={removefavorite} komen={comment} favoritev={favorite} loadkomen={loadcomment} rating={rating} /> },
-        { path:'/filter',element: <Filter filter={filter} hasilfilter={hasilfilter} search={search} listVideo={video} addfavorite={addfavorite} user={user} favoriteVideo={favoriteVideo} removefavorite={removefavorite} komen={comment} favoritev={favorite} loadkomen={loadcomment}/> },
-        { path:'/myfav',element: <MyFavourites listVideo={favoriteVideo} user={user} removefavorite={removefavorite}/> },
+        removefavorite={removefavorite} komen={comment} favoritev={favorite} loadkomen={loadcomment} rating={rating} setRating={setRating}/> },
+        { path:'/filter',element: <Filter filter={filter} hasilfilter={hasilfilter} search={search} listVideo={video} addfavorite={addfavorite} 
+        user={user} favoriteVideo={favoriteVideo} removefavorite={removefavorite} komen={comment} favoritev={favorite} loadkomen={loadcomment} rating={rating}/> },
+        { path:'/myfav',element: <MyFavourites listVideo={favoriteVideo} user={user} removefavorite={removefavorite} komen={comment} loadkomen={loadcomment} rating={rating} setRating={setRating} /> },
         { path:'/profile',element: <Profile user={user} handlelogout={handlelogout} handlepfp={handlepfp} handlechange={handlechange}/> }
       ]
     }
@@ -160,7 +161,7 @@ function App() {
     loadVideo()
     favorite(user)
     loadRate()
-  },[search,rating])
+  },[search])
   
   if (!user) {
     return <LoginRegister handlelogin={handlelogin} handleregister={handleregister}/>

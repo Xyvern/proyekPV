@@ -32,19 +32,91 @@ import motoe from "../../../assets/banner/murderontheorientexpress.jpg";
 import spiderman from "../../../assets/banner/spiderman.webp";
 import tenkinoko from "../../../assets/banner/tenkinoko.jpg";
 
-const MyFavourites = ({user,removefavorite}) => {
+const MyFavourites = ({user,removefavorite,rating,setRating,komen,loadkomen,listVideo}) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
   const [idx, setIdx] = useState(null);
   const [favorite, setFavorite] = useState([])
+  const [checker, setChecker] = useState(true)
+  const [id,setId] =useState('')
+  const [totalrate, setTotalrate] = useState(0)
+  const [isikomen, setIsikomen] = useState('')
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-  useEffect(() =>{
+  useEffect(() => {
+    if(idx!==null && id!==''){  
+      loadkomen(id)
+    }
     loadfavorite()
-  },[])
+    console.log(rating);
+    if(id!==''){
+      avgrating(id)
+    }
+    if(idx!==null && rating.length > 0 && checker){  
+      const temp = rating.findIndex((r) => r.video_id == listVideo[idx].video_id && r.user_username == user)
+      if(temp!=-1){
+        setValue(rating[temp].rating);
+      }
+      else{
+        setValue(0)
+      }
+      setChecker(false)
+    }
+  }, [listVideo,isikomen,idx,id,value,checker,rating]);
+
+  function addcomment(nama,id,content){
+    const invalid = /['"`]/
+    if(!invalid.test(content)){
+      window.api.addkomen(nama,id,content).then(function(){})
+      setIsikomen('')
+    }
+    else{
+      alert(`Jangan menggunakan ' dan " `)
+    }
+  }
 
   function loadfavorite(){
     window.api.loadfavorite(user).then(function(res){
       setFavorite(res[0])
+    })
+  }
+
+  function rata(id){
+    let temp = 0
+    let ctr =0
+    for (let index = 0; index < rating.length; index++) {
+      if(rating[index].video_id===id){
+        temp+=rating[index].rating
+        ctr++
+      }
+    }
+    temp = temp /ctr
+    temp = (temp.toFixed(1))
+    return temp
+  }
+
+  function handleRating(name,id,isirating){
+    const cari = rating.findIndex((r) => r.user_username === name && r.video_id === id)
+    if(cari==-1){
+      window.api.addrating(name,id,isirating).then(function(){
+        setRating([...rating, { user_username: name, video_id: id, rating: isirating }]);
+      })
+    }
+    else{
+      window.api.editrating(name,id,isirating).then(function(){
+        const temp = rating
+        temp[cari].user_username =name
+        temp[cari].video_id =id
+        temp[cari].rating =isirating
+        setRating(temp)
+      })
+    }
+    setChecker(false)
+  }
+
+  function avgrating(id){
+    window.api.hitungrate(id).then(function(res){
+      setTotalrate(res[0])
     })
   }
 
@@ -53,9 +125,11 @@ const MyFavourites = ({user,removefavorite}) => {
       <Box className='mt-8'>
         {/* Filtered Item */}
       {favorite.length >0 ? favorite.map((video,i) =>{
+      let temp = rata(video.video_id)
+      const videoid = listVideo.find((v) => v.video_id === video.video_id)
       return(
         <Box key={i}>
-          <button className='flex flex-row ' onClick={() => {setOpen(true);setIdx(i)}}>
+          <button className='flex flex-row ' onClick={() => {setOpen(true),setIdx(i);setId(video.video_id)}}>
             <img src={video.video_banner} alt="" className="rounded-lg w-[18rem]"/>
                 <Box className="ml-5 text-left">
                   <p>
@@ -69,7 +143,7 @@ const MyFavourites = ({user,removefavorite}) => {
                       <StarRoundedIcon sx={{fontSize:20, color:'#FFEF00'}}/>
                   </span>
                   {/* Overall Rate */}
-                  <span className="mr-2 text-xs font- text-gray-400">4.5{'/5'}</span>
+                  <span className="mr-2 text-xs font- text-gray-400">{temp !='' ?temp : ''}{'/5'}</span>
                   {/* Desc Movie */}
                   <p className="mt-4 text-xs  text-violet-200">{video.video_detail}</p>
                 </Box>
@@ -78,7 +152,7 @@ const MyFavourites = ({user,removefavorite}) => {
         </Box>
         )}):"I have no enemies"}
       </Box>
-      <Modal open={open} onClose={() => setOpen(false)} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
+      <Modal open={open} onClose={() => {setOpen(false);checker== true ? setChecker(false) : setChecker(true)}} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
         <Sheet  sx={{ width:'80vw',borderRadius: 'md',p: 5,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white', overflowY: 'auto', maxHeight: '70vh','::-webkit-scrollbar': {
         display: 'none',
       },}}  >
@@ -97,7 +171,7 @@ const MyFavourites = ({user,removefavorite}) => {
                 <StarRoundedIcon sx={{fontSize:20, color:'#FFEF00'}}/>
               </span>
               {/* Overall Rate */}
-              <span className="mr-2 text-xs font- text-gray-400">4.5{'/5'}</span>
+              <span className="mr-2 text-xs font- text-gray-400">{totalrate !=0 ? totalrate[0].rata : ''}{'/5'}</span>
               <span className="mr-2 text-xs text-gray-400">┃</span>
               <span className="mr-2 text-xs text-gray-400">{idx !== null ? favorite[idx].video_category : 'Kategori video tidak ditemukan'}</span>
               <span className="mr-2 text-xs text-gray-400">┃</span>
@@ -110,38 +184,48 @@ const MyFavourites = ({user,removefavorite}) => {
             <Box className="flex flex-row 'mb-3 mt-8">
               <Box className='mr-4'>
                 {/* Button Unfavorite */}
-                <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center hover:bg-[#ffffff49]' onClick={() => {removefavorite(favorite[idx].video_id);setIdx(null);setOpen(false);setFavorite(favorite.filter((f)=>f.video_name != favorite[idx].video_name))}}>Unfavorite<span className="ml-2" ><RemoveCircleRoundedIcon/></span></button>
+                <button className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-full font-semibold shadow-lg  btn flex items-center hover:bg-[#ffffff49]' onClick={() => {removefavorite(favorite[idx].video_id);setIdx(null);setOpen(false);setFavorite(favorite.filter((f)=>f.video_name != favorite[idx].video_name));setFavorite(favorite.filter((f)=> f.video_id != favorite[idx].video_id))}}>Unfavorite<span className="ml-2" ><RemoveCircleRoundedIcon/></span></button>
               </Box>
               <Box className='flex flex-row'>
                 {/* Rating */}
                 <Box className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-l-full font-semibold shadow-lg   flex items-center' >
-                  {/* <Rating name="simple-controlled" value={value} onChange={(event, newValue) => {setValue(newValue)}} /> */}
+                  <Rating name="simple-controlled" value={value} onChange={(event, newValue) => {setValue(newValue)}} />
                 </Box>
                 {/* Button Submit Rating*/}
-                <button className='text-white text-sm  bg-[#ffffff4a] pl-2 pr-3 py-2 border-solid rounded-r-full font-semibold shadow-lg  flex items-center hover:bg-[#ffffff49]'>Submit</button>
+                <button className='text-white text-sm  bg-[#ffffff4a] pl-2 pr-3 py-2 border-solid rounded-r-full font-semibold shadow-lg  flex items-center hover:bg-[#ffffff49]' onClick={() => handleRating(user,id, value)}>Submit</button>
               </Box>
             </Box>
             <Box className='mt-12'>
-              <p className="text-sm mb-2">Add a comment</p>
-              {/* Textarea Comments */}
-              <Textarea
-                placeholder="Type in here…"
-                minRows={2}
-                sx={{borderRadius:'lg',color:'rgb(19, 1, 62)', '&::before': {display: 'none'},'&:focus-within': {
-                outline: '2px solid var(--Textarea-focusedHighlight)',
-                outlineOffset: '2px', borderRadius:'lg', color:'rgb(19, 1, 62)', }}}
-              />
-              {/* Button Submit Comments */}
-              <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg btn hover:bg-[#ffffff49]'>Submit</button>
+                <p className="text-sm mb-2">Add a comment</p>
+                {/* Textarea Comments */}
+                <Textarea
+                  placeholder="Type in here…"
+                  minRows={2}
+                  sx={{borderRadius:'lg',color:'rgb(19, 1, 62)', '&::before': {display: 'none'},'&:focus-within': {
+                  outline: '2px solid var(--Textarea-focusedHighlight)',
+                  outlineOffset: '2px', borderRadius:'lg', color:'rgb(19, 1, 62)', }}}
+                  value={isikomen}
+                  onChange={(e) => setIsikomen(e.target.value)}
+                />
+                {/* Button Submit Comments */}
+                <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg btn' onClick={() => addcomment(user,id,isikomen)}>Submit</button>
+              </Box>
+              <Divider sx={{bgcolor:'#ffffff4a',marginTop:2, marginBottom:2}} />
+              {/* List Comments */}
+              {console.log(isikomen)}
+              {komen.length > 0 ? 
+              komen.map((c,i) => {
+                const inputDate = new Date(c.comment_date.toString());
+                const formattedDate = inputDate.toLocaleDateString('id-ID', options);
+                return(
+                <Box key={i} className='mb-6'>
+                  <p className="text-md mt-2 font-medium text-violet-100">{c.user_username}</p>
+                  <p className="text-[10px] text-gray-400 mt-1">{formattedDate}</p>
+                  <p className="mt-2 text-xs text-violet-200">{c.comment_content}</p>
+                </Box>
+                )}) 
+              : ""}
             </Box>
-            <Divider sx={{bgcolor:'#ffffff4a',marginTop:4, marginBottom:1}} />
-            {/* List Comments */}
-            <Box className='mb-6'>
-              <p className="text-md mt-2 font-medium text-violet-100">Nama User</p>
-              <p className="text-[10px] text-gray-400 mt-1">31 Desember 2023  12:30</p>
-              <p className="mt-2 text-xs text-violet-200">"Cows Cows Cows" is a surreal and humorous animated short video that gained popularity on the internet. The video features repeating images of cows with a catchy and rhythmic song in the background chanting "Cows cows cows, I like cows, I like cows, I like cows..."</p>
-            </Box>
-          </Box>
         </Sheet>
       </Modal>
     </Box>
