@@ -47,8 +47,8 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
   const [genre, setGenre] = useState('');
   const [sort, setSort] = useState('');
 
-  useEffect(() => {
-      }, [index,category,genre,sort]);
+  // useEffect(() => {
+  //     }, [index,category,genre,sort]);
 
   //tambahan buat modal?
   const [idx, setIdx] = useState(null);

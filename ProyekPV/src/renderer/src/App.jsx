@@ -148,7 +148,7 @@ function App() {
     loadVideo()
     favorite(user)
     loadRate()
-  },[favoriteVideo,search,rating])
+  },[search,rating])
   
   if (!user) {
     return <LoginRegister handlelogin={handlelogin} handleregister={handleregister}/>
