@@ -32,7 +32,7 @@ import motoe from "../../../assets/banner/murderontheorientexpress.jpg";
 import spiderman from "../../../assets/banner/spiderman.webp";
 import tenkinoko from "../../../assets/banner/tenkinoko.jpg";
 
-const MyFavourites = ({user,removefavorite,rating,setRating}) => {
+const MyFavourites = ({user,removefavorite,rating,setRating,komen,loadkomen,listVideo}) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
   const [idx, setIdx] = useState(null);
@@ -40,14 +40,39 @@ const MyFavourites = ({user,removefavorite,rating,setRating}) => {
   const [checker, setChecker] = useState(true)
   const [id,setId] =useState('')
   const [totalrate, setTotalrate] = useState(0)
+  const [isikomen, setIsikomen] = useState('')
+  // const [id, setId] = useState('')
+  const [index, setIndex] = useState('')
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-  useEffect(() =>{
+
+
+  // useEffect(() =>{
+  //   loadfavorite()
+  // },[favorite])
+
+  
+  useEffect(() => {
+    if(index!==null && id!==''){  
+      loadkomen(id)
+    }
     loadfavorite()
     console.log(rating);
     if(id!==''){
       avgrating(id)
     }
-  },[id])
+  }, [listVideo,isikomen,idx,id,id]);
+
+  function addcomment(nama,id,content){
+    const invalid = /['"`]/
+    if(!invalid.test(content)){
+      window.api.addkomen(nama,id,content).then(function(){})
+      setIsikomen('')
+    }
+    else{
+      alert(`Jangan menggunakan ' dan " `)
+    }
+  }
 
   function loadfavorite(){
     window.api.loadfavorite(user).then(function(res){
@@ -101,9 +126,11 @@ const MyFavourites = ({user,removefavorite,rating,setRating}) => {
         {/* Filtered Item */}
       {favorite.length >0 ? favorite.map((video,i) =>{
       let temp = rata(video.video_id)
+                const videoid = listVideo.find((v) => v.video_id === video.video_id)
+
       return(
         <Box key={i}>
-          <button className='flex flex-row ' onClick={() => {setOpen(true);setIdx(i);setId(video.video_id)}}>
+          <button className='flex flex-row ' onClick={() => {setOpen(true),setIdx(i);setId(video.video_id),setIndex(listVideo.findIndex((v) => v.video_id == video.video_id));setId(videoid.video_id)}}>
             <img src={video.video_banner} alt="" className="rounded-lg w-[18rem]"/>
                 <Box className="ml-5 text-left">
                   <p>
@@ -170,26 +197,36 @@ const MyFavourites = ({user,removefavorite,rating,setRating}) => {
               </Box>
             </Box>
             <Box className='mt-12'>
-              <p className="text-sm mb-2">Add a comment</p>
-              {/* Textarea Comments */}
-              <Textarea
-                placeholder="Type in here…"
-                minRows={2}
-                sx={{borderRadius:'lg',color:'rgb(19, 1, 62)', '&::before': {display: 'none'},'&:focus-within': {
-                outline: '2px solid var(--Textarea-focusedHighlight)',
-                outlineOffset: '2px', borderRadius:'lg', color:'rgb(19, 1, 62)', }}}
-              />
-              {/* Button Submit Comments */}
-              <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg btn hover:bg-[#ffffff49]'>Submit</button>
+                <p className="text-sm mb-2">Add a comment</p>
+                {/* Textarea Comments */}
+                <Textarea
+                  placeholder="Type in here…"
+                  minRows={2}
+                  sx={{borderRadius:'lg',color:'rgb(19, 1, 62)', '&::before': {display: 'none'},'&:focus-within': {
+                  outline: '2px solid var(--Textarea-focusedHighlight)',
+                  outlineOffset: '2px', borderRadius:'lg', color:'rgb(19, 1, 62)', }}}
+                  value={isikomen}
+                  onChange={(e) => setIsikomen(e.target.value)}
+                />
+                {/* Button Submit Comments */}
+                <button className='text-white text-sm  bg-[#ffffff4a] px-4 py-2 border-solid border- border-[#e2e3e59d] mt-4 rounded-lg font-semibold shadow-lg btn' onClick={() => addcomment(user,id,isikomen)}>Submit</button>
+              </Box>
+              <Divider sx={{bgcolor:'#ffffff4a',marginTop:2, marginBottom:2}} />
+              {/* List Comments */}
+              {console.log(isikomen)}
+              {komen.length > 0 ? 
+              komen.map((c,i) => {
+                const inputDate = new Date(c.comment_date.toString());
+                const formattedDate = inputDate.toLocaleDateString('id-ID', options);
+                return(
+                <Box key={i} className='mb-6'>
+                  <p className="text-md mt-2 font-medium text-violet-100">{c.user_username}</p>
+                  <p className="text-[10px] text-gray-400 mt-1">{formattedDate}</p>
+                  <p className="mt-2 text-xs text-violet-200">{c.comment_content}</p>
+                </Box>
+                )}) 
+              : ""}
             </Box>
-            <Divider sx={{bgcolor:'#ffffff4a',marginTop:4, marginBottom:1}} />
-            {/* List Comments */}
-            <Box className='mb-6'>
-              <p className="text-md mt-2 font-medium text-violet-100">Nama User</p>
-              <p className="text-[10px] text-gray-400 mt-1">31 Desember 2023  12:30</p>
-              <p className="mt-2 text-xs text-violet-200">"Cows Cows Cows" is a surreal and humorous animated short video that gained popularity on the internet. The video features repeating images of cows with a catchy and rhythmic song in the background chanting "Cows cows cows, I like cows, I like cows, I like cows..."</p>
-            </Box>
-          </Box>
         </Sheet>
       </Modal>
     </Box>
