@@ -155,6 +155,21 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
     setChecker(false)
   }
 
+  function rata(id){
+    let temp = 0
+    let ctr =0
+    for (let index = 0; index < rating.length; index++) {
+      if(rating[index].video_id===id){
+        temp+=rating[index].rating
+        ctr++
+      }
+    }
+    temp = temp /ctr
+    temp = (temp.toFixed(1))
+    console.log(temp);
+    return temp
+  }
+
   function avgrating(id){
     window.api.hitungrate(id).then(function(res){
       setTotalrate(res[0])
@@ -318,6 +333,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
         {/* Filtered Item */}
       {search.map((video,i) =>{
       const videoid = listVideo.find((v) => v.video_id === video.video_id)
+      let temp = rata(video.video_id)
       return(
         <Box key={i}>
           <button className='flex flex-row ' onClick={() => {setOpen(true);setIdx(listVideo.findIndex((v) => v.video_id == video.video_id));setId(videoid.video_id)}}>
@@ -334,7 +350,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
                       <StarRoundedIcon sx={{fontSize:20, color:'#FFEF00'}}/>
                   </span>
                   {/* Overall Rate */}
-                  <span className="mr-2 text-xs font- text-gray-400">4.5{'/5'}</span>
+                  <span className="mr-2 text-xs font- text-gray-400">{temp !='' ? temp : ''}{'/5'}</span>
                   {/* Desc Movie */}
                   <p className="mt-4 text-xs  text-violet-200">{video.video_detail}</p>
                 </Box>
@@ -343,7 +359,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
         </Box>
         )})}
       </Box>
-      <Modal open={open} onClose={() => {setOpen(false)}} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
+      <Modal open={open} onClose={() => {setOpen(false);checker== true ? setChecker(false) : setChecker(true)}} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
         <Sheet  sx={{ width:'80vw',borderRadius: 'md',p: 5,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white', overflowY: 'auto', maxHeight: '70vh','::-webkit-scrollbar': {
         display: 'none',
       },}}  >
@@ -362,7 +378,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
                 <StarRoundedIcon sx={{fontSize:20, color:'#FFEF00'}}/>
               </span>
               {/* Overall Rate */}
-              <span className="mr-2 text-xs font- text-gray-400">4.5{'/5'}</span>
+              <span className="mr-2 text-xs font- text-gray-400">{totalrate !=0 ? totalrate[0].rata : ''}{'/5'}</span>
               <span className="mr-2 text-xs text-gray-400">┃</span>
               <span className="mr-2 text-xs text-gray-400">{idx !== null ? listVideo[idx].video_category : 'Kategori video tidak ditemukan'}</span>
               <span className="mr-2 text-xs text-gray-400">┃</span>
@@ -394,7 +410,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
               <Box className='flex flex-row'>
                 {/* Rating */}
                 <Box className='text-white text-sm  bg-[#ffffff2c] px-4 py-2 border-solid rounded-l-full font-semibold shadow-lg   flex items-center' >
-                  <Rating name="simple-controlled" value={value} onChange={(newValue) => {setValue(newValue)}} />
+                  <Rating name="simple-controlled" value={value} onChange={(event,newValue) => {setValue(newValue)}} />
                 </Box>
                 {/* Button Submit Rating*/}
                 <button className='text-white text-sm  bg-[#ffffff4a] pl-2 pr-3 py-2 border-solid rounded-r-full font-semibold shadow-lg  flex items-center' onClick={() => handleRating(user,id, value)}>Submit</button>

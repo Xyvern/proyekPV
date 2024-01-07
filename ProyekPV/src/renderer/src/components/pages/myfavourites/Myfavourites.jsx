@@ -32,19 +32,66 @@ import motoe from "../../../assets/banner/murderontheorientexpress.jpg";
 import spiderman from "../../../assets/banner/spiderman.webp";
 import tenkinoko from "../../../assets/banner/tenkinoko.jpg";
 
-const MyFavourites = ({user,removefavorite}) => {
+const MyFavourites = ({user,removefavorite,rating,setRating}) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
   const [idx, setIdx] = useState(null);
   const [favorite, setFavorite] = useState([])
+  const [checker, setChecker] = useState(true)
+  const [id,setId] =useState('')
+  const [totalrate, setTotalrate] = useState(0)
 
   useEffect(() =>{
     loadfavorite()
-  },[])
+    console.log(rating);
+    if(id!==''){
+      avgrating(id)
+    }
+  },[id])
 
   function loadfavorite(){
     window.api.loadfavorite(user).then(function(res){
       setFavorite(res[0])
+    })
+  }
+
+  function rata(id){
+    let temp = 0
+    let ctr =0
+    for (let index = 0; index < rating.length; index++) {
+      if(rating[index].video_id===id){
+        temp+=rating[index].rating
+        ctr++
+      }
+    }
+    temp = temp /ctr
+    temp = (temp.toFixed(1))
+    console.log(temp);
+    return temp
+  }
+
+  function handleRating(name,id,isirating){
+    const cari = rating.findIndex((r) => r.user_username === name && r.video_id === id)
+    if(cari==-1){
+      window.api.addrating(name,id,isirating).then(function(){
+        setRating([...rating, { user_username: name, video_id: id, rating: isirating }]);
+      })
+    }
+    else{
+      window.api.editrating(name,id,isirating).then(function(){
+        const temp = rating
+        temp[cari].user_username =name
+        temp[cari].video_id =id
+        temp[cari].rating =isirating
+        setRating(temp)
+      })
+    }
+    setChecker(false)
+  }
+
+  function avgrating(id){
+    window.api.hitungrate(id).then(function(res){
+      setTotalrate(res[0])
     })
   }
 
@@ -53,9 +100,10 @@ const MyFavourites = ({user,removefavorite}) => {
       <Box className='mt-8'>
         {/* Filtered Item */}
       {favorite.length >0 ? favorite.map((video,i) =>{
+      let temp = rata(video.video_id)
       return(
         <Box key={i}>
-          <button className='flex flex-row ' onClick={() => {setOpen(true);setIdx(i)}}>
+          <button className='flex flex-row ' onClick={() => {setOpen(true);setIdx(i);setId(video.video_id)}}>
             <img src={video.video_banner} alt="" className="rounded-lg w-[18rem]"/>
                 <Box className="ml-5 text-left">
                   <p>
@@ -69,7 +117,7 @@ const MyFavourites = ({user,removefavorite}) => {
                       <StarRoundedIcon sx={{fontSize:20, color:'#FFEF00'}}/>
                   </span>
                   {/* Overall Rate */}
-                  <span className="mr-2 text-xs font- text-gray-400">4.5{'/5'}</span>
+                  <span className="mr-2 text-xs font- text-gray-400">{temp !='' ?temp : ''}{'/5'}</span>
                   {/* Desc Movie */}
                   <p className="mt-4 text-xs  text-violet-200">{video.video_detail}</p>
                 </Box>
@@ -97,7 +145,7 @@ const MyFavourites = ({user,removefavorite}) => {
                 <StarRoundedIcon sx={{fontSize:20, color:'#FFEF00'}}/>
               </span>
               {/* Overall Rate */}
-              <span className="mr-2 text-xs font- text-gray-400">4.5{'/5'}</span>
+              <span className="mr-2 text-xs font- text-gray-400">{totalrate !=0 ? totalrate[0].rata : ''}{'/5'}</span>
               <span className="mr-2 text-xs text-gray-400">┃</span>
               <span className="mr-2 text-xs text-gray-400">{idx !== null ? favorite[idx].video_category : 'Kategori video tidak ditemukan'}</span>
               <span className="mr-2 text-xs text-gray-400">┃</span>
