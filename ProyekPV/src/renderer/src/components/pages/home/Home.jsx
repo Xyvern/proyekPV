@@ -57,7 +57,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
 
   
   var settings = {
-    dots: true,
+    dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 4,
@@ -70,7 +70,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: true
+          dots: false
         }
       },
       {
