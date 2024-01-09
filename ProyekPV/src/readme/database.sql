@@ -31,7 +31,7 @@ CREATE TABLE `comments` (
   KEY `comment_id` (`comment_id`),
   CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`user_username`) REFERENCES `users` (`user_username`),
   CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`video_id`) REFERENCES `videos` (`video_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `comments` */
 
@@ -39,6 +39,10 @@ insert  into `comments`(`user_username`,`video_id`,`comment_content`,`comment_da
 ('bitapunya',9,'waktu kecil nonton ini langsung punya cita-cita pingin punya ekor WKWK','2024-01-02 22:43:48',1),
 ('bitapunya',20,'pingin punya baymax dari Big Hero 6, gemoyy','2024-01-02 22:54:52',21),
 ('bitapunya',23,'bucin bikin banjir','2024-01-02 22:57:11',29),
+('evan',14,'haloo','2024-01-08 14:30:18',58),
+('evan',23,'halo','2024-01-08 14:29:59',55),
+('evan',23,'','2024-01-08 14:30:03',56),
+('evan',23,'halo','2024-01-08 14:30:08',57),
 ('misatha',17,'I am Optimus Prime. I am sending this message to any surviving Autobots taking refuge among the stars. We are here. And we are waiting.','2024-01-02 22:47:43',2),
 ('misatha',18,'reflek joget toothless','2024-01-02 22:48:11',3),
 ('misatha',20,'Its about revenge','2024-01-02 22:55:21',23),
@@ -75,6 +79,10 @@ insert  into `comments`(`user_username`,`video_id`,`comment_content`,`comment_da
 ('tenonenot',22,'hurrrrrr big red blue man goes swoosh swoosh around the city, very cool cipeli pam pam','2024-01-03 18:53:56',52),
 ('xyvern',19,'apes tugeder stronk','2024-01-03 18:58:40',53),
 ('yinko',1,'anjay keren mobilnya bisa racing-racing gitu ya  tapi kenapa main characternya botak :(( saya sukanya yang gondrong... lebih menggoda','2024-01-02 22:38:22',8),
+('yinko',1,'asa','2024-01-08 14:43:05',60),
+('yinko',1,'ada','2024-01-08 14:43:29',61),
+('yinko',1,'ba','2024-01-08 14:46:38',62),
+('yinko',1,'halo','2024-01-08 14:48:03',63),
 ('yinko',2,'sebenernya saya ngga pernah liat tapi disuruh komen... jadi yasudah. klo diliat dari posternya sih, main character nya kayak capung ya. Jujurly agak jijik tapi keren tapi jijik gimana gitu ya tapi sepertinya movie nya bagus saya suka tapi jijik','2024-01-02 22:38:56',9),
 ('yinko',3,'Balap balapan keren, imersif, kreatif , impresif banget, main characternya ganteng, martin pasti suka','2024-01-02 22:39:37',10),
 ('yinko',4,'LUCU POLLL warna warni, ceritanya bagus dan keren, anak anak kecil suka jadi bintang 10 lah','2024-01-02 22:40:45',11),
@@ -83,6 +91,7 @@ insert  into `comments`(`user_username`,`video_id`,`comment_content`,`comment_da
 ('yinko',7,'anjim nangis banget horror ga suka -10/10 poster jelek film jelek tapi keliatan seru tapi aku ga suka horror males banget','2024-01-02 22:42:16',14),
 ('yinko',8,'KEREN POLLLLL BINTANG 10000, best movie all the time ku, omg keren pol yang ngga nonton pasti nyesel soale terlalu apik buat di tonton <333, bapak mbe anak e keren aku suka bapak e, temen2 e bapak e bodo semuaaaaaa egois kabeh malas','2024-01-02 22:42:43',15),
 ('yinko',8,'test','2024-01-04 16:36:28',54),
+('yinko',8,'test','2024-01-08 14:35:52',59),
 ('yinko',9,'BAGUS LUCU GEMAS tapi yang jadi ariel kureng rekk :((( kurang mirip ariel yang 2D tapi suara e bagus tpi gapapa deh','2024-01-02 22:43:15',16),
 ('yinko',13,'anjim nangis banget horror ga suka -10/10 poster jelek film jelek tapi keliatan seru tapi aku ga suka horror males banget','2024-01-02 22:45:35',17),
 ('yinko',14,'om cruise ganteng pol omg walaupun ws kakek-kakek tapi acting e keren apalagi pas adegan kereta mbe sepeda motor nde tebing jd dag dig dug liatnya','2024-01-02 22:46:56',18),
@@ -137,8 +146,7 @@ insert  into `favorite`(`user_username`,`video_id`) values
 ('yinko',7),
 ('yinko',8),
 ('yinko',9),
-('yinko',13),
-('yinko',14);
+('yinko',13);
 
 /*Table structure for table `ratings` */
 
@@ -162,6 +170,7 @@ insert  into `ratings`(`user_username`,`video_id`,`rating`) values
 ('bitapunya',15,5),
 ('bitapunya',18,4),
 ('bitapunya',23,4),
+('evan',14,1),
 ('LieTaTze',1,5),
 ('LieTaTze',2,5),
 ('LieTaTze',5,5),
@@ -250,6 +259,7 @@ CREATE TABLE `users` (
 
 insert  into `users`(`user_username`,`user_pfp`,`user_phone`,`user_password`,`user_email`) values 
 ('bitapunya','/src/assets/pfp/1.png','081431289076','tabibitapunya','punyabita@gmail.com'),
+('evan','/src/assets/pfp/3.png','920831902839','evan','halo@gmail.com'),
 ('LieTaTze','/src/assets/pfp/1.png','081987654321','unbansayawoy','linonibos@gmail.com'),
 ('martinisme','/src/assets/pfp/1.png','081123456789','tanyamerry','sudjayamartinisme@gmail.com'),
 ('misatha','/src/assets/pfp/1.png','081987654321','lucario','mistermst@gmail.com'),
@@ -257,7 +267,7 @@ insert  into `users`(`user_username`,`user_pfp`,`user_phone`,`user_password`,`us
 ('ohara','/src/assets/pfp/1.png','081872615009','niconiconi','clutchmeister@gmail.com'),
 ('tenonenot','/src/assets/pfp/1.png','081999888777','ANITAMAXWYN','valentinotan@gmail.com'),
 ('xyvern','/src/assets/pfp/1.png','081234567890','sipenexe','darrencahya@gmail.com'),
-('yinko','/src/assets/pfp/2.png','081876543210','sayajagoreact','merryfebyanti@gmail.com');
+('yinko','/src/assets/pfp/5.png','081876543210','sayajagoreact','merryfebyanti@gmail.com');
 
 /*Table structure for table `videos` */
 

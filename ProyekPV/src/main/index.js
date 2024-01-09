@@ -127,7 +127,7 @@ app.whenReady().then(() => {
 
   ipcMain.handle('register', function(evt,nama,email,notelp,pass){
     return pool.query(`INSERT INTO users(user_username,user_pfp,user_phone,user_password,user_email)
-    VALUES('${nama}',"...","${notelp}","${pass}","${email}");`)
+    VALUES('${nama}',"/src/assets/pfp/1.png","${notelp}","${pass}","${email}");`)
   })
 
   ipcMain.handle('addfavorite', function(evt,nama,video_id){

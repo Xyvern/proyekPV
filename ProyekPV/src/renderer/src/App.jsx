@@ -60,6 +60,7 @@ function App() {
   function loadcomment(id){
     window.api.loadKomen(id).then(function(res){
       setComment(res[0])
+      console.log("masuk");
     })
   }
 

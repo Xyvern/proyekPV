@@ -287,7 +287,7 @@ const Filter = ({hasilfilter,filter,listVideo, user, favoriteVideo, removefavori
         </Box>
       </Box>)
       })
-     :""}
+     :`${genre} dan ${category} tidak ada`}
      {filter.length > 0 ? <Modal open={open} onClose={() => {setOpen(false);checker== true ? setChecker(false) : setChecker(true)}} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color:'white',  overflow: 'hidden' }}  >
           <Sheet  sx={{ width:'80vw',borderRadius: 'md',p: 5,boxShadow: 'lg', bgcolor:'rgb(19, 1, 62) ', color:'white', overflowY: 'auto', maxHeight: '70vh','::-webkit-scrollbar': {
           display: 'none',

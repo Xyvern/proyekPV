@@ -20,29 +20,6 @@ import { Textarea } from "@mui/joy";
 import { useLocation } from "react-router-dom";
 import Search from "@mui/icons-material/Search";
 // Banner video
-import fastx from "../../../assets/banner/fastx.png";
-import bluebeetle from "../../../assets/banner/bluebeetle.jpg";
-import granturismo from "../../../assets/banner/granturismo.jpg";
-import mario from "../../../assets/banner/mario.jpg";
-import ahauntinginvenice from "../../../assets/banner/ahauntinginvenice.jpg";
-import lalaland from "../../../assets/banner/lalaland.jpg";
-import poltergeist from "../../../assets/banner/poltergeist.jpg";
-import interstellar from "../../../assets/banner/interstellar.jpeg";
-import littlemermaid from "../../../assets/banner/littlemermaid.webp";
-import oppenheimer from "../../../assets/banner/oppenheimer.jpg";
-import infinitywar from "../../../assets/banner/infinitywar.webp";
-import boboiboy from "../../../assets/banner/boboiboy.jpg";
-import thenun from "../../../assets/banner/thenun.jpg";
-import missionimpossible from "../../../assets/banner/missionimpossible.jpg";
-import spongebob from "../../../assets/banner/spongebob.jpg";
-import ted2 from "../../../assets/banner/ted2.jpg";
-import transformer from "../../../assets/banner/transformer.jpg";
-import httyd from "../../../assets/banner/httyd.jpeg";
-import wpa from "../../../assets/banner/warplanetapes.webp";
-import bighero6 from "../../../assets/banner/bighero6.jpg";
-import motoe from "../../../assets/banner/murderontheorientexpress.jpg";
-import spiderman from "../../../assets/banner/spiderman.webp";
-import tenkinoko from "../../../assets/banner/tenkinoko.jpg";
 
 
 const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,loadkomen,search, rating,setRating}) => {
@@ -94,7 +71,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
 
   useEffect(() => {
     if(idx!==null && id!=='' && rating.length > 0){  
-      loadkomen(id)
+      
       avgrating(id)
     }
     if(idx!==null && rating.length > 0 && checker){  
@@ -130,6 +107,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
     if(!invalid.test(content)){
       window.api.addkomen(nama,id,content).then(function(){})
       setIsikomen('')
+      loadkomen(id)
     }
     else{
       alert(`Jangan menggunakan ' dan " `)
@@ -206,7 +184,7 @@ const Home = ({listVideo, user, favoriteVideo, removefavorite,komen,favoritev,lo
             {listVideo.map((vid,i) => {
               if(vid.video_category === 'Blockbusters'){
               return(
-                <button key={vid.video_id} className="" onClick={() => {setOpen(true);setIdx(i);setId(listVideo[i].video_id)}}><img src={vid.video_banner} alt="" className="rounded-lg" /></button>
+                <button key={vid.video_id} className="" onClick={() => {setOpen(true);setIdx(i);setId(listVideo[i].video_id);loadkomen(listVideo[i].video_id)}}><img src={vid.video_banner} alt="" className="rounded-lg" /></button>
             )}})}
           </Slider>
         </Box>

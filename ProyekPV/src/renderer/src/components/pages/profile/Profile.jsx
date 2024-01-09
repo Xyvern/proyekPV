@@ -128,12 +128,12 @@ const Profile = ({user,handlelogout,handlepfp,handlechange}) => {
               {/* Input Email */}
               <Box className='mb-4'>
                 <label className="font-medium text-sm">Email Address</label>
-                <Input placeholder="example@gmail.com" required sx={{bgcolor: 'white'}} onChange={(e)=>{changeEmail.current = e.target.value;console.log(changeEmail)}}/>
+                <Input placeholder={datadiri.user_email} required sx={{bgcolor: 'white'}} onChange={(e)=>{changeEmail.current = e.target.value;console.log(changeEmail)}}/>
               </Box>
               {/* Input Phone */}
               <Box className='mb-10'>
                 <label className="font-medium text-sm">Phone Number</label>
-                <Input placeholder="123456789" required sx={{bgcolor: 'white'}} onChange={(e)=>{changePhone.current = e.target.value}}/>
+                <Input placeholder={datadiri.user_phone} required sx={{bgcolor: 'white'}} onChange={(e)=>{changePhone.current = e.target.value}}/>
               </Box>
               {/* Button Edit*/}
               <Box className='mb-2'>
